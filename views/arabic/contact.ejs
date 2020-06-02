@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ar">
+    <head>
+        <%- include('../partials/HeadTags.ejs') -%>
+        <!-- RTL CSS -->
+        <link rel="stylesheet" href="/assets/css/rtl.css">
+    </head>
+
+    <body>
+
+       
+        <!-- Start Preloader Area -->
+        <%- include('../partials/Preloader'); -%>
+        <!-- End Preloader Area -->
+
+         <!-- Start Navbar Area -->
+       <%- include('../partials/Arabic/Header'); -%>
+       <!-- End Navbar Area -->
+
+        <!-- Start Intro Area -->
+        <section class="intro-section container-fluid py-5" style="margin-top: 82px">
+            <div class="container py-5">
+                <div class="row wow fadeInRight">
+                    <div class="col-md-10 mx-md-auto col-12">
+                        <div class="intro text-center">
+                            <h1>تاتكس تحب أن تتواصل معها</h1>
+                            <p>لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Intro Area -->
+
+        <!-- Start Contact Area -->
+        <!-- Start Contact Area -->
+        <section class="contact-section container-fluid py-5 bg-light">
+          <div class="container py-5">
+              <div class="row">
+                  <div class="col-md-6 col-12 wow fadeInRight">
+                      <div class="left-contact">
+                          <div class="icon mb-2"><i class="flaticon-blueprint" style="height: 70px; width: 70px; border-radius: 50%; background-color: #ffd9d9; display: inline-block; text-align: center; line-height: 70px; color: #ff7171; font-size: 35px"></i></div>
+                          <h3>تواصل معنا لكي تستعلم عن شئ ما</h3>
+                          <p>لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة</p>
+                      </div>
+                  </div>
+                  <div class="col-md-6 col-12 mt-3 mt-md-0 wow fadeInLeft">
+                      <div class="right-contact">
+                          <div class="contact-form p-3 p-lg-4">
+                              <div class="top-contact text-center">
+                                  <h3 class="text-muted">تواصل مع تاتكس سريعًا</h3>
+                              </div>
+                              <form class="bottom-contact mt-3">
+                                <input id="csrf" type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                   <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon">
+                                          <i class="far fa-user"></i>
+                                        </span>
+                                      </div>
+                                      <input type="text" class="form-control" placeholder="اكتب اسمك بشكل كامل" aria-label="Fullname" aria-describedby="Fullname" name="fullname" id="fullname">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text" id="basic-addon">
+                                              <i class="far fa-envelope"></i>
+                                          </span>
+                                      </div>
+                                      <input type="text" class="form-control" placeholder="اكتب بريدك الإلكتروني" aria-label="Email" aria-describedby="Email" name="email" id="email">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon">
+                                          <i class="fas fa-heading"></i>
+                                        </span>
+                                      </div>
+                                      <input type="text" class="form-control" placeholder="اكتب عنوان الرسالة" aria-label="Heading" aria-describedby="Heading" name="heading" id="heading">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon">
+                                          <i class="far fa-comment-alt"></i>
+                                        </span>
+                                      </div>
+                                      <textarea class="form-control" aria-label="Message" name="message" placeholder="اكتب رسالتك بشكل كامل" rows="3" style="resize: none" id="message"></textarea>
+                                    </div>
+                                    <div class="input-group">
+                                      <button type="submit" class="btn btn-danger" id="contact">تواصل الآن <i class="fas fa-sync-alt"></i></button>
+                                    </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+        <!-- End Room Area -->
+
+          <!-- Start Footer -->
+          <%- include('../partials/Arabic/Footer'); -%>
+          <!-- End Footer -->
+
+        <!-- Start Go Top Section -->
+        <div class="go-top">
+            <i class="bx bx-chevron-up"></i>
+            <i class="bx bx-chevron-up"></i>
+        </div>
+        <!-- End Go Top Section -->
+
+        <!-- Contact Form Status -->
+        <div class="contact-status" id="contact-status"></div>
+        <!-- Contact Form Status -->
+
+         <!-- Start Live Chat Support -->
+         <%- include('../partials/Arabic/LiveChatSupport') -%>
+         <!-- Start Live Chat Support -->
+
+        <%- include('../partials/ScriptTags.ejs') -%>
+         <!-- Recaptcha Api -->
+        <script src="https://www.google.com/recaptcha/api.js?render=6LeTf_YUAAAAALUQEZyFe7txDsiqeozqhFx4mBgg"></script>
+        <!-- contactAjax JS -->
+        <script src="/assets/js/contactAjax.js"></script>
+    </body>
+</html>
