@@ -1,14 +1,22 @@
-const mongoose = require('mongoose')
-const userSchema = new mongoose.Schema({
-    roomID: {
-        type: String, 
-        required: true
-    },
+const mongoose = require('mongoose');
+const UserSchema = new mongoose.Schema({
     fullname: {
         type: String,
-        required: true
+        required: [true, 'الاسم المطلوب إجباري'],
+        trim: true
+    },
+    email: {
+        type: String,
+        required: [true, 'البريد مطلوب إجباري'],
+        unique: true,
+        trim: true,
+        match: /^\w+([-+.]\w+)*@((yahoo|gmail)\.com)$/
+    },
+    password: {
+        type: String,
+        required: [true, 'كلمة السر إجباري'],
+        trim: true
     }
-}, { timestamps: true })
-
-let User = mongoose.model('User', userSchema);
+});
+const User = mongoose.model('User', UserSchema);
 module.exports = User;

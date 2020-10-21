@@ -1,44 +1,78 @@
-const localStrategy = require('passport-local').Strategy
+// Import Packages
+const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
-const Admin = require('../models/Admin');
 const passport = require('passport');
 
+// Import User Model
+const Admin = require('../models/User');
+
+// Signup Strategy for User
+passport.use('local.signup', new localStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, async (req, username, password, done) => {
+    try {
+        let admin = await Admin.findOne({ email: username });
+        if (admin) {
+            return done(null, false, req.flash('error', 'هذا الحساب موجود مُسبقًا'))
+        }
+        if (!admin) {
+            admin = await new Admin({
+                fullname: req.body.fullname,
+                email: req.body.email,
+                password: await bcrypt.hash(req.body.password, 10),
+            }).save();
+            return done(null, admin);
+        }
+    } catch(err) {
+        console.log(err.message)
+        return done(null, false, req.flash('error', `حدث خطأ في السيرفر`))
+    }
+}));
+
+// Login Strategy for Admin
 passport.use('local.login', new localStrategy({
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true
-}, (req, username, password, done) => {
+}, async (req, username, password, done) => {
 
-    Admin.findOne({ email: username }, (err, admin) => {
+    try {
 
-        if (err) {
-            return done(null, false, { message: 'Something wrong happened' })
-        }
+        let admin = await Admin.findOne({ email: username });
         if (!admin) {
-            return done(null, false, { message: 'Admin is not found' });
+            return done(null, false, req.flash('error', 'هذا المستخدم غير موجود'))
         }
         if (admin) {
-               bcrypt.compare(password, admin.password, (err, res) => {
-                   if(err) console.log(err);
-                   else {
+    
+                bcrypt.compare(password, admin.password, (err, res) => {
+                    if (err) {
+                        return done(null, false, req.flash('error', `حدث خطأ ما بالسيرفر`));
+                    }
+                    else {
                         if (res) {
                             return done(null, admin);
                         } else {
-                            return done(null, false, { message: 'Password is not correct' });
+                            return done(null, false, req.flash('error', 'خطأ بكلمة السر'));
                         }
-                   }    
-              });  
-            }
-    })
+                    }
+                });
+        }
+    } catch(err) {
+        return done(null, false, req.flash('error', `حدث خطأ ما بالسيرفر`));
+    }
 }));
 
-passport.serializeUser(function(admin, done) {
-    done(null, admin.id);
+// SerializeUser
+passport.serializeUser(function (user, done) {
+    done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-    Admin.findById(id, function(err, admin) {
+// DeserializeUser
+passport.deserializeUser(function (id, done) {
+    Admin.findById(id, function (err, user) {
         if (err) done(err);
-        if (admin) done(null, admin);
-    });
+        done(null, user);
+    })
 });
