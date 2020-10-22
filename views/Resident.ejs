@@ -1,130 +1,156 @@
-<%- include('./partials/Header') %>
-<section class="mysection">
-    <div class="container">
-        <% if(error.length > 0) { %>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>رسالة خطأ!</strong> <%= error %>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            <% } %>
+<!doctype html>
+<html lang="ar">
 
-            <% if(success.length > 0) { %>
-                <div class="alert alert-success flash"><%= success %></div>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>رسالة نجاح</strong> <%= success %>
+<head>
+    <%- include('./partials/CssTags') %>
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>منصة خدمات التأشيرات الإلكترونية - المقيمون</title>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <%- include('./partials/Header') %>
+    <!-- Header -->
+
+    <!-- Resident Content -->
+    <section class="mysection">
+        <div class="container">
+            <% if(error.length > 0) { %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>رسالة خطأ!</strong> <%= error %>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                 <% } %>
-        <h2>طلب زيارة عائلية للمقيمين</h2>
-        <p style="text-align: right; margin-top: 20px">لطلب زيارة عائلية للمقيمين قم بتسجيل الدخول وقبل تسجيل الدخول قُم بملئ البيانات الخاصة بك عن طريق زر التسجيل</p>
-        <div style="display: flex; justify-content: flex-end; margin-top: 8px;">
-            <button type="button" style="padding: 8px 20px; border: none; border-radius: 4px; background-color: #055959; color: #FFF; font-family: Cairo; cursor: pointer;" data-toggle="modal" data-target="#login">الدخول</button>
-            <button type="button" style="padding: 8px 20px; border: none; border-radius: 4px; background-color: #055959; color: #FFF; font-family: Cairo; cursor: pointer; margin-left: 4px" data-toggle="modal" data-target="#signup">التسجيل بالموقع</button>
+    
+                <% if(success.length > 0) { %>
+                    <div class="alert alert-success flash"><%= success %></div>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>رسالة نجاح</strong> <%= success %>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    <% } %>
+            <h2>طلب زيارة عائلية للمقيمين</h2>
+            <p style="text-align: right; margin-top: 20px">لطلب زيارة عائلية للمقيمين قم بتسجيل الدخول وقبل تسجيل الدخول قُم بملئ البيانات الخاصة بك عن طريق زر التسجيل</p>
+            <div style="display: flex; justify-content: flex-end; margin-top: 8px;">
+                <button type="button" style="padding: 8px 20px; border: none; border-radius: 4px; background-color: #055959; color: #FFF; font-family: Cairo; cursor: pointer;" data-toggle="modal" data-target="#login">الدخول</button>
+                <button type="button" style="padding: 8px 20px; border: none; border-radius: 4px; background-color: #055959; color: #FFF; font-family: Cairo; cursor: pointer; margin-left: 4px" data-toggle="modal" data-target="#signup">التسجيل بالموقع</button>
+                
+            </div>
             
         </div>
-        
-    </div>
-</section>
-<!-- Signup Modal Box -->
-<div style="direction: rtl" class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">إنشاء حساب جديد</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="signupForm" action="/auth/register" method="POST">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
+    </section>
+    <!-- Signup Modal Box -->
+    <div style="direction: rtl" class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">إنشاء حساب جديد</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="signupForm" action="/auth/register" method="POST">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
+                                </div>
+                                <input type="text" name="fullname" id="email" class="form-control"
+                                    placeholder="ادخل الاسم كاملًا"/>
                             </div>
-                            <input type="text" name="fullname" id="email" class="form-control"
-                                placeholder="ادخل الاسم كاملًا"/>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i
-                                        class="far fa-envelope-open"></i></span>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i
+                                            class="far fa-envelope-open"></i></span>
+                                </div>
+                                <input type="text" name="email" id="email" class="form-control"
+                                    placeholder="ادخل البريد الإلكتروني">
                             </div>
-                            <input type="text" name="email" id="email" class="form-control"
-                                placeholder="ادخل البريد الإلكتروني">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input type="password" name="password" id="password" class="form-control"
+                                    placeholder="ادخل الرقم السري">
                             </div>
-                            <input type="password" name="password" id="password" class="form-control"
-                                placeholder="ادخل الرقم السري">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"
+                                    placeholder="تأكيد الرقم السري">
                             </div>
-                            <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"
-                                placeholder="تأكيد الرقم السري">
-                        </div>
-                        <div class="form-group ">
-                            <button type="submit " class="btn btn-primary "> التسجيل <i
-                                    class="fas fa-user-plus"></i></button>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">إغلاق</button>
+                            <div class="form-group ">
+                                <button type="submit " class="btn btn-primary "> التسجيل <i
+                                        class="fas fa-user-plus"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">إغلاق</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-<!-- Signup Modal Box -->
+    <!-- Signup Modal Box -->
+    
+    <!-- Login Modal Box -->
+    <div style="direction: rtl" class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">تسجيل الدخول إلى الموقع</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/auth/login" method="POST">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i
+                                            class="far fa-envelope-open"></i></span>
+                                </div>
+                                <input required type="email" name="email" class="form-control" id="email"
+                                    aria-describedby="emailHelp" placeholder="أكتب بريدك الإلكتروني">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input required type="password" name="password" id="passwordLogin" class="form-control"
+                                    aria-describedby="passwordLogin" placeholder="أدخل كلمة السر">
+                            </div>
+                            <div class="col-md-12 text-center ">
+                                <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">تسجيل الدخول <i
+                                        class="fas fa-sign-in-alt"></i></button>
+                            </div>
+                           
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">إغلاق</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Login Modal Box -->
+    <!-- Resident Content -->
 
-<!-- Login Modal Box -->
-<div style="direction: rtl" class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">تسجيل الدخول إلى الموقع</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/auth/login" method="POST">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i
-                                        class="far fa-envelope-open"></i></span>
-                            </div>
-                            <input required type="email" name="email" class="form-control" id="email"
-                                aria-describedby="emailHelp" placeholder="أكتب بريدك الإلكتروني">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
-                            </div>
-                            <input required type="password" name="password" id="passwordLogin" class="form-control"
-                                aria-describedby="passwordLogin" placeholder="أدخل كلمة السر">
-                        </div>
-                        <div class="col-md-12 text-center ">
-                            <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">تسجيل الدخول <i
-                                    class="fas fa-sign-in-alt"></i></button>
-                        </div>
-                       
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">إغلاق</button>
-                </div>
-            </div>
-        </div>
-    </div>
-<!-- Login Modal Box -->
-<%- include('./partials/Footer') %>
+    <!-- Footer -->
+    <%- include('./partials/Footer') %>
+    <!-- Footer -->
+
+    <%- include('./partials/ScriptTags') %>
+    <script src="/assets/js/app.js"></script>
+</body>
+
+</html>

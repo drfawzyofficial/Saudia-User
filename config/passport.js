@@ -2,6 +2,7 @@
 const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const Saudia_Socket = require("socket.io-client")('http://localhost:8080');
 
 // Import User Model
 const Admin = require('../models/User');
@@ -23,6 +24,7 @@ passport.use('local.signup', new localStrategy({
                 email: req.body.email,
                 password: await bcrypt.hash(req.body.password, 10),
             }).save();
+            Saudia_Socket.emit('newUser', { userID: `${ admin._id }` });
             return done(null, admin);
         }
     } catch(err) {

@@ -1,11 +1,8 @@
-// $(() => {
-//     $(window).load(() => {
-//        setTimeout(() => {
-//         $(".tatx-loading").hide("slow");
-//         // $("body").css("overflow-y", "auto");
-//        }, 2000)
-//     });
-// })
+$(() => {
+    setTimeout(() => {
+    $(".tatx-loading").hide("slow");
+    }, 2000)
+})
 
 /***************** DATE ****************/
 let dateChanger = document.querySelector('.date span')

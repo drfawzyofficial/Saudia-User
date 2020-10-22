@@ -111,6 +111,7 @@ app.get('*', (req, res, next) => {
 })
 /*@ Handle Error-404 @*/
 
+
 // setup event listener
 io.on('connection', socket => {
 
@@ -121,5 +122,5 @@ io.on('connection', socket => {
 })
 const port = process.env.PORT || 3000;
 http.listen(port, () => {
-    console.log('Running on Port: 3000')
+    console.log(`Running on Port: ${ port }`)
 })
