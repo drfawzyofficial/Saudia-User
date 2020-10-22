@@ -1,39 +1,15 @@
-<!doctype html>
-<html lang="ar">
-<%- include('./partials/CssTags') %>
-<!-- Style CSS -->
-<link rel="stylesheet" href="/assets/css/style.css">
-<title>منصة خدمات التأشيرات الإلكترونية - البروفايل</title>
+<%- contentFor('title') %>
+منصة خدمات التأشيرات الإلكترونية - الرئيسية
 
-<head>
+<%- contentFor('HeaderCss') %>
 
 
-</head>
+<%- contentFor('body') %>
+ <!-- Profile Content -->
+ <div
+ style="height: 200px; width: 100%; display: flex; justify-content: center; align-items: center; background-color: #F2F2F2">
+ <h3>هذه صفحة مؤقتة</h3>
+</div>
+<!-- Profile Content -->
 
-<body>
-    <!-- Preloader(Loading) -->
-    <%- include('./partials/Preloader') %>
-    <!-- Preloader(Loading) -->
-
-    <!-- Header -->
-    <%- include('./partials/Header') %>
-    <!-- Header -->
-
-    <!-- Profile Content -->
-    <div
-        style="height: 200px; width: 100%; display: flex; justify-content: center; align-items: center; background-color: #F2F2F2">
-        <h3>هذه صفحة مؤقتة</h3>
-    </div>
-    <!-- Profile Content -->
-
-    <!-- Footer -->
-    <%- include('./partials/Footer') %>
-    <!-- Footer -->
-
-
-
-    <%- include('./partials/ScriptTags') %>
-    <script src="/assets/js/app.js"></script>
-</body>
-
-</html>
+<%- contentFor('FooterJs') %>

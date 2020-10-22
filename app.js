@@ -71,8 +71,10 @@ app.use((req, res, next) => {
 
 
 //For set layouts of html view
-
+const expressLayouts = require('express-ejs-layouts');
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(expressLayouts);
 
 /*@ here we include indexRouter @*/
 const Index = require('./routes/Index');

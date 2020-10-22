@@ -1,472 +1,455 @@
-<!doctype html>
-<html lang="ar">
+<%- contentFor('title') %>
+منصة خدمات التأشيرات الإلكترونية - الرئيسية
 
-<head>
-    <%- include('./partials/CssTags') %>
-    <!-- Style CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <title>منصة خدمات التأشيرات الإلكترونية - الرئيسية</title>
-</head>
+<%- contentFor('HeaderCss') %>
 
-<body>
 
-    <!-- Preloader(Loading) -->
-    <%- include('./partials/Preloader') %>
-    <!-- Preloader(Loading) -->
-
-    <!-- Header -->
-    <%- include('./partials/Header') %>
-    <!-- Header -->
-
-    <!-- Index Content -->
-    <section class="mysection">
-        <div class="container">
-            <h2>منصة خدمات التأشيرات الإلكترونية</h2>
-            <div class="mysection-container">
-                <!-- Left Start -->
-                <div class="left">
-                    <h3>استعلام</h3>
-                    <div class="enquiry">
-                        <form action="">
-                            <label for="">البحث عن</label>
-                            <!-- Surround the select box within a "custom-select" DIV element Remember to set the width: -->
-                            <div class="custom-select">
-                                <select>
-                                    <option value="0">طلب مقدم إلى وزارة الخارجية</option>
-                                    <option value="1">تأشيرة صادرة من وزارة الخارجية</option>
-                                    <option value="2">البحث عن طلب عمرة</option>
-                                    <option value="3">إستعراض بيانات خطاب الدعوة</option>
-                                    <option value="4">البحث عن طلب حج</option>
-                                </select>
-                            </div>
-                            <label for="">رقم الطلب</label>
-                            <input type="text" placeholder="رقم الطلب">
-                            <label for=""> <i class="fa fa-question-circle"></i> رقم السجل </label>
-                            <input type="text" placeholder="رقم السجل ">
-                            <label for="">رمز الصورة</label>
-                            <div class="captcha">
-                                <button type="button"><i class="fas fa-sync-alt"></i></button>
-                                <img src="/assets/Images/captcha/9.png" alt="">
-                                <input type="text" placeholder="رمز الصورة">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="btn">
-                        <button type="submit" class="sub">استعلم</button>
-                    </div>
-
+<%- contentFor('body') %>
+<!-- Index Content -->
+<section class="mysection">
+    <div class="container">
+        <h2>منصة خدمات التأشيرات الإلكترونية</h2>
+        <div class="mysection-container">
+            <!-- Left Start -->
+            <div class="left">
+                <h3>استعلام</h3>
+                <div class="enquiry">
+                    <form action="">
+                        <label for="">البحث عن</label>
+                        <!-- Surround the select box within a "custom-select" DIV element Remember to set the width: -->
+                        <div class="custom-select">
+                            <select>
+                                <option value="0">طلب مقدم إلى وزارة الخارجية</option>
+                                <option value="1">تأشيرة صادرة من وزارة الخارجية</option>
+                                <option value="2">البحث عن طلب عمرة</option>
+                                <option value="3">إستعراض بيانات خطاب الدعوة</option>
+                                <option value="4">البحث عن طلب حج</option>
+                            </select>
+                        </div>
+                        <label for="">رقم الطلب</label>
+                        <input type="text" placeholder="رقم الطلب">
+                        <label for=""> <i class="fa fa-question-circle"></i> رقم السجل </label>
+                        <input type="text" placeholder="رقم السجل ">
+                        <label for="">رمز الصورة</label>
+                        <div class="captcha">
+                            <button type="button"><i class="fas fa-sync-alt"></i></button>
+                            <img src="/assets/Images/captcha/9.png" alt="">
+                            <input type="text" placeholder="رمز الصورة">
+                        </div>
+                    </form>
                 </div>
-                <!-- Right Start -->
-                <div class="right">
-                    <!-- Sections Filter -->
-                    <div class="section-filter-container">
-                        <div class="filters2" data-target="2">
-                            <div class="content"></div>
-                            <div class="icon">
-                                المنظمات والقطاعات<i class="fas fas fa-layer-group"></i>
-                            </div>
-                        </div>
-                        <div class="filters1" data-target="1">
-                            <div class="content"></div>
-                            <div class="icon">
-                                أفراد<i class="fas fa-users"></i>
-                            </div>
+                <div class="btn">
+                    <button type="submit" class="sub">استعلم</button>
+                </div>
+
+            </div>
+            <!-- Right Start -->
+            <div class="right">
+                <!-- Sections Filter -->
+                <div class="section-filter-container">
+                    <div class="filters2" data-target="2">
+                        <div class="content"></div>
+                        <div class="icon">
+                            المنظمات والقطاعات<i class="fas fas fa-layer-group"></i>
                         </div>
                     </div>
-                    <!--Big Section Number 1-->
-                    <section class="main-section" data-id="1">
-                        <div class="filter-links">
-                            <div class="link link1" data-target="others">
-                                <span>أخرى</span><i class="fas fa-male"></i>
-                            </div>
-                            <div class="link link1" data-target="resident">
-                                <span>مقيم</span><i class="fas fa-male"></i>
-                            </div>
-                            <div class="link link1" data-target="board">
-                                <span>مواطني دول مجلس التعاون الخليجي</span><i class="far fa-user"></i>
-                            </div>
-                            <div class="link link1 active" data-target="citizen">
-                                <span>مواطن</span><i class="far fa-user"></i>
-                            </div>
+                    <div class="filters1" data-target="1">
+                        <div class="content"></div>
+                        <div class="icon">
+                            أفراد<i class="fas fa-users"></i>
                         </div>
-                        <section class="sections-container">
-                            <div class="section section1 active" data-id="citizen">
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            طلب زيارة عائلية للمواطنين
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة لطلب زيارة أقارب المواطنين
-                                        </p>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            طلب زيارة شخصية
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة لطلب زيارة اصدقاء او اشخاص ليس لهم علاقة تجارية او قرابة عائلية.
-                                        </p>
-                                    </a>
-
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            طلب تمديد تأشيرة العودة
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة تتيح للمواطن طلب تمديد عودة لمكفوله الذي انتهت صلاحية تأشيرة عودته.
-                                        </p>
-                                    </a>
-
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            طلب تأشيرة حج
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة لطلب تاشيرة حج لمن لديهم موافقة من الجهات المختصة.
-                                        </p>
-                                    </a>
-
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            تفويض على تأشيرة عمل
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة لطلب إجراء تفويض على تأشيرة العمل لاستقدام اشخاص من الخارج.
-                                        </p>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            تصديق الطلبات للأفراد
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة تتيح للمواطن صاحب العمل تصديق طلبات الزيارة العائلية من العاملين لديه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            خدمة الاستفسارات والمقترحات
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة تتيح للأفراد تقديم استفسار أو اقتراح يخص التأشيرات
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="section section1" data-id="board">
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            طلب زيارة عائلية لمواطني دول مجلس التعاون الخليجي
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة لطلب زيارة اقارب مواطني دول مجلس التعاون الخليجي من الدرجة الأولى
-                                            (الوالدين- الزوجة - الأبناء)
-                                        </p>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            طلب تمديد تأشيرة العودة
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة تتيح لمواطني دول مجلس التعاون الخليجي طلب تمديد عودة لعوائلهم الذين
-                                            انتهت صلاحية تأشيرة عودتهم.
-                                        </p>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            خدمة الاستفسارات والمقترحات
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة تتيح للأفراد تقديم استفسار أو اقتراح يخص التأشيرات
-                                        </p>
-                                    </a>
-                                </div>
-
-
-                            </div>
-                            <div class="section section1" data-id="resident">
-                                <a href="/resident" style="text-decoration: none;">
-                                    <div>
-                                        <li>
-                                            طلب زيارة عائلية للمقيمين
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة لطلب زيارة أقارب المقيمين
-                                        </p>
-                                    </div>
+                    </div>
+                </div>
+                <!--Big Section Number 1-->
+                <section class="main-section" data-id="1">
+                    <div class="filter-links">
+                        <div class="link link1" data-target="others">
+                            <span>أخرى</span><i class="fas fa-male"></i>
+                        </div>
+                        <div class="link link1" data-target="resident">
+                            <span>مقيم</span><i class="fas fa-male"></i>
+                        </div>
+                        <div class="link link1" data-target="board">
+                            <span>مواطني دول مجلس التعاون الخليجي</span><i class="far fa-user"></i>
+                        </div>
+                        <div class="link link1 active" data-target="citizen">
+                            <span>مواطن</span><i class="far fa-user"></i>
+                        </div>
+                    </div>
+                    <section class="sections-container">
+                        <div class="section section1 active" data-id="citizen">
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        طلب زيارة عائلية للمواطنين
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                    <p>
+                                        خدمة لطلب زيارة أقارب المواطنين
+                                    </p>
                                 </a>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            طلب تمديد تأشيرة العودة
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                    </a>
+                            </div>
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        طلب زيارة شخصية
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
                                     <p>
-                                        خدمة تتيح للمقيمين طلب تمديد عودة لعوائلهم الذين انتهت صلاحية تأشيرة عودتهم.
+                                        خدمة لطلب زيارة اصدقاء او اشخاص ليس لهم علاقة تجارية او قرابة عائلية.
                                     </p>
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            طلب تأشيرة اقامة لعوائل موظفي البعثات الدبلوماسية في المملكة
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة لطلب موظفي البعثات الدبلوماسية تاشيرة اقامة لعوائلهم الذين يحملون
-                                            جوازات سفر عادية.
-                                        </p>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            طلب تأشيرة عمل لموظفي البعثات الدبلوماسية داخل المملكة
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة تتيح لموظفي البعثات الدبلوماسية طلب تاشيرة عمل للعمل تحت كقالتهم
-                                            الشخصية.
-                                        </p>
-                                    </a>
+                                </a>
 
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            خدمة الاستفسارات والمقترحات
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة تتيح للأفراد تقديم استفسار أو اقتراح يخص التأشيرات
-                                        </p>
-                                    </a>
-                                </div>
                             </div>
-                            <div class="section section1" data-id="others">
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            استمارة طلب تأشيرة الحج والعمرة الإلكترونية
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            طلب تأشيرة دخول من ممثليات المملكة في الخارج
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة لتعبئة نموذج طلب تأشيرة دخول من احد ممثليات المملكة في الخارج وذلك عن
-                                            طريق موقع شركة انجاز
-                                        </p>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            خدمات الشهادات الصحية
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة خاصة للأفراد (طالبي تأشيرات الدخول) لدفع تكاليف الشهادة الطبية
-                                            اوالاستعلام عنها وذلك لمراجعة مقدم الخدمات الطبية لاجراء الفحوصات الطبية
-                                            اللازمة
-                                        </p>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="/constant">
-                                        <li>
-                                            خدمة الاستفسارات والمقترحات
-                                            <i class="fas fa-chevron-left"></i>
-                                        </li>
-                                        <p>
-                                            خدمة تتيح للأفراد تقديم استفسار أو اقتراح يخص التأشيرات
-                                        </p>
-                                    </a>
-
-                                </div>
-                            </div>
-                        </section>
-                    </section>
-                    <!--Big Section Number 2-->
-                    <section class="main-section " data-id="2">
-                        <div class="filter-links">
-                            <div class="link link2" data-target="outer">
-                                <span>قطاعات ومنظمات خارج المملكة</span><i class="far fa-user"></i>
-                            </div>
-                            <div class="link link2" data-target="inner">
-                                <span>قطاعات ومنظمات داخل المملكة</span><i class="far fa-user"></i>
-                            </div>
-                        </div>
-                        <section class="sections-container">
-                            <div class="section section2 active" data-id="inner">
-                                <div>
-                                    <li>
-                                        دخول الجهات الحكومية (المعتمدة لإستخدام موقع وزارة الخارجية)
-                                        <i class="fas fa-chevron-left"></i>
-                                    </li>
-                                    <p>
-                                        خدمة لدخول للجهات الحكومية المسجلة لدى وزارة الخارجية للإستفادة من الخدمات
-                                        الإلكترونية.
-                                    </p>
-                                </div>
-                                <div>
-                                    <li>
-                                        الغرف التجارية ووزارة العمل
-                                        <i class="fas fa-chevron-left"></i>
-                                    </li>
-                                    <p>
-                                        خدمة خاصة بدخول الغرف التجارية السعودية ومكاتب الاستقدام الاهلية داخل المملكة
-                                        وذلك لاجراء بعض العمليات على طلبات التاشيرات.
-                                    </p>
-                                </div>
-                                <div>
-                                    <li>
-                                        طلب زيارة حكومية
-                                        <i class="fas fa-chevron-left"></i>
-                                    </li>
-                                    <p>
-                                        خدمة لطلب شخص لزيارة جهة حكومية داخل المملكة.
-                                    </p>
-                                </div>
-                                <div>
+                            <div>
+                                <a href="/constant">
                                     <li>
                                         طلب تمديد تأشيرة العودة
                                         <i class="fas fa-chevron-left"></i>
                                     </li>
                                     <p>
-                                        خدمة تتيح للجهة الحكومية تمديد العودة لأحد موظفيها لمن لديهم تاشيرة عودة منتهية
+                                        خدمة تتيح للمواطن طلب تمديد عودة لمكفوله الذي انتهت صلاحية تأشيرة عودته.
                                     </p>
-                                </div>
-                                <div>
-                                    <li>
-                                        طلب تأشيرة دراسية
-                                        <i class="fas fa-chevron-left"></i>
-                                    </li>
-                                    <p>
-                                        خدمة تتيح للمنشأه التعليمية في المملكة طلب شخص من الخارج للدراسة فيها.
-                                    </p>
-                                </div>
-                                <div>
-                                    <li>
-                                        طلب تأشيرة علاج
-                                        <i class="fas fa-chevron-left"></i>
-                                    </li>
-                                    <p>
-                                        خدمة تتيح للمنشأه الطبية في المملكة طلب شخص من الخارج لتلقي العلاج فيها.
-                                    </p>
-                                </div>
-                                <div>
-                                    <li>
-                                        طلب زيارة فعالية
-                                        <i class="fas fa-chevron-left"></i>
-                                    </li>
-                                    <p>
-                                        خدمة لطلب شخص للمشاركة او حضور الفعاليات التي تقام في المملكة
-                                    </p>
-                                </div>
+                                </a>
+
                             </div>
-                            <div class="section section2" data-id="outer">
-                                <div>
+                            <div>
+                                <a href="/constant">
                                     <li>
-                                        شركات خارج المملكة
+                                        طلب تأشيرة حج
                                         <i class="fas fa-chevron-left"></i>
                                     </li>
                                     <p>
-                                        خدمة لدخول الشركات خارج المملكة والمعتمدة من قبل الممثليات للدخول على موقع انجاز
-                                        لادخال طلبات التاشيرات
+                                        خدمة لطلب تاشيرة حج لمن لديهم موافقة من الجهات المختصة.
                                     </p>
-                                </div>
-                                <div>
+                                </a>
+
+                            </div>
+                            <div>
+                                <a href="/constant">
                                     <li>
-                                        مقدم خدمات صحية خارج المملكة
+                                        تفويض على تأشيرة عمل
                                         <i class="fas fa-chevron-left"></i>
                                     </li>
                                     <p>
-                                        خدمة خاصة لدخول مقدمي الخدمات الصحية المعتمدين من قبل الممثليات السعودية وذلك
-                                        لاضافة نتائج الكشف الطبي.
+                                        خدمة لطلب إجراء تفويض على تأشيرة العمل لاستقدام اشخاص من الخارج.
                                     </p>
-                                </div>
-                                <div>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="/constant">
                                     <li>
-                                        مقدم خدمات عمرة خارج المملكة
+                                        تصديق الطلبات للأفراد
                                         <i class="fas fa-chevron-left"></i>
                                     </li>
                                     <p>
-                                        خدمة لدخول مقدمي خدمات العمرة خارج المملكة والمعتمدة من قبل الممثليات للدخول
-                                        لاستكمال طلبات العمرة الصادرة من وزارة الحج
+                                        خدمة تتيح للمواطن صاحب العمل تصديق طلبات الزيارة العائلية من العاملين لديه
+                                    </p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        خدمة الاستفسارات والمقترحات
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                    <p>
+                                        خدمة تتيح للأفراد تقديم استفسار أو اقتراح يخص التأشيرات
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="section section1" data-id="board">
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        طلب زيارة عائلية لمواطني دول مجلس التعاون الخليجي
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                    <p>
+                                        خدمة لطلب زيارة اقارب مواطني دول مجلس التعاون الخليجي من الدرجة الأولى
+                                        (الوالدين- الزوجة - الأبناء)
+                                    </p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        طلب تمديد تأشيرة العودة
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                    <p>
+                                        خدمة تتيح لمواطني دول مجلس التعاون الخليجي طلب تمديد عودة لعوائلهم الذين
+                                        انتهت صلاحية تأشيرة عودتهم.
+                                    </p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        خدمة الاستفسارات والمقترحات
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                    <p>
+                                        خدمة تتيح للأفراد تقديم استفسار أو اقتراح يخص التأشيرات
+                                    </p>
+                                </a>
+                            </div>
+
+
+                        </div>
+                        <div class="section section1" data-id="resident">
+                            <a href="/resident" style="text-decoration: none;">
+                                <div>
+                                    <li>
+                                        طلب زيارة عائلية للمقيمين
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                    <p>
+                                        خدمة لطلب زيارة أقارب المقيمين
                                     </p>
                                 </div>
-                                <div>
+                            </a>
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        طلب تمديد تأشيرة العودة
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                </a>
+                                <p>
+                                    خدمة تتيح للمقيمين طلب تمديد عودة لعوائلهم الذين انتهت صلاحية تأشيرة عودتهم.
+                                </p>
+                            </div>
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        طلب تأشيرة اقامة لعوائل موظفي البعثات الدبلوماسية في المملكة
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                    <p>
+                                        خدمة لطلب موظفي البعثات الدبلوماسية تاشيرة اقامة لعوائلهم الذين يحملون
+                                        جوازات سفر عادية.
+                                    </p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        طلب تأشيرة عمل لموظفي البعثات الدبلوماسية داخل المملكة
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                    <p>
+                                        خدمة تتيح لموظفي البعثات الدبلوماسية طلب تاشيرة عمل للعمل تحت كقالتهم
+                                        الشخصية.
+                                    </p>
+                                </a>
+
+                            </div>
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        خدمة الاستفسارات والمقترحات
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                    <p>
+                                        خدمة تتيح للأفراد تقديم استفسار أو اقتراح يخص التأشيرات
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="section section1" data-id="others">
+                            <div>
+                                <a href="/constant">
                                     <li>
                                         استمارة طلب تأشيرة الحج والعمرة الإلكترونية
                                         <i class="fas fa-chevron-left"></i>
                                     </li>
-                                </div>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        طلب تأشيرة دخول من ممثليات المملكة في الخارج
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                    <p>
+                                        خدمة لتعبئة نموذج طلب تأشيرة دخول من احد ممثليات المملكة في الخارج وذلك عن
+                                        طريق موقع شركة انجاز
+                                    </p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        خدمات الشهادات الصحية
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                    <p>
+                                        خدمة خاصة للأفراد (طالبي تأشيرات الدخول) لدفع تكاليف الشهادة الطبية
+                                        اوالاستعلام عنها وذلك لمراجعة مقدم الخدمات الطبية لاجراء الفحوصات الطبية
+                                        اللازمة
+                                    </p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="/constant">
+                                    <li>
+                                        خدمة الاستفسارات والمقترحات
+                                        <i class="fas fa-chevron-left"></i>
+                                    </li>
+                                    <p>
+                                        خدمة تتيح للأفراد تقديم استفسار أو اقتراح يخص التأشيرات
+                                    </p>
+                                </a>
 
                             </div>
-                        </section>
+                        </div>
                     </section>
-                </div>
+                </section>
+                <!--Big Section Number 2-->
+                <section class="main-section " data-id="2">
+                    <div class="filter-links">
+                        <div class="link link2" data-target="outer">
+                            <span>قطاعات ومنظمات خارج المملكة</span><i class="far fa-user"></i>
+                        </div>
+                        <div class="link link2" data-target="inner">
+                            <span>قطاعات ومنظمات داخل المملكة</span><i class="far fa-user"></i>
+                        </div>
+                    </div>
+                    <section class="sections-container">
+                        <div class="section section2 active" data-id="inner">
+                            <div>
+                                <li>
+                                    دخول الجهات الحكومية (المعتمدة لإستخدام موقع وزارة الخارجية)
+                                    <i class="fas fa-chevron-left"></i>
+                                </li>
+                                <p>
+                                    خدمة لدخول للجهات الحكومية المسجلة لدى وزارة الخارجية للإستفادة من الخدمات
+                                    الإلكترونية.
+                                </p>
+                            </div>
+                            <div>
+                                <li>
+                                    الغرف التجارية ووزارة العمل
+                                    <i class="fas fa-chevron-left"></i>
+                                </li>
+                                <p>
+                                    خدمة خاصة بدخول الغرف التجارية السعودية ومكاتب الاستقدام الاهلية داخل المملكة
+                                    وذلك لاجراء بعض العمليات على طلبات التاشيرات.
+                                </p>
+                            </div>
+                            <div>
+                                <li>
+                                    طلب زيارة حكومية
+                                    <i class="fas fa-chevron-left"></i>
+                                </li>
+                                <p>
+                                    خدمة لطلب شخص لزيارة جهة حكومية داخل المملكة.
+                                </p>
+                            </div>
+                            <div>
+                                <li>
+                                    طلب تمديد تأشيرة العودة
+                                    <i class="fas fa-chevron-left"></i>
+                                </li>
+                                <p>
+                                    خدمة تتيح للجهة الحكومية تمديد العودة لأحد موظفيها لمن لديهم تاشيرة عودة منتهية
+                                </p>
+                            </div>
+                            <div>
+                                <li>
+                                    طلب تأشيرة دراسية
+                                    <i class="fas fa-chevron-left"></i>
+                                </li>
+                                <p>
+                                    خدمة تتيح للمنشأه التعليمية في المملكة طلب شخص من الخارج للدراسة فيها.
+                                </p>
+                            </div>
+                            <div>
+                                <li>
+                                    طلب تأشيرة علاج
+                                    <i class="fas fa-chevron-left"></i>
+                                </li>
+                                <p>
+                                    خدمة تتيح للمنشأه الطبية في المملكة طلب شخص من الخارج لتلقي العلاج فيها.
+                                </p>
+                            </div>
+                            <div>
+                                <li>
+                                    طلب زيارة فعالية
+                                    <i class="fas fa-chevron-left"></i>
+                                </li>
+                                <p>
+                                    خدمة لطلب شخص للمشاركة او حضور الفعاليات التي تقام في المملكة
+                                </p>
+                            </div>
+                        </div>
+                        <div class="section section2" data-id="outer">
+                            <div>
+                                <li>
+                                    شركات خارج المملكة
+                                    <i class="fas fa-chevron-left"></i>
+                                </li>
+                                <p>
+                                    خدمة لدخول الشركات خارج المملكة والمعتمدة من قبل الممثليات للدخول على موقع انجاز
+                                    لادخال طلبات التاشيرات
+                                </p>
+                            </div>
+                            <div>
+                                <li>
+                                    مقدم خدمات صحية خارج المملكة
+                                    <i class="fas fa-chevron-left"></i>
+                                </li>
+                                <p>
+                                    خدمة خاصة لدخول مقدمي الخدمات الصحية المعتمدين من قبل الممثليات السعودية وذلك
+                                    لاضافة نتائج الكشف الطبي.
+                                </p>
+                            </div>
+                            <div>
+                                <li>
+                                    مقدم خدمات عمرة خارج المملكة
+                                    <i class="fas fa-chevron-left"></i>
+                                </li>
+                                <p>
+                                    خدمة لدخول مقدمي خدمات العمرة خارج المملكة والمعتمدة من قبل الممثليات للدخول
+                                    لاستكمال طلبات العمرة الصادرة من وزارة الحج
+                                </p>
+                            </div>
+                            <div>
+                                <li>
+                                    استمارة طلب تأشيرة الحج والعمرة الإلكترونية
+                                    <i class="fas fa-chevron-left"></i>
+                                </li>
+                            </div>
+
+                        </div>
+                    </section>
+                </section>
             </div>
         </div>
-
-
-    </section>
-    <div class="hamburger">
-        <i class="fas fa-bars "></i>
     </div>
-    <div class="sidebar ">
-        <ul>
-            <li><a href="javascript:void(0);" class="active">الرئيسية</a></li>
-            <li><a href="javascript:void(0);">وزارة الخارجية</a></li>
-            <li><a href="javascript:void(0);">السياسة الخارجية للمملكة</a></li>
-            <li><a href="javascript:void(0);">خدمات الوزارة</a></li>
-            <li><a href="javascript:void(0);">البعثات الدبلوماسية</a></li>
-            <li><a href="javascript:void(0);">معلومات</a></li>
-            <li><a href="javascript:void(0);">اتصل بنا</a></li>
-        </ul>
-    </div>
-    <!-- Index Content -->
 
-    <!-- Footer -->
-    <%- include('./partials/Footer') %>
-    <!-- Footer -->
 
-    <%- include('./partials/ScriptTags') %>
-    <script src="/assets/js/app.js"></script>
-</body>
+</section>
+<div class="hamburger">
+    <i class="fas fa-bars "></i>
+</div>
+<div class="sidebar ">
+    <ul>
+        <li><a href="javascript:void(0);" class="active">الرئيسية</a></li>
+        <li><a href="javascript:void(0);">وزارة الخارجية</a></li>
+        <li><a href="javascript:void(0);">السياسة الخارجية للمملكة</a></li>
+        <li><a href="javascript:void(0);">خدمات الوزارة</a></li>
+        <li><a href="javascript:void(0);">البعثات الدبلوماسية</a></li>
+        <li><a href="javascript:void(0);">معلومات</a></li>
+        <li><a href="javascript:void(0);">اتصل بنا</a></li>
+    </ul>
+</div>
+<!-- Index Content -->
 
-</html>
+
+<%- contentFor('FooterJs') %>
+
+
+
