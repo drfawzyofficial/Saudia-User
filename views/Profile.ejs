@@ -2,14 +2,64 @@
 منصة خدمات التأشيرات الإلكترونية - الرئيسية
 
 <%- contentFor('HeaderCss') %>
-
+ <!-- jQuery Steps CSS -->
+ <link rel="stylesheet" href="/assets/css/jquery.steps.css">
 
 <%- contentFor('body') %>
- <!-- Profile Content -->
- <div
- style="height: 200px; width: 100%; display: flex; justify-content: center; align-items: center; background-color: #F2F2F2">
- <h3>هذه صفحة مؤقتة</h3>
-</div>
+
+<!-- Profile Content -->
+<section class="container-fluid request py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>طلب زيارة عائلية للمقيمين</h2>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <form id="wizard">
+                        <h3>Account</h3>
+                        <section>
+                            <label for="userName">User name *</label>
+                            <input id="userName" name="userName" type="text" class="required">
+                            <label for="password">Password *</label>
+                            <input id="password" name="password" type="text" class="required">
+                            <label for="confirm">Confirm Password *</label>
+                            <input id="confirm" name="confirm" type="text" class="required">
+                            <p>(*) Mandatory</p>
+                        </section>
+                        <h3>Profile</h3>
+                        <section>
+                            <label for="name">First name *</label>
+                            <input id="name" name="name" type="text" class="required">
+                            <label for="surname">Last name *</label>
+                            <input id="surname" name="surname" type="text" class="required">
+                            <label for="email">Email *</label>
+                            <input id="email" name="email" type="text" class="required email">
+                            <label for="address">Address</label>
+                            <input id="address" name="address" type="text">
+                            <p>(*) Mandatory</p>
+                        </section>
+                        <h3>Hints</h3>
+                        <section>
+                            <ul>
+                                <li>Foo</li>
+                                <li>Bar</li>
+                                <li>Foobar</li>
+                            </ul>
+                        </section>
+                        <h3>Finish</h3>
+                        <section>
+                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">أنا أوافق على تلك الشروط بكل ما أوتيت من قوة الآن. الشروط أوافق عليها بكل قوة من المملكة العربية السعودية التي تقوم بعمل الكثير من الاهتمام أوافق عليها ياساة أيها الجميع إني أوفق على تلك الشروط التي تقوم بها العربية السعودية. سأقوم بملئ ذلك النموذج بشكل كامل من أول خطوة إلى آخر خطوة والآن يوجد 3 خطوات نسأل الله سبحانه وتعالى التوفيق</label>
+                        </section>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Profile Content -->
 
 <%- contentFor('FooterJs') %>
+<script src="/assets/js/jquery.validate.min.js"></script>
+<!-- Steps JS -->
+<script src="/assets/js/jquery.steps.min.js"></script>

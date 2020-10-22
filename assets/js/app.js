@@ -1,7 +1,38 @@
 $(() => {
+
+    // Loading
     setTimeout(() => {
-    $(".tatx-loading").hide("slow");
-    }, 2000)
+        $(".tatx-loading").hide("slow");
+    }, 2000);
+
+    // StepJS
+    const form = $("#wizard").show();
+    form.steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        onStepChanging: function (event, currentIndex, newIndex)
+        {
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+        },
+        onFinishing: function (event, currentIndex)
+        {
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function (event, currentIndex)
+        {
+            alert("Submitted!");
+        }
+    }).validate({
+        errorPlacement: function errorPlacement(error, element) { element.before(error); },
+        rules: {
+            confirm: {
+                equalTo: "#password"
+            }
+        }
+    });
 })
 
 /***************** DATE ****************/
@@ -18,7 +49,7 @@ function showTime() {
     } else {
         time = time + "PM";
     }
-    let innerDate = `${date.slice(0,3)}day${date.slice(3,8)}| ${numericDate} | ${time}`;
+    let innerDate = `${date.slice(0, 3)}day${date.slice(3, 8)}| ${numericDate} | ${time}`;
     dateChanger.innerText = innerDate;
 }
 setInterval(showTime, 500);
@@ -40,7 +71,7 @@ let imagesArr = [
 ]
 let captchaButton = document.querySelector('.captcha button');
 let captchaImage = document.querySelector('.captcha img');
-captchaButton.addEventListener('click', function() {
+captchaButton.addEventListener('click', function () {
     let random = Math.floor(Math.random() * imagesArr.length);
     console.log(random);
     captchaImage.src = imagesArr[random];
@@ -56,7 +87,7 @@ let MainSections = document.querySelectorAll('.main-section');
 changeContents[1].classList.add('active');
 MainSections[0].classList.add('active');
 for (let i = 0; i < filtersSection.length; i++) {
-    filtersSection[i].addEventListener('click', function() {
+    filtersSection[i].addEventListener('click', function () {
         removeAllClasses(changeContents, 'active');
         changeContents[i].classList.add('active');
         let targetV = this.getAttribute('data-target');
@@ -76,7 +107,7 @@ for (let i = 0; i < filtersSection.length; i++) {
 let links1 = Array.from(document.querySelectorAll(".link1"));
 let sections1 = document.querySelectorAll('.section1');
 for (let x = 0; x < links1.length; x++) {
-    links1[x].addEventListener('click', function() {
+    links1[x].addEventListener('click', function () {
         removeAllClasses(links1, 'active');
         this.classList.add('active');
         let target = this.getAttribute('data-target');
@@ -95,7 +126,7 @@ for (let x = 0; x < links1.length; x++) {
 let links2 = Array.from(document.querySelectorAll(".link2"));
 let sections2 = document.querySelectorAll('.section2');
 for (let x = 0; x < links2.length; x++) {
-    links2[x].addEventListener('click', function() {
+    links2[x].addEventListener('click', function () {
         removeAllClasses(links2, 'active');
         this.classList.add('active');
         let target = this.getAttribute('data-target');
@@ -112,7 +143,7 @@ for (let x = 0; x < links2.length; x++) {
 /********************* Filter Links Buttons ************************/
 //Function Remove Class
 function removeAllClasses(array, className) {
-    array.forEach(function(element) {
+    array.forEach(function (element) {
         element.classList.remove(className);
     });
 }
@@ -120,7 +151,17 @@ function removeAllClasses(array, className) {
 /////////////////////////////Navigation/////////////////////////////////////
 let bars = document.querySelector('.hamburger i');
 let sidebar = document.querySelector('.sidebar');
-bars.addEventListener('click', function() {
+bars.addEventListener('click', function () {
     bars.classList.toggle('active');
     sidebar.classList.toggle('active');
 })
+
+
+// Calculate Progress Bar
+// stepProgress = function (currstep) {
+//     var percent = parseFloat(100 / $(".step").length) * currstep;
+//     percent = percent.toFixed();
+//     $(".progress-bar")
+//       .css("width", percent + "%")
+//       .html(percent + "%");
+//   };
