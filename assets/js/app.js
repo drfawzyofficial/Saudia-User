@@ -5,25 +5,27 @@ $(() => {
         $(".tatx-loading").hide("slow");
     }, 2000);
 
+    // Custom Message for required
+    $.extend($.validator.messages, {
+        required: "هذا الحقل مطلوب*"
+    });
+
     // StepJS
     const form = $("#wizard").show();
     form.steps({
         headerTag: "h3",
         bodyTag: "section",
         transitionEffect: "slideLeft",
-        onStepChanging: function (event, currentIndex, newIndex)
-        {
+        onStepChanging: function (event, currentIndex, newIndex) {
             form.validate().settings.ignore = ":disabled,:hidden";
             return form.valid();
         },
-        onFinishing: function (event, currentIndex)
-        {
+        onFinishing: function (event, currentIndex) {
             form.validate().settings.ignore = ":disabled";
             return form.valid();
         },
-        onFinished: function (event, currentIndex)
-        {
-            alert("Submitted!");
+        onFinished: function (event, currentIndex) {
+            console.log(form.serialize())
         }
     }).validate({
         errorPlacement: function errorPlacement(error, element) { element.before(error); },
@@ -33,6 +35,7 @@ $(() => {
             }
         }
     });
+
 })
 
 /***************** DATE ****************/

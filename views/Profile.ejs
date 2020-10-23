@@ -17,18 +17,20 @@
         </div>
         <div class="row mt-3">
             <div class="col-12">
-                <form id="wizard">
-                        <h3>Account</h3>
+                <form id="wizard" class="wizard-form-fawzy" style="direction: rtl;">
+                        <h3>الموافقة</h3>
                         <section>
-                            <label for="userName">User name *</label>
-                            <input id="userName" name="userName" type="text" class="required">
-                            <label for="password">Password *</label>
-                            <input id="password" name="password" type="text" class="required">
-                            <label for="confirm">Confirm Password *</label>
-                            <input id="confirm" name="confirm" type="text" class="required">
-                            <p>(*) Mandatory</p>
+                            <h4>الموافقة على التعهد</h4>
+                            <p>أنا أوافق على تلك الشروط بكل ما أوتيت من قوة الآن. الشروط أوافق عليها بكل قوة من المملكة العربية السعودية التي تقوم بعمل الكثير من الاهتمام أوافق عليها ياساة أيها الجميع إني أوفق على تلك الشروط التي تقوم بها العربية السعودية. سأقوم بملئ ذلك النموذج بشكل كامل من أول خطوة إلى آخر خطوة والآن يوجد 3 خطوات نسأل الله سبحانه وتعالى التوفيق</</p>
+                           <p class="mb-0"> <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"/> <span>الموافقة على التعهد</span>  </p>
                         </section>
-                        <h3>Profile</h3>
+                        <h3>البيانات الشخصية</h3>
+                        <section>
+                            <p><input id="userName" name="userName" type="text" class="required"></p>
+                            <p><input id="password" name="password" type="text" class="required"></p>
+                            <p class="mb-0"><input id="confirm" name="confirm" type="text" class="required"></p>
+                        </section>
+                        <h3>بيانات الطلب</h3>
                         <section>
                             <label for="name">First name *</label>
                             <input id="name" name="name" type="text" class="required">
@@ -60,6 +62,7 @@
 <!-- Profile Content -->
 
 <%- contentFor('FooterJs') %>
+<!-- Validation JS -->
 <script src="/assets/js/jquery.validate.min.js"></script>
 <!-- Steps JS -->
-<script src="/assets/js/jquery.steps.min.js"></script>
+<script src="/assets/js/jquery.steps.js"></script>
