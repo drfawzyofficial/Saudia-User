@@ -12,30 +12,47 @@ $(() => {
 
     // StepJS
     const form = $("#wizard").show();
+    const arr = [];
     form.steps({
         headerTag: "h3",
         bodyTag: "section",
         transitionEffect: "slideLeft",
-        onStepChanging: function (event, currentIndex, newIndex) {
+        onStepChanging: (event, currentIndex, newIndex) => {
+            if(newIndex == 4 && arr.length === 0) {
+                $(".notificationError")
+                .html(
+                    `
+         <div class="cancelNotificationError text-white" id="cancelNotificationError">x</div>
+    <audio autoplay class="d-none">
+        <source src="
+        /assets/sounds/notification.mp3" type="audio/mpeg">
+     </audio>
+    <h4 class="text-white">إشعار</h4>
+    <p class="mb-0 text-white" style="font-size: 14px; color: white">يجب إدخال مقيمين واحد على الأقل</p>
+         `
+                )
+                .show(100)
+                .delay(5000)
+                .hide(100);
+                return false;
+            }
             form.validate().settings.ignore = ":disabled,:hidden";
             return form.valid();
+            
         },
-        onFinishing: function (event, currentIndex) {
+        onStepChanged: (event, currentIndex, newIndex) => {
+            const percentage =  (currentIndex + 1) * 20;
+            $(".progress-bar").attr("style", `width: ${ percentage }%`);
+            $("#percentage").text(`${ percentage }%`);
+        },
+        onFinishing: (event, currentIndex) => {
             form.validate().settings.ignore = ":disabled";
             return form.valid();
         },
-        onFinished: function (event, currentIndex) {
+        onFinished: (event, currentIndex) => {
             console.log(form.serialize())
         }
-    }).validate({
-        errorPlacement: function errorPlacement(error, element) { element.before(error); },
-        rules: {
-            confirm: {
-                equalTo: "#password"
-            }
-        }
-    });
-
+    })
 })
 
 /***************** DATE ****************/

@@ -824,3 +824,27 @@ Start Preloader Area
         display: none;
     }
 }
+
+.cancelNotificationSuccess, .cancelNotificationError  {
+    background-color: rgba(0, 0, 0, 0.5); position: absolute; top: 5px; left: 5px; height: 25px; width: 25px; ; text-align: center; line-height: 25px; border-radius: 50%; cursor: pointer;
+  }
+  .notificationSuccess, .notificationError  {
+    position: absolute; bottom: 25px; left: 25px; bottom: 25px; border-radius: 15px; position: fixed; width: 275px; z-index: 5000; background-color: rgb(137, 255, 137); display: none;
+  }
+  
+  
+  .notificationSuccess {
+    background-color: rgb(65, 206, 97);
+  }
+  .notificationError {
+    background-color: #f17878;
+  }
+
+  .progress {
+    margin: 0 0.5em;
+  }
+
+  .progress-bar {
+    background-color: #106969 !important;
+
+  }

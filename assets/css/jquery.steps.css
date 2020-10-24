@@ -22,6 +22,7 @@
     list-style: none !important;
     padding: 0;
     margin: 0;
+    display: block;
 }
 
 .wizard ul > li,
@@ -73,7 +74,7 @@
 
 .wizard > .steps > ul > li
 {
-    width: 25%;
+    width: 20%;
 }
 
 .wizard > .steps > ul > li,
@@ -402,39 +403,13 @@
     position: relative;
 }
 
-@media (max-width: 600px)
-{
-    .wizard > .steps > ul > li
-    {
+@media (min-width: 576px) and (max-width: 991px) { 
+    .wizard > .steps > ul > li {
         width: 50%;
     }
+ }
 
-    .wizard > .steps a,
-    .wizard > .steps a:hover,
-    .wizard > .steps a:active
-    {
-        margin-top: 0.5em;
-    }
-
-    .wizard.vertical > .steps,
-    .wizard.vertical > .actions
-    {
-        display: block;
-        float: none;
-        width: 100%;
-    }
-
-    .wizard.vertical > .content
-    {
-        display: block;
-        float: none;
-        margin: 0 0.5em 0.5em;
-        width: auto;
-    }
-}
-
-@media (max-width: 480px)
-{
+@media (max-width: 575px) {
     .wizard > .steps > ul > li
     {
         width: 100%;
