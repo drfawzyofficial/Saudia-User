@@ -7,7 +7,7 @@ $(() => {
 
     // Custom Message for required
     $.extend($.validator.messages, {
-        required: "هذا الحقل مطلوب*"
+        required: ""
     });
 
     // StepJS
@@ -18,10 +18,10 @@ $(() => {
         bodyTag: "section",
         transitionEffect: "slideLeft",
         onStepChanging: (event, currentIndex, newIndex) => {
-            if(newIndex == 4 && arr.length === 0) {
+            if (newIndex == 4 && arr.length === 0) {
                 $(".notificationError")
-                .html(
-                    `
+                    .html(
+                        `
          <div class="cancelNotificationError text-white" id="cancelNotificationError">x</div>
     <audio autoplay class="d-none">
         <source src="
@@ -30,20 +30,20 @@ $(() => {
     <h4 class="text-white">إشعار</h4>
     <p class="mb-0 text-white" style="font-size: 14px; color: white">يجب إدخال مقيمين واحد على الأقل</p>
          `
-                )
-                .show(100)
-                .delay(5000)
-                .hide(100);
+                    )
+                    .show(100)
+                    .delay(5000)
+                    .hide(100);
                 return false;
             }
             form.validate().settings.ignore = ":disabled,:hidden";
             return form.valid();
-            
+
         },
         onStepChanged: (event, currentIndex, newIndex) => {
-            const percentage =  (currentIndex + 1) * 20;
-            $(".progress-bar").attr("style", `width: ${ percentage }%`);
-            $("#percentage").text(`${ percentage }%`);
+            const percentage = (currentIndex + 1) * 20;
+            $(".progress-bar").attr("style", `width: ${percentage}%`);
+            $("#percentage").text(`${percentage}%`);
         },
         onFinishing: (event, currentIndex) => {
             form.validate().settings.ignore = ":disabled";
@@ -52,8 +52,48 @@ $(() => {
         onFinished: (event, currentIndex) => {
             console.log(form.serialize())
         }
-    })
-})
+    });
+
+    // Date Picker Code
+    $.fn.datepicker.dates['ar'] = {
+        days: ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت", "الأحد"],
+        daysShort: ["أحد", "اثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت", "أحد"],
+        daysMin: ["ح", "ن", "ث", "ع", "خ", "ج", "س", "ح"],
+        months: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+        monthsShort: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+        today: "هذا اليوم",
+        rtl: true
+    };
+
+    $('.enddate').datepicker({
+        language: 'ar',
+        format: 'yyyy, MM dd'
+    });
+
+    // intlTelInput Code
+    const input = document.getElementById("applicantPhone");
+    window.intlTelInput(input, {
+        initialCountry: 'auto',
+        preferredCountries: ['us', 'gb', 'br', 'ru', 'cn', 'es', 'it'],
+        autoPlaceholder: 'aggressive',
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.6/js/utils.js",
+        geoIpLookup: function (callback) {
+            fetch('https://ipinfo.io/json', {
+                cache: 'reload'
+            }).then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+                throw new Error('Failed: ' + response.status)
+            }).then(ipjson => {
+                callback(ipjson.country)
+            }).catch(e => {
+                callback('us')
+            })
+        }
+    });
+
+});
 
 /***************** DATE ****************/
 let dateChanger = document.querySelector('.date span')
