@@ -1,115 +1,86 @@
-// @Seeting Router
-
-// Require Express Framework
+// Express Framework
 const express = require('express');
 const router = express.Router();
 
-// Require forwardAuthenticated
-const { forwardAuthenticated } = require('../config/auth');
-
-// Require Packages
-const nodemailer = require('nodemailer');
+// Import Packages
 const bcrypt = require('bcryptjs');
 
-// Require User Model
-const User = require('../models/User')
+// ensureAuthenticated for protecting routes(Auth => Access, notAuth => Not Access)
+const { ensureAuthenticated } = require('../config/auth');
 
+// Import User Model
+const User = require('../models/User');
 
-// Forgot Password Authentication
-router.get('/forgot-password', forwardAuthenticated, async (req, res) => {
+router.get('/', ensureAuthenticated, async (req, res) => {
     try {
-        res.render('Auth/auth-forgot-password');
+        res.render('Settings', { page: 'settings' });
     } catch(err) {
-     req.flash('error', 'حدث خطأ ما بالسيرفر');
-     res.redirect('/forgot-password')
+        req.flash('error', 'حدث خطأ ما بالسيرفر');
+        res.redirect('/profile');
     }
-   
-})
-router.post('/forgot-password', forwardAuthenticated, async (req, res) => {
-    if (!(/^\w+([-+.]\w+)*@((yahoo|gmail)\.com)$/.test(req.body.email))) {
-        req.flash('error', 'البريد الإلكتروني يجب أن يكون جميل أو ياهو');
-        return res.redirect('/auth/forgot-password')
-    }
-    const user = await User.findOne({ email: req.body.email });
-    if (!user) {
-        req.flash('error', 'الحساب غير موجود مُسبقًا');
-        return res.redirect('/auth/forgot-password');
-    }
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'AbdulrahmanFawzy999@gmail.com',
-            pass: 'sxgqljelmksfsuuo'
-        }
-    });
-    let mailOptions = {
-        to: User.email,
-        from: 'AbdulrahmanFawzy999@gmail.com',
-        subject: 'Reset your password',
-        html: `
-              <p> You are receiving this because you (or someone else) has requested the reset of the password for your account. 
-              </p>
-              <p>
-              Please click on the following link to complete the process
-              </p>
-              <a href=" http://localhost:3000/auth/reset-password/${User._id}" target="_blank">Follow</a>
-              <p>If you did not request this, please ignore this email and your password will remain unchanged. </p>`
-    };
-    transporter.sendMail(mailOptions, function (err) {
-        if (err) {
-            req.flash('error', `حدث خطأ ما بالسيرفر`);
-            res.redirect('/auth/forgot-paswsord');
-        } else {
-            req.flash('success', 'قمنا بإرسال رسالة إلى بريدك الإلكتروني قم بفحصها');
-            res.redirect('/auth/forgot-password');
-        }
-    });
-});
-router.get('/reset-password/:id', forwardAuthenticated, async (req, res) => {
+ });
+
+
+ router.post('/editInfo', ensureAuthenticated, async (req, res, next) => {
     try {
-        const User = await User.findOne({ _id: req.params.id });
-        if (User) {
-            res.render('Auth/resetPassword', { specialID: req.params.id })
+        const { fullname, email } = req.body;
+
+        if (fullname.length < 6) {
+            req.flash('error', 'الاسم يجب أن يكون أكثر من 6 أحرف');
+            return res.redirect(`/settings`);
         }
-        else {
-            req.flash('error', 'هذا الحساب غير موجود');
-            res.redirect("/auth/forgot-password");
+        if (!(/^\w+([-+.]\w+)*@((yahoo|gmail)\.com)$/.test(email))) {
+            req.flash('error', 'البريد الإلكتروني يجب أن يكون جميل أو ياهو');
+            return res.redirect(`/settings`);
+        }
+        const user = await User.findOne({ _id: req.user.id });
+        if (user.email === email) {
+            await User.findByIdAndUpdate({ _id: req.user.id }, { fullname: fullname });
+            req.flash('success', 'تم تعديل البيانات بنجاح');
+            res.redirect(`/settings`);
+        } else {
+            const emailFounded = await User.findOne({ email: email });
+            if (emailFounded) {
+                req.flash('error', 'هذا الحساب موجود مُسبقًا');
+                res.redirect(`/settings`);
+            } else {
+                await User.findByIdAndUpdate({ _id: req.user.id }, { fullname: fullname, email: email });
+                req.flash('success', 'تم تعديل البيانات بنجاح');
+                res.redirect(`/settings`);
+            }
         }
     } catch (err) {
-        req.flash('error', 'حدث خطأ ما في السيرفر');
-        res.redirect("/auth/forgot-password");
+        req.flash('error', 'حدث خطأ ما بالسيرفر');
+        res.redirect(`/settings`);
     }
 });
-router.post('/updatePassword', forwardAuthenticated, async (req, res) => {
-       try {
-        const { password, confirmPassword, specialID } = req.body;
+
+router.post('/changePassword', ensureAuthenticated, async (req, res, next) => {
+    try {
+        const { password, confirmPassword } = req.body;
 
 
         if (password.length < 6) {
             req.flash('error', 'كلمة المرور يجب أن تكون أكثر من 6 أحرف');
-            return res.redirect(`/auth/reset-password/${ req.body.specialID }`)
+            return res.redirect(`/settings`);
         }
 
         if (password.length !== confirmPassword.length) {
             req.flash('error', 'كلمتا المرور غير متطابقين');
-            return res.redirect(`/auth/reset-password/${ req.body.specialID }`)
+            return res.redirect(`/settings`);
         }
 
-        await User.findOneAndUpdate({ _id: specialID }, { password: await bcrypt.hash(password, 10) } );
+        await User.findOneAndUpdate({ _id: req.user._id }, { password: await bcrypt.hash(password, 10) });
         req.flash('success', 'تم تغيير كلمة السر بنجاح');
-        return res.redirect(`/auth/login`);
+        return res.redirect(`/settings`);
 
-       } catch(err) {
+    } catch (err) {
         req.flash('error', 'حدث خطأ ما في السيرفر');
-        return res.redirect(`/auth/reset-password/${ req.body.specialID }`)
-       }
-       
-  });
-
-// Logout (Session Expired)
-router.get('/logout', (req, res) => {
-    req.logOut();
-    req.flash('success', 'تم تسجيل الخروج بنجاح');
-    res.redirect('/auth/login');
+        res.redirect(`/settings`);
+    }
 });
+
+
+
+ 
 module.exports = router;

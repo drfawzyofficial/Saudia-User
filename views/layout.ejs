@@ -17,27 +17,34 @@
 
 <body>
 
-    <!-- Preloader(Loading) -->
-    
-    <!-- Preloader(Loading) -->
+  <!-- Preloader(Loading) -->
 
-    <!-- Header -->
-    <%- include('./partials/Header') %>
-    <!-- Header -->
+  <!-- Preloader(Loading) -->
 
-    <%- body %>
-   
-    
-    <!-- Footer -->
-    <%- include('./partials/Footer') %>
-    <!-- Footer -->
+  <!-- Header -->
+  <%- include('./partials/Header') %>
+  <!-- Header -->
+  
+  <% if(user) { %>
+  <!-- Header-auth -->
+  <%- include('./partials/Header-auth') %>
+  <!-- Header-auth -->
+  <% }  %>
 
-    <%- include('./partials/ScriptTags') %>
-    
-    <%- FooterJs %>
+
+  <%- body %>
+
+
+  <!-- Footer -->
+  <%- include('./partials/Footer') %>
+  <!-- Footer -->
+
+  <%- include('./partials/ScriptTags') %>
+
+  <%- FooterJs %>
 
   <script src="/assets/js/app.js"></script>
-  
+
 </body>
 
 </html>

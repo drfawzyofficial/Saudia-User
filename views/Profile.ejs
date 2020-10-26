@@ -10,7 +10,7 @@
 <!-- jQuery Steps CSS -->
 <link rel="stylesheet" href="/assets/css/jquery.steps.css">
 <!-- intlTelInput CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css" integrity="sha512-yye/u0ehQsrVrfSd6biT17t39Rg9kNc+vENcCXZuMz2a+LWFGvXUnYuWUW6pbfYj1jcBb/C39UZw2ciQvwDDvg==" crossorigin="anonymous" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css" integrity="sha512-yye/u0ehQsrVrfSd6biT17t39Rg9kNc+vENcCXZuMz2a+LWFGvXUnYuWUW6pbfYj1jcBb/C39UZw2ciQvwDDvg==" crossorigin="anonymous" /> -->
 
 <%- contentFor('body') %>
 <!-- Request Section -->
@@ -79,7 +79,7 @@
                                         name="applicant" type="text" placeholder="اسم صاحب الطلب"/>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-3 mt-md-0">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">الجنسية</span>
@@ -297,7 +297,57 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">رقم الجوال</span>
                                     </div>
-                                    <input dir='ltr' class="form-control applicantPhone required" id="applicantPhone" name="applicantPhone" type="tel" placeholder="اكتب رقم الجوال"/>
+                                    <input class="form-control phonenumber required" id="phonenumber"
+                                        name="phonenumber" type="text" placeholder="اكتب رقم الجوال"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">العنوان</span>
+                                    </div>
+                                    <input class="form-control address required" id="address"
+                                        name="address" type="text" placeholder="اكتب عنوانك بشكل صحيح"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">البريد الإلكتروني</span>
+                                    </div>
+                                    <input class="form-control email required" id="email"
+                                        name="email" type="email" placeholder="اكتب رقم الجوال"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="addon-birthdate">تاريخ الميلاد</span>
+                                    </div>
+                                    <input type="text" class="form-control birthdate required" placeholder="أدخل تاريخ الميلاد"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">رقم تأشيرة الدخول</span>
+                                    </div>
+                                    <input class="form-control visa required" id="visa"
+                                        name="visa" type="text" placeholder="اكتب رقم تأشيرة الدخول"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <h4 style="border-bottom: 1px solid #DDD; padding-bottom: 5px">بيانات جهة العمل:</h4>
+                            </div>
+                            <div class="col-md-6 py-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">اسم صاحب العمل</span>
+                                    </div>
+                                    <input class="form-control work-res required" id="work-res"
+                                        name="work-res" readonly type="text" value="مؤسس شريفة صناع المصري التجارية"/>
                                 </div>
                             </div>
                         </div>
@@ -337,7 +387,7 @@
     integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
     crossorigin="anonymous"></script>
 <!-- intlTelInput JS -->
-<script src="/assets/js/intlTelInput.js"></script>
+<!-- <script src="/assets/js/intlTelInput.js"></script> -->
 <!-- Validation JS -->
 <script src="/assets/js/jquery.validate.min.js"></script>
 <!-- Steps JS -->

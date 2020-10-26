@@ -1,0 +1,17 @@
+<% if(error.length > 0) { %>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>رسالة خطأ!</strong> <%= error %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<% } %>
+
+<% if(success.length > 0) { %>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>رسالة نجاح</strong> <%= success %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<% } %>

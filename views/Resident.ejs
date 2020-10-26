@@ -9,24 +9,7 @@
   <!-- Resident Content -->
   <section class="mysection">
     <div class="container">
-        <% if(error.length > 0) { %>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>رسالة خطأ!</strong> <%= error %>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            <% } %>
-
-            <% if(success.length > 0) { %>
-                <div class="alert alert-success flash"><%= success %></div>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>رسالة نجاح</strong> <%= success %>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                <% } %>
+        <%- include('./partials/alert') %>
         <h2>طلب زيارة عائلية للمقيمين</h2>
         <p style="text-align: right; margin-top: 20px">لطلب زيارة عائلية للمقيمين قم بتسجيل الدخول وقبل تسجيل الدخول قُم بملئ البيانات الخاصة بك عن طريق زر التسجيل</p>
         <div style="display: flex; justify-content: flex-end; margin-top: 8px;">

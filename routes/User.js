@@ -64,6 +64,6 @@ router.post('/login', forwardAuthenticated, (req, res) => {
 router.get('/logout', (req, res) => {
     req.logOut();
     req.flash('success', 'تم تسجيل الخروج بنجاح');
-    res.redirect('/auth/login');
+    res.redirect('/resident');
 });
 module.exports = router;

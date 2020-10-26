@@ -1,0 +1,99 @@
+<%- contentFor('title') %>
+منصة خدمات التأشيرات الإلكترونية - الرئيسية
+
+<%- contentFor('HeaderCss') %>
+
+<%- contentFor('body') %>
+<!-- Settings Section -->
+<section class="container-fluid settings py-5" id="settings" dir="rtl">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <%- include('./partials/alert') %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="content">
+                    <h3 class="settings-heading">مركز الإعدادات - عدل البيانات الآن</h3>
+                    <p class="settings-para mb-1">ملاحظات هامة عند تعديل البيانات الخاصة بك</p>
+                    <ol class="ul-settings" style="list-style-type: none;">
+                        <li class="li-ul">الاسم يجب أن يكون أكثر ن 6 أحرف</li>
+                        <li class="li-ul">الرقم السري يجب أن يكون أكثر ن 6 أحرف</li>
+                        <li class="li-ul">البريد الإلكتروني يجب أن يكون جِيميل أو ياهو</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+        
+                        <h5 class="card-title">عدل الاسم الكامل والبريد الإلكتروني الخاص بـ <%= user.fullname %></h5>
+
+                       <form method="POST" action="/settings/editInfo">
+                        
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-md-2 col-form-label">الاسم الكامل</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" value="<%= user.fullname %>" id="example-text-input" name="fullname">
+                            </div>
+                        </div>
+        
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-md-2 col-form-label">البريد الإلكتروني</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" value="<%= user.email %>" id="example-text-input" name="email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <button type="submit" class="btn btn-success">تعديل الآن</button>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+        
+                        <h5 class="card-title">عدل كلمة السر الخاصة بـ <%= user.fullname %></h5>
+                        <form method="POST" action="/settings/changePassword">
+                            
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-md-2 col-form-label">كلمة السر</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="password" id="example-text-input" name="password" placeholder="كلمة السر">
+                                </div>
+                            </div>
+            
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-md-2 col-form-label">تأكيد كلمة السر</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="password" id="example-text-input" name="confirmPassword" placeholder="تأكيد كلمة السر">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <button type="submit" class="btn btn-success">تغيير الآن</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+<!-- Settings Section -->
+
+<!-- Notification -->
+<div class="notificationSuccess text-white shadow-lg p-3"></div>
+<div class="notificationError text-white shadow-lg p-3"></div>
+<!-- Notification -->
+
+
+<%- contentFor('FooterJs') %>

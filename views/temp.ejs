@@ -1,35 +1,20 @@
-<!doctype html>
-<html lang="ar">
+<%- contentFor('title') %>
+منصة خدمات التأشيرات الإلكترونية - المؤقتة
 
-<head>
-    <%- include('./partials/CssTags') %>
-    <!-- Style CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <title>منصة خدمات التأشيرات الإلكترونية - المؤقتة</title>
-</head>
+<%- contentFor('HeaderCss') %>
 
-<body>
+<%- contentFor('body') %>
 
-    <!-- Preloader(Loading) -->
-    <%- include('./partials/Preloader') %>
-    <!-- Preloader(Loading) -->
+  <!-- Temp Content -->
+  <section class="temp-content" id="temp-content" style="height: 200px; width: 100%; display: flex; justify-content: center; align-items: center; background-color: #F2F2F2">
+    <h3>هذه صفحة مؤقتة</h3>
+  </section>
+<!-- Temp Content -->
 
-    <!-- Header -->
-    <%- include('./partials/Header') %>
-    <!-- Header -->
+<!-- Notification -->
+<div class="notificationSuccess text-white shadow-lg p-3"></div>
+<div class="notificationError text-white shadow-lg p-3"></div>
+<!-- Notification -->
 
-    <!-- Temp Content -->
-    <div style="height: 200px; width: 100%; display: flex; justify-content: center; align-items: center; background-color: #F2F2F2">
-        <h3>هذه صفحة مؤقتة</h3>
-    </div>
-    <!-- Temp Content -->
 
-    <!-- Footer -->
-    <%- include('./partials/Footer') %>
-    <!-- Footer -->
-
-    <%- include('./partials/ScriptTags') %>
-    <script src="/assets/js/app.js"></script>
-</body>
-
-</html>
+<%- contentFor('FooterJs') %>
