@@ -2016,7 +2016,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Next"
          * @for defaults
          **/
-        next: "التالي",
+        next: "التالي &raquo;",
 
         /**
          * Label for the previous button.
@@ -2026,7 +2026,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Previous"
          * @for defaults
          **/
-        previous: "السابق",
+        previous: "&laquo; السابق",
 
         /**
          * Label for the loading animation.
