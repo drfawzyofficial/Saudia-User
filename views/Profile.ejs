@@ -3,10 +3,11 @@
 
 <%- contentFor('HeaderCss') %>
 <!-- DatePicker CSS -->
-<link rel="stylesheet"
+<!-- <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
     integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
-    crossorigin="anonymous" />
+    crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.min.css">
 <!-- jQuery Steps CSS -->
 <link rel="stylesheet" href="/assets/css/jquery.steps.css">
 <!-- intlTelInput CSS -->
@@ -58,7 +59,7 @@
                                     <button type="button" class="btn btn-success" data-toggle="modal"
                                         data-target=".visitor-modal">إضافة زائر</button>
                                     <div class="modal fade visitor-modal" tabindex="-1" role="dialog"
-                                        aria-labelledby="Large-Visitor-Modal" aria-hidden="true">
+                                        aria-labelledby="Large-Visitor-Modal" aria-hidden="true" id="myModal">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -97,7 +98,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text" id="addon-birthdate">تاريخ الميلاد</span>
                                                                     </div>
-                                                                    <input type="text" class="form-control birthdate required" id="visitor_birthdate" name="visitor_birthdate"
+                                                                    <input type="text" class="form-control datepickerA required" id="visitor_birthdate" name="visitor_birthdate"
                                                                         placeholder="أدخل تاريخ الميلاد" />
                                                                 </div>
                                                             </div>
@@ -136,7 +137,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text">تاريخ إصدار الجواز</span>
                                                                     </div>
-                                                                    <input class="form-control birthdate required" id="visitor_passEd" name="visitor_passEd" type="text"
+                                                                    <input class="form-control datepickerA required" id="visitor_passEd" name="visitor_passEd" type="text"
                                                                         placeholder="تاريخ إصدار الجواز" />
                                                                 </div>
                                                             </div>
@@ -145,7 +146,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text">تاريخ إنتهاء الجواز</span>
                                                                     </div>
-                                                                    <input class="form-control birthdate required" id="visitor_passFin" name="visitor_passFin" type="text"
+                                                                    <input class="form-control datepickerA required" id="visitor_passFin" name="visitor_passFin" type="text"
                                                                         placeholder="تاريخ إنتهاء الجواز" />
                                                                 </div>
                                                             </div>
@@ -390,8 +391,8 @@
                                                                     </div>
                                                                     <select class="custom-select visitor_destination" id="visitor_destination" name="visitor_destination" style="font-family: 'Cairo', sans-serif">
                                                                         <option value="" disabled selected>< إختر من القائمة ></option>
-                                                                        <option value="أسكندرية">أسكندرية</option>
-                                                                        <option value="إسماعيلية">إسماعيلية</option>
+                                                                        <option value="الإسكندرية">الإسكندرية</option>
+                                                                        <option value="الإسماعيلية">الإسماعيلية</option>
                                                                         <option value="الزقازيق">الزقازيق</option>
                                                                     </select>
                                                                   </div>
@@ -471,36 +472,29 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table table-bordered table-hover mb-0 text-center" style="background-color: #bbd849;
+                                    color: #FFF;">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
+                                                <th scope="col">الاسم</th>
+                                                <th scope="col">الديانة</th>
+                                                <th scope="col">محل الميلاد</th>
+                                                <th scope="col">نوع الجواز</th>
+                                                <th scope="col">المهنة</th>
+                                                <th scope="col">الجنسية</th>
+                                                <th scope="col">جهة القدوم</th>
+                                                <th scope="col">العلاقة</th>
+                                                <th scope="col">مرات الدخول</th>
+                                                <th scope="col">مدة الصلاحية</th>
+                                                <th scope="col">الحذف</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
-                                            </tr>
+                                        <tbody id="bodyContent" style="background-color: #ffffff;color: #444;">
+                                           
                                         </tbody>
                                     </table>
+                                    <div class="message_notFound p-2 bg-light" id="message_notFound">لأ توجد بيانات</div>
                                 </div>
                             </div>
                         </div>
@@ -533,8 +527,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="addon-enddate">تاريخ الإنتهاء</span>
                                     </div>
-                                    <input type="text" class="form-control enddate required"
-                                        placeholder="أدخل تاريخ الإنتهاء" />
+                                    <input type="text" class="form-control hijri-date-input required" id="hijri-date-input" name="hijri-date-input"
+                                        placeholder="أدخل تاريخ الإنتهاء بالهجري" />
                                 </div>
                             </div>
                         </div>
@@ -797,7 +791,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="addon-birthdate">تاريخ الميلاد</span>
                                     </div>
-                                    <input type="text" class="form-control birthdate required"
+                                    <input type="text" class="form-control datepickerA required" id="birthdate" name="birthdate"
                                         placeholder="أدخل تاريخ الميلاد" />
                                 </div>
                             </div>
@@ -850,9 +844,7 @@
 
 <%- contentFor('FooterJs') %>
 <!-- DatePicker JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
-    integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
-    crossorigin="anonymous"></script>
+<script src="/assets/js/bootstrap-hijri-datetimepicker.min.js"></script>
 <!-- intlTelInput JS -->
 <!-- <script src="/assets/js/intlTelInput.js"></script> -->
 <!-- Validation JS -->

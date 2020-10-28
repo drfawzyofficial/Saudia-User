@@ -12,7 +12,7 @@ $(() => {
 
     // StepJS
     const form = $("#wizard").show();
-    const arr = [];
+    var arr = [];
     form.steps({
         headerTag: "h3",
         bodyTag: "section",
@@ -54,24 +54,25 @@ $(() => {
         }
     });
 
-    // Date Picker Code
-    $.fn.datepicker.dates['ar'] = {
-        days: ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت", "الأحد"],
-        daysShort: ["أحد", "اثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت", "أحد"],
-        daysMin: ["ح", "ن", "ث", "ع", "خ", "ج", "س", "ح"],
-        months: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
-        monthsShort: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
-        today: "هذا اليوم",
-        rtl: true
-    };
-
-    $('.enddate').datepicker({
-        language: 'ar',
-        format: 'yyyy, MM dd'
+    $('.datepickerA').hijriDatePicker({
+        locale:"ar-sa",
+        hijri: false,
+        viewMode: 'months',
+        showClose: true,
+        showClear: true,
+        showTodayButton: true,
+        useCurrent:false,
     });
 
-    $('.birthdate').datepicker({
-        language: 'en',
+    $("#hijri-date-input").hijriDatePicker({
+        locale:"ar-sa",
+        hijri: true,
+        viewMode: 'months',
+        showClose: true,
+        showClear: true,
+        showTodayButton: true,
+        useCurrent:false,
+
     });
 
     // Working on Modal Box that's related to Visitors Data
@@ -100,7 +101,7 @@ $(() => {
             `;
             $("#visitor_relation").html(options);
         }
-    });
+    }); 
 
     // Success Function
     const successMsg = (msg) => {
@@ -141,7 +142,7 @@ $(() => {
             .hide(100);
     }
                     
-    
+    var counter = 0;
     // Add Visitor Function
     $("#add_visitor").click((e) => {
         try {
@@ -151,26 +152,92 @@ $(() => {
             const visitor_birthdate = $("#visitor_birthdate").val().trim();
             const visitor_birthplace = $("#visitor_birthplace").val().trim();
             const visitor_passNum = $("#visitor_passNum").val().trim();
-            const visitor_passType = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
+            const visitor_passType = $("#visitor_passType").val() == undefined ? '' : $("#visitor_passType").val().trim();
             const visitor_passEd = $("#visitor_passEd").val().trim();
             const visitor_passFin = $("#visitor_passFin").val().trim();
             const visitor_passPlace = $("#visitor_passPlace").val().trim();
             const visitor_job  = $("#visitor_job ").val().trim();
-            const visitor_nat = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
-            const visitor_sex = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
-            const visitor_destination = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
+            const visitor_nat = $("#visitor_nat").val() == undefined ? '' : $("#visitor_nat").val().trim();
+            const visitor_sex = $("#visitor_sex").val() == undefined ? '' : $("#visitor_sex").val().trim();
+            const visitor_destination = $("#visitor_destination").val() == undefined ? '' : $("#visitor_destination").val().trim();
             const visitor_email = $("#visitor_email").val().trim();
-            const visitor_log = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
-            const visitor_relation = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
-            const visitor_valid = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
-            const visitor_stay = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
-            console.log(visitor_religion);
-            if (!visitor_name || !['مسلم', 'غير مسلم'].includes(visitor_religion)) errorMsg('البيانات يجب أن تكون كاملة');
-            else  successMsg('البيانات يجب أن تكون كاملة');
+            const visitor_log = $("#visitor_log").val() == undefined ? '' : $("#visitor_log").val().trim();
+            const visitor_relation = $("#visitor_relation").val() == undefined ? '' : $("#visitor_relation").val().trim();
+            const visitor_valid = $("#visitor_valid").val() == undefined ? '' : $("#visitor_valid").val().trim();
+            const visitor_stay = $("#visitor_stay").val() == undefined ? '' : $("#visitor_stay").val().trim();
+            if (!visitor_name || !['مسلم', 'غير مسلم'].includes(visitor_religion) || !visitor_birthdate || !visitor_birthplace || !visitor_passNum || !['عادي', 'غير عادي'].includes(visitor_passType) || !visitor_passEd || !visitor_passFin || !visitor_passPlace ||!visitor_job || !['مصر'].includes(visitor_nat) || !['ذكر', 'أنثى'].includes(visitor_sex) || !['الإسكندرية', 'الإسماعيلية'].includes(visitor_destination) ||  !visitor_email || !['عدة سفرات', 'سفرة واحدة'].includes(visitor_log) || !['زوج', 'ابن', 'أب', 'أب الزوجة', 'زوجة', 'بنت', 'أم', 'أم الزوجة', 'أخرى'].includes(visitor_relation) || !['365'].includes(visitor_valid) || !['90'].includes(visitor_stay)) {
+                errorMsg('تأكد من إدخال جميع البيانات');
+            } else {
+                counter++;
+                const data =  { id: counter, visitor_name: visitor_name, visitor_religion: visitor_religion, visitor_birthdate: visitor_birthdate, visitor_birthplace: visitor_birthplace, visitor_passNum: visitor_passNum, visitor_passType:  visitor_passType,  visitor_passEd:  visitor_passEd, visitor_passFin: visitor_passFin, visitor_passPlace: visitor_passPlace , visitor_job: visitor_job,  visitor_nat: visitor_nat, visitor_sex: visitor_sex, visitor_destination: visitor_destination, visitor_email: visitor_email, visitor_log: visitor_log, visitor_relation: visitor_relation,  visitor_valid: visitor_valid, visitor_stay: visitor_stay };
+                $("#message_notFound").remove();
+                $("#bodyContent").empty();
+                arr.push(data);
+                arr.forEach((Obj) => {
+                    $("#bodyContent").append(`
+                        <tr id="row${ Obj.id }">
+                            <th scope="row">${ Obj.id }</th>
+                            <td>${ Obj.visitor_name }</td>
+                            <td>${ Obj.visitor_religion }</td>
+                            <td>${ Obj.visitor_birthplace }</td>
+                            <td>${ Obj.visitor_passType }</td>
+                            <td>${ Obj.visitor_job }</td>
+                            <td>${ Obj.visitor_nat }</td>
+                            <td>${ Obj.visitor_destination }</td>
+                            <td>${ Obj.visitor_relation }</td>
+                            <td>${ Obj.visitor_log }</td>
+                            <td>${ Obj.visitor_valid }</td>
+                            <td><button type="button" class="btn btn-danger deleteRow">حذف </button></td>
+                        </tr>
+                    `);
+                });
+                $('#myModal').modal('hide')
+                successMsg('تمت إضافة صف بنجاح');
+            }
         } catch (err) {
             errorMsg('حدث خطأ ما إثناء إضافة زائر');
         }
     })
+    $("body").on("click", ".cancelNotificationSuccess", () => {
+        $(".notificationSuccess").hide();
+    })
+
+    $("body").on("click", ".cancelNotificationError", () => {
+        $(".notificationError").hide();
+    })
+
+    $("body").on("click", ".deleteRow", (e) => {
+        const id = Number(e.target.parentElement.parentElement.id.match(/\d+/)[0])
+        arr = arr.filter((item) =>  {
+            return item.id != id;
+        });
+        $("#bodyContent").empty();
+        arr.forEach((Obj) => {
+            $("#bodyContent").append(`
+                <tr id="row${ Obj.id }">
+                    <th scope="row">${ Obj.id }</th>
+                    <td>${ Obj.visitor_name }</td>
+                    <td>${ Obj.visitor_religion }</td>
+                    <td>${ Obj.visitor_birthplace }</td>
+                    <td>${ Obj.visitor_passType }</td>
+                    <td>${ Obj.visitor_job }</td>
+                    <td>${ Obj.visitor_nat }</td>
+                    <td>${ Obj.visitor_destination }</td>
+                    <td>${ Obj.visitor_relation }</td>
+                    <td>${ Obj.visitor_log }</td>
+                    <td>${ Obj.visitor_valid }</td>
+                    <td><button type="button" class="btn btn-danger deleteRow">حذف </button></td>
+                </tr>
+            `);
+        });
+        if(arr.length === 0) {
+            $(".table-responsive").append(`
+            <div class="message_notFound p-2 bg-light" id="message_notFound">لأ توجد بيانات</div>
+            `);
+            counter = 0;
+        }
+    })
+
 
 
     // intlTelInput Code
