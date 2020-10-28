@@ -74,6 +74,104 @@ $(() => {
         language: 'en',
     });
 
+    // Working on Modal Box that's related to Visitors Data
+    var options = "";
+    $("#visitor_sex").on('change', (event) => {
+        var value = event.target.value;
+        if (value === "ذكر") {
+            options = `
+            <option value="" disabled selected>< إختر من القائمة ></option>
+            <option value="زوج">زوج</option>
+            <option value="ابن">ابن</option>
+            <option value="أب">أب</option>
+            <option value="أب الزوجة">أب الزوجة</option>
+            <option value="أخرى">أخرى</option>
+            `;
+            $("#visitor_relation").html(options);
+        }
+        else if (value === "أنثى") {
+            options = `
+            <option value="" disabled selected>< إختر من القائمة ></option>
+            <option value="زوجة">زوجة</option>
+            <option value="بنت">بنت</option>
+            <option value="أم">أم</option>
+            <option value="أم الزوجة">أم الزوجة</option>
+            <option value="أخرى">أخرى</option>
+            `;
+            $("#visitor_relation").html(options);
+        }
+    });
+
+    // Success Function
+    const successMsg = (msg) => {
+        $(".notificationSuccess")
+            .html(
+                `
+ <div class="cancelNotificationSuccess text-white" id="cancelNotificationSuccess">x</div>
+<audio autoplay class="d-none">
+<source src="
+/assets/sounds/notification.mp3" type="audio/mpeg">
+</audio>
+<h4 class="text-white">إشعار</h4>
+<p class="mb-0 text-white" style="font-size: 14px">${msg}</p>
+ `
+            )
+            .show(100)
+            .delay(5000)
+            .hide(100);
+    }
+
+
+    // Error Function
+    const errorMsg = (msg) => {
+        $(".notificationError")
+            .html(
+                `
+ <div class="cancelNotificationError text-white" id="cancelNotificationError">x</div>
+<audio autoplay class="d-none">
+<source src="
+/assets/sounds/notification.mp3" type="audio/mpeg">
+</audio>
+<h4 class="text-white">إشعار</h4>
+<p class="mb-0 text-white" style="font-size: 14px; color: white">${msg}</p>
+ `
+            )
+            .show(100)
+            .delay(5000)
+            .hide(100);
+    }
+                    
+    
+    // Add Visitor Function
+    $("#add_visitor").click((e) => {
+        try {
+            e.preventDefault();
+            const visitor_name = $("#visitor_name").val().trim();
+            const visitor_religion =  $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
+            const visitor_birthdate = $("#visitor_birthdate").val().trim();
+            const visitor_birthplace = $("#visitor_birthplace").val().trim();
+            const visitor_passNum = $("#visitor_passNum").val().trim();
+            const visitor_passType = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
+            const visitor_passEd = $("#visitor_passEd").val().trim();
+            const visitor_passFin = $("#visitor_passFin").val().trim();
+            const visitor_passPlace = $("#visitor_passPlace").val().trim();
+            const visitor_job  = $("#visitor_job ").val().trim();
+            const visitor_nat = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
+            const visitor_sex = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
+            const visitor_destination = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
+            const visitor_email = $("#visitor_email").val().trim();
+            const visitor_log = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
+            const visitor_relation = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
+            const visitor_valid = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
+            const visitor_stay = $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
+            console.log(visitor_religion);
+            if (!visitor_name || !['مسلم', 'غير مسلم'].includes(visitor_religion)) errorMsg('البيانات يجب أن تكون كاملة');
+            else  successMsg('البيانات يجب أن تكون كاملة');
+        } catch (err) {
+            errorMsg('حدث خطأ ما إثناء إضافة زائر');
+        }
+    })
+
 
     // intlTelInput Code
     // const input = document.getElementById("applicantPhone");
