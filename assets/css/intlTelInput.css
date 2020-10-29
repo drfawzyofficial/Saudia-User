@@ -1,11 +1,11 @@
 .iti {
   position: relative;
-  display: inline-block; }
+  display: inline-block; direction: ltr; width: 100% }
   .iti * {
     box-sizing: border-box;
     -moz-box-sizing: border-box; }
   .iti__hide {
-    display: none; }
+    display: none !important }
   .iti__v-hide {
     visibility: hidden; }
   .iti input, .iti input[type=text], .iti input[type=tel] {
@@ -14,7 +14,8 @@
     margin-top: 0 !important;
     margin-bottom: 0 !important;
     padding-right: 36px;
-    margin-right: 0; }
+    margin-right: 0;     border-top-right-radius: 0;
+    border-bottom-right-radius: 0; }
   .iti__flag-container {
     position: absolute;
     top: 0;
@@ -42,7 +43,6 @@
     position: absolute;
     z-index: 2;
     list-style: none;
-    text-align: left;
     padding: 0;
     margin: 0 0 0 -1px;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);

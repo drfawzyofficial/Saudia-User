@@ -34,7 +34,7 @@ $(() => {
                     .show(100)
                     .delay(5000)
                     .hide(100);
-                return true;
+                return false;
             }
             form.validate().settings.ignore = ":disabled,:hidden";
             return form.valid();
@@ -50,10 +50,80 @@ $(() => {
             return form.valid();
         },
         onFinished: (event, currentIndex) => {
-            console.log(form.serialize())
+            fetch('/request/resident', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    Agreement: { acceptTerms: $(".acceptTerms").val() },
+                    personalInfo: { user_residentNo: $('.user_residentNo').val(), user_enddate: $('.user_enddate').val() },
+                    requestData: {  },
+                    visitors: arr
+                 }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    $.each(data, (index, data) => {
+                        $(".messages").append(`
+              ${ (data.isAdmin) ? `
+                <div class="${ data.from }Message mt-2 d-flex animated bounceIn">
+                <div class="${ data.from }Image">
+                    <img title="botImage" alt="botImage" src="/assets/Images/Avatar/${ data.from }.png" style="height: 50px; width: 50px; border-radius: 50%;"/>
+                </div>
+                <div class="${ data.from }Content bg-light p-2 ml-2" style="border-radius: 4px; width: calc(100% - 50px)">
+                    <h6>${ data.from }</h6>
+                    <p class="mb-0" style="font-size: 14px">${ data.message }</p>
+                    <span class="bot_timestamp" style="font-size: 12px">${ moment(data.createdAt).fromNow() } </span>
+                </div>
+            </div>
+              ` : `
+              <div class="${ data.from }Message mt-2 d-flex animated bounceIn">
+              <div class="${ data.from }Image">
+                  <img title="botImage" alt="botImage" src="/assets/Images/Avatar/${ data.from}.png" style="height: 50px; width: 50px; border-radius: 50%;"/>
+              </div>
+              <div class="${ data.from }Content bg-light p-2 ml-2" style="border-radius: 4px; width: calc(100% - 50px)">
+                  <h6>${ data.from}</h6>
+                  <p class="mb-0" style="font-size: 14px">${ data.message}</p>
+                  <span class="bot_timestamp" style="font-size: 12px">${ moment(data.createdAt).fromNow()} </span>
+              </div>
+          </div>
+              ` }
+              `)
+            
+                    })
+                    $(".chatArea .messages").animate({ scrollTop: 20000000 }, "slow");
+                    
+    
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
         }
     });
 
+    // intlTelInput JS  Code
+    const input = document.getElementById('phonenumber');
+    window.intlTelInput(input, {
+        initialCountry: 'auto',
+        preferredCountries: ['us','gb','br','ru','cn','es','it'],
+        autoPlaceholder: 'aggressive',
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.6/js/utils.js",
+        geoIpLookup: function(callback) {
+            fetch('https://ipinfo.io/json', {
+                cache: 'reload'
+            }).then(response => {
+                if ( response.ok ) {
+                    return response.json()
+                }
+                throw new Error('Failed: ' + response.status)
+            }).then(ipjson => {
+                callback(ipjson.country)
+            }).catch(e => {
+                callback('us')
+            })
+        }
+    })
     $('.datepickerA').hijriDatePicker({
         locale:"ar-sa",
         hijri: false,
@@ -147,29 +217,29 @@ $(() => {
     $("#add_visitor").click((e) => {
         try {
             e.preventDefault();
-            const visitor_name = $("#visitor_name").val().trim();
-            const visitor_religion =  $("#visitor_religion").val() == undefined ? '' : $("#visitor_religion").val().trim();
-            const visitor_birthdate = $("#visitor_birthdate").val().trim();
-            const visitor_birthplace = $("#visitor_birthplace").val().trim();
-            const visitor_passNum = $("#visitor_passNum").val().trim();
-            const visitor_passType = $("#visitor_passType").val() == undefined ? '' : $("#visitor_passType").val().trim();
-            const visitor_passEd = $("#visitor_passEd").val().trim();
-            const visitor_passFin = $("#visitor_passFin").val().trim();
-            const visitor_passPlace = $("#visitor_passPlace").val().trim();
-            const visitor_job  = $("#visitor_job ").val().trim();
-            const visitor_nat = $("#visitor_nat").val() == undefined ? '' : $("#visitor_nat").val().trim();
-            const visitor_sex = $("#visitor_sex").val() == undefined ? '' : $("#visitor_sex").val().trim();
-            const visitor_destination = $("#visitor_destination").val() == undefined ? '' : $("#visitor_destination").val().trim();
-            const visitor_email = $("#visitor_email").val().trim();
-            const visitor_log = $("#visitor_log").val() == undefined ? '' : $("#visitor_log").val().trim();
-            const visitor_relation = $("#visitor_relation").val() == undefined ? '' : $("#visitor_relation").val().trim();
-            const visitor_valid = $("#visitor_valid").val() == undefined ? '' : $("#visitor_valid").val().trim();
-            const visitor_stay = $("#visitor_stay").val() == undefined ? '' : $("#visitor_stay").val().trim();
-            if (!visitor_name || !['مسلم', 'غير مسلم'].includes(visitor_religion) || !visitor_birthdate || !visitor_birthplace || !visitor_passNum || !['عادي', 'غير عادي'].includes(visitor_passType) || !visitor_passEd || !visitor_passFin || !visitor_passPlace ||!visitor_job || !['مصر'].includes(visitor_nat) || !['ذكر', 'أنثى'].includes(visitor_sex) || !['الإسكندرية', 'الإسماعيلية'].includes(visitor_destination) ||  !visitor_email || !['عدة سفرات', 'سفرة واحدة'].includes(visitor_log) || !['زوج', 'ابن', 'أب', 'أب الزوجة', 'زوجة', 'بنت', 'أم', 'أم الزوجة', 'أخرى'].includes(visitor_relation) || !['365'].includes(visitor_valid) || !['90'].includes(visitor_stay)) {
+            const visitor_name = $(".visitor_name").val().trim();
+            const visitor_religion =  $(".visitor_religion").val() == undefined ? '' : $(".visitor_religion").val().trim();
+            const visitor_birthdate = $(".visitor_birthdate").val().trim();
+            const visitor_birthplace = $(".visitor_birthplace").val().trim();
+            const visitor_passNum = $(".visitor_passNum").val().trim();
+            const visitor_passType = $(".visitor_passType").val() == undefined ? '' : $(".visitor_passType").val().trim();
+            const visitor_passEd = $(".visitor_passEd").val().trim();
+            const visitor_passFin = $(".visitor_passFin").val().trim();
+            const visitor_passPlace = $(".visitor_passPlace").val().trim();
+            const visitor_job  = $(".visitor_job ").val().trim();
+            const visitor_nationality = $(".visitor_nationality").val() == undefined ? '' : $(".visitor_nationality").val().trim();
+            const visitor_sex = $(".visitor_sex").val() == undefined ? '' : $(".visitor_sex").val().trim();
+            const visitor_destination = $(".visitor_destination").val() == undefined ? '' : $(".visitor_destination").val().trim();
+            const visitor_email = $(".visitor_email").val().trim();
+            const visitor_log = $(".visitor_log").val() == undefined ? '' : $(".visitor_log").val().trim();
+            const visitor_relation = $(".visitor_relation").val() == undefined ? '' : $(".visitor_relation").val().trim();
+            const visitor_valid = $(".visitor_valid").val() == undefined ? '' : $(".visitor_valid").val().trim();
+            const visitor_stay = $(".visitor_stay").val() == undefined ? '' : $(".visitor_stay").val().trim();
+            if (!visitor_name || !['مسلم', 'غير مسلم'].includes(visitor_religion) || !visitor_birthdate || !visitor_birthplace || !visitor_passNum || !['عادي', 'دبلوماسي', 'خاص', 'وثيقة السفر'].includes(visitor_passType) || !visitor_passEd || !visitor_passFin || !visitor_passPlace ||!visitor_job || !visitor_nationality || !['ذكر', 'أنثى'].includes(visitor_sex) || !(visitor_destination) ||  !visitor_email || !['عدة سفرات', 'سفرة واحدة'].includes(visitor_log) || !['زوج', 'ابن', 'أب', 'أب الزوجة', 'زوجة', 'بنت', 'أم', 'أم الزوجة', 'أخرى'].includes(visitor_relation) || !['365'].includes(visitor_valid) || !['90'].includes(visitor_stay)) {
                 errorMsg('تأكد من إدخال جميع البيانات');
             } else {
                 counter++;
-                const data =  { id: counter, visitor_name: visitor_name, visitor_religion: visitor_religion, visitor_birthdate: visitor_birthdate, visitor_birthplace: visitor_birthplace, visitor_passNum: visitor_passNum, visitor_passType:  visitor_passType,  visitor_passEd:  visitor_passEd, visitor_passFin: visitor_passFin, visitor_passPlace: visitor_passPlace , visitor_job: visitor_job,  visitor_nat: visitor_nat, visitor_sex: visitor_sex, visitor_destination: visitor_destination, visitor_email: visitor_email, visitor_log: visitor_log, visitor_relation: visitor_relation,  visitor_valid: visitor_valid, visitor_stay: visitor_stay };
+                const data =  { id: counter, visitor_name: visitor_name, visitor_religion: visitor_religion, visitor_birthdate: visitor_birthdate, visitor_birthplace: visitor_birthplace, visitor_passNum: visitor_passNum, visitor_passType:  visitor_passType,  visitor_passEd:  visitor_passEd, visitor_passFin: visitor_passFin, visitor_passPlace: visitor_passPlace , visitor_job: visitor_job,  visitor_nationality: visitor_nationality, visitor_sex: visitor_sex, visitor_destination: visitor_destination, visitor_email: visitor_email, visitor_log: visitor_log, visitor_relation: visitor_relation,  visitor_valid: visitor_valid, visitor_stay: visitor_stay };
                 $("#message_notFound").remove();
                 $("#bodyContent").empty();
                 arr.push(data);
@@ -182,7 +252,7 @@ $(() => {
                             <td>${ Obj.visitor_birthplace }</td>
                             <td>${ Obj.visitor_passType }</td>
                             <td>${ Obj.visitor_job }</td>
-                            <td>${ Obj.visitor_nat }</td>
+                            <td>${ Obj.visitor_nationality }</td>
                             <td>${ Obj.visitor_destination }</td>
                             <td>${ Obj.visitor_relation }</td>
                             <td>${ Obj.visitor_log }</td>

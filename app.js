@@ -6,6 +6,11 @@ const io = require('socket.io')(http)
 app.set("io", io);
 /*@ here we include express-framework @*/
 
+/*@ here we include third-party middleware => cors @*/
+const cors = require('cors')
+app.use(cors())
+/*@ here we include third-party middleware => cors @*/
+
 /*@ here we include third-party middleware => responseTime @*/
 const responseTime = require('response-time')
 app.use(responseTime())
@@ -104,6 +109,11 @@ app.use('/profile', Profile);
 /*@ here we include settingRouter @*/
 const Settings = require('./routes/Settings');
 app.use('/settings', Settings);
+/*@ here we include settingRouter @*/
+
+/*@ here we include settingRouter @*/
+const Request = require('./routes/Request');
+app.use('/request', Request);
 /*@ here we include settingRouter @*/
 
 

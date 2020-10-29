@@ -11,7 +11,7 @@
 <!-- jQuery Steps CSS -->
 <link rel="stylesheet" href="/assets/css/jquery.steps.css">
 <!-- intlTelInput CSS -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css" integrity="sha512-yye/u0ehQsrVrfSd6biT17t39Rg9kNc+vENcCXZuMz2a+LWFGvXUnYuWUW6pbfYj1jcBb/C39UZw2ciQvwDDvg==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="/assets/css/intlTelInput.css" />
 
 <%- contentFor('body') %>
 <!-- Request Section -->
@@ -35,478 +35,16 @@
         <div class="row mt-3">
             <div class="col-12">
                 <form id="wizard" class="wizard-form-fawzy">
-                    <h3>بيانات الزوار</h3>
-                    <section>
-                        <h4>بيانات الزوار</h4>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">الغرض من الزيارة</span>
-                                    </div>
-                                    <input class="form-control visitPurpose required" id="visitPurpose"
-                                        name="visitPurpose" type="text" placeholder="الغرض من الزيارة"
-                                        value="زيارة عائلية" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-12">
-                                <h4 style="border-bottom: 1px solid #DDD; padding-bottom: 8px;
-                                margin-bottom: 15px; color: #055959;">المطلوبين للزيارة</h4>
-                                <div class="forAddVisitors" id="forAddVisitors" style="margin-bottom: 15px">
-                                    <!-- Large modal -->
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target=".visitor-modal">إضافة زائر</button>
-                                    <div class="modal fade visitor-modal" tabindex="-1" role="dialog"
-                                        aria-labelledby="Large-Visitor-Modal" aria-hidden="true" id="myModal">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle" style="color: #055959">الرجاء إضافة الشخص المطلوب للزيارة وتعبئة البيانات المطلوبة</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="visitor_form container-fluid" style="padding: 15px; border: 1px solid #DDD" id="visitor_form">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">اسم المطلوب</span>
-                                                                    </div>
-                                                                    <input class="form-control visitor_name required" id="visitor_name"
-                                                                        name="visitor_name" type="text" placeholder="أدخل اسم المطلوب" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3 mt-md-0">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                      <label class="input-group-text" for="visitor_religion">الديانة</label>
-                                                                    </div>
-                                                                    <select class="custom-select visitor_religion" id="visitor_religion" name="visitor_religion" style="font-family: 'Cairo', sans-serif">
-                                                                        <option value="" disabled selected>< إختر من القائمة ></option>
-                                                                        <option value="مسلم">مسلم</option>
-                                                                        <option value="غير مسلم">غير مسلم</option>
-                                                                    </select>
-                                                                  </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text" id="addon-birthdate">تاريخ الميلاد</span>
-                                                                    </div>
-                                                                    <input type="text" class="form-control datepickerA required" id="visitor_birthdate" name="visitor_birthdate"
-                                                                        placeholder="أدخل تاريخ الميلاد" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">محل الميلاد</span>
-                                                                    </div>
-                                                                    <input class="form-control visitor_birthplace required" id="visitor_birthplace" name="visitor_birthplace" type="text"
-                                                                        placeholder="إكتب محل الميلاد" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">رقم جواز السفر</span>
-                                                                    </div>
-                                                                    <input class="form-control visitor_passNum required" id="visitor_passNum"
-                                                                        name="visitor_passNum" type="text" placeholder="أدخل رقم جواز السفر" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                      <label class="input-group-text" for="visitor_passType">نوع الجواز</label>
-                                                                    </div>
-                                                                    <select class="custom-select visitor_passType" id="visitor_passType" name="visitor_passType" style="font-family: 'Cairo', sans-serif">
-                                                                        <option value="" disabled selected>< إختر من القائمة ></option>
-                                                                        <option value="عادي">عادي</option>
-                                                                        <option value="غير عادي">غير عادي</option>
-                                                                    </select>
-                                                                  </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">تاريخ إصدار الجواز</span>
-                                                                    </div>
-                                                                    <input class="form-control datepickerA required" id="visitor_passEd" name="visitor_passEd" type="text"
-                                                                        placeholder="تاريخ إصدار الجواز" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">تاريخ إنتهاء الجواز</span>
-                                                                    </div>
-                                                                    <input class="form-control datepickerA required" id="visitor_passFin" name="visitor_passFin" type="text"
-                                                                        placeholder="تاريخ إنتهاء الجواز" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">مكان إصدار جواز السفر</span>
-                                                                    </div>
-                                                                    <input class="form-control visitor_passPlace required" id="visitor_passPlace"
-                                                                        name="visitor_passPlace" type="text" placeholder="أدخل المكان" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">المهنة</span>
-                                                                    </div>
-                                                                    <input class="form-control visitor_job required" id="visitor_job"
-                                                                        name="visitor_job" type="text" placeholder="أدخل المهنة" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                      <label class="input-group-text" for="visitor_nat">الجنسية</label>
-                                                                    </div>
-                                                                    <select class="custom-select visitor_nat" id="visitor_nat" name="visitor_nat" style="font-family: 'Cairo', sans-serif">
-                                                                        <option value="" disabled selected>< إختر من القائمة ></option>
-                                                                            <option value="أفغانستان">أفغانستان</option>
-                                                                            <option value="ألبانيا">ألبانيا</option>
-                                                                            <option value="الجزائر">الجزائر</option>
-                                                                            <option value="أندورا">أندورا</option>
-                                                                            <option value="أنغولا">أنغولا</option>
-                                                                            <option value="أنتيغوا وباربودا">أنتيغوا وباربودا</option>
-                                                                            <option value="الأرجنتين">الأرجنتين</option>
-                                                                            <option value="أرمينيا">أرمينيا</option>
-                                                                            <option value="أستراليا">أستراليا</option>
-                                                                            <option value="النمسا">النمسا</option>
-                                                                            <option value="أذربيجان">أذربيجان</option>
-                                                                            <option value="البهاما">البهاما</option>
-                                                                            <option value="البحرين">البحرين</option>
-                                                                            <option value="بنغلاديش">بنغلاديش</option>
-                                                                            <option value="باربادوس">باربادوس</option>
-                                                                            <option value="بيلاروسيا">بيلاروسيا</option>
-                                                                            <option value="بلجيكا">بلجيكا</option>
-                                                                            <option value="بليز">بليز</option>
-                                                                            <option value="بنين">بنين</option>
-                                                                            <option value="بوتان">بوتان</option>
-                                                                            <option value="بوليفيا">بوليفيا</option>
-                                                                            <option value="البوسنة والهرسك ">البوسنة والهرسك </option>
-                                                                            <option value="بوتسوانا">بوتسوانا</option>
-                                                                            <option value="البرازيل">البرازيل</option>
-                                                                            <option value="بروناي">بروناي</option>
-                                                                            <option value="بلغاريا">بلغاريا</option>
-                                                                            <option value="بوركينا فاسو ">بوركينا فاسو </option>
-                                                                            <option value="بوروندي">بوروندي</option>
-                                                                            <option value="كمبوديا">كمبوديا</option>
-                                                                            <option value="الكاميرون">الكاميرون</option>
-                                                                            <option value="كندا">كندا</option>
-                                                                            <option value="الرأس الأخضر">الرأس الأخضر</option>
-                                                                            <option value="جمهورية أفريقيا الوسطى ">جمهورية أفريقيا الوسطى </option>
-                                                                            <option value="تشاد">تشاد</option>
-                                                                            <option value="تشيلي">تشيلي</option>
-                                                                            <option value="الصين">الصين</option>
-                                                                            <option value="كولومبيا">كولومبيا</option>
-                                                                            <option value="جزر القمر">جزر القمر</option>
-                                                                            <option value="كوستاريكا">كوستاريكا</option>
-                                                                            <option value="ساحل العاج">ساحل العاج</option>
-                                                                            <option value="كرواتيا">كرواتيا</option>
-                                                                            <option value="كوبا">كوبا</option>
-                                                                            <option value="قبرص">قبرص</option>
-                                                                            <option value="التشيك">التشيك</option>
-                                                                            <option value="جمهورية الكونغو الديمقراطية">جمهورية الكونغو الديمقراطية</option>
-                                                                            <option value="الدنمارك">الدنمارك</option>
-                                                                            <option value="جيبوتي">جيبوتي</option>
-                                                                            <option value="دومينيكا">دومينيكا</option>
-                                                                            <option value="جمهورية الدومينيكان">جمهورية الدومينيكان</option>
-                                                                            <option value="تيمور الشرقية ">تيمور الشرقية </option>
-                                                                            <option value="الإكوادور">الإكوادور</option>
-                                                                            <option value="مصر">مصر</option>
-                                                                            <option value="السلفادور">السلفادور</option>
-                                                                            <option value="غينيا الاستوائية">غينيا الاستوائية</option>
-                                                                            <option value="إريتريا">إريتريا</option>
-                                                                            <option value="إستونيا">إستونيا</option>
-                                                                            <option value="إثيوبيا">إثيوبيا</option>
-                                                                            <option value="فيجي">فيجي</option>
-                                                                            <option value="فنلندا">فنلندا</option>
-                                                                            <option value="فرنسا">فرنسا</option>
-                                                                            <option value="الغابون">الغابون</option>
-                                                                            <option value="غامبيا">غامبيا</option>
-                                                                            <option value="جورجيا">جورجيا</option>
-                                                                            <option value="ألمانيا">ألمانيا</option>
-                                                                            <option value="غانا">غانا</option>
-                                                                            <option value="اليونان">اليونان</option>
-                                                                            <option value="جرينادا">جرينادا</option>
-                                                                            <option value="غواتيمالا">غواتيمالا</option>
-                                                                            <option value="غينيا">غينيا</option>
-                                                                            <option value="غينيا بيساو">غينيا بيساو</option>
-                                                                            <option value="غويانا">غويانا</option>
-                                                                            <option value="هايتي">هايتي</option>
-                                                                            <option value="هندوراس">هندوراس</option>
-                                                                            <option value="المجر">المجر</option>
-                                                                            <option value="آيسلندا">آيسلندا</option>
-                                                                            <option value="الهند">الهند</option>
-                                                                            <option value="إندونيسيا">إندونيسيا</option>
-                                                                            <option value="إيران">إيران</option>
-                                                                            <option value="العراق">العراق</option>
-                                                                            <option value="جمهورية أيرلندا ">جمهورية أيرلندا </option>
-                                                                            <option value="فلسطين">فلسطين</option>
-                                                                            <option value="إيطاليا">إيطاليا</option>
-                                                                            <option value="جامايكا">جامايكا</option>
-                                                                            <option value="اليابان">اليابان</option>
-                                                                            <option value="الأردن">الأردن</option>
-                                                                            <option value="كازاخستان">كازاخستان</option>
-                                                                            <option value="كينيا">كينيا</option>
-                                                                            <option value="كيريباتي">كيريباتي</option>
-                                                                            <option value="الكويت">الكويت</option>
-                                                                            <option value="قرغيزستان">قرغيزستان</option>
-                                                                            <option value="لاوس">لاوس</option>
-                                                                            <option value="لاوس">لاوس</option>
-                                                                            <option value="لاتفيا">لاتفيا</option>
-                                                                            <option value="لبنان">لبنان</option>
-                                                                            <option value="ليسوتو">ليسوتو</option>
-                                                                            <option value="ليبيريا">ليبيريا</option>
-                                                                            <option value="ليبيا">ليبيا</option>
-                                                                            <option value="ليختنشتاين">ليختنشتاين</option>
-                                                                            <option value="ليتوانيا">ليتوانيا</option>
-                                                                            <option value="لوكسمبورغ">لوكسمبورغ</option>
-                                                                            <option value="مدغشقر">مدغشقر</option>
-                                                                            <option value="مالاوي">مالاوي</option>
-                                                                            <option value="ماليزيا">ماليزيا</option>
-                                                                            <option value="جزر المالديف">جزر المالديف</option>
-                                                                            <option value="مالي">مالي</option>
-                                                                            <option value="مالطا">مالطا</option>
-                                                                            <option value="جزر مارشال">جزر مارشال</option>
-                                                                            <option value="موريتانيا">موريتانيا</option>
-                                                                            <option value="موريشيوس">موريشيوس</option>
-                                                                            <option value="المكسيك">المكسيك</option>
-                                                                            <option value="مايكرونيزيا">مايكرونيزيا</option>
-                                                                            <option value="مولدوفا">مولدوفا</option>
-                                                                            <option value="موناكو">موناكو</option>
-                                                                            <option value="منغوليا">منغوليا</option>
-                                                                            <option value="الجبل الأسود">الجبل الأسود</option>
-                                                                            <option value="المغرب">المغرب</option>
-                                                                            <option value="موزمبيق">موزمبيق</option>
-                                                                            <option value="بورما">بورما</option>
-                                                                            <option value="ناميبيا">ناميبيا</option>
-                                                                            <option value="ناورو">ناورو</option>
-                                                                            <option value="نيبال">نيبال</option>
-                                                                            <option value="هولندا">هولندا</option>
-                                                                            <option value="نيوزيلندا">نيوزيلندا</option>
-                                                                            <option value="نيكاراجوا">نيكاراجوا</option>
-                                                                            <option value="النيجر">النيجر</option>
-                                                                            <option value="نيجيريا">نيجيريا</option>
-                                                                            <option value="كوريا الشمالية ">كوريا الشمالية </option>
-                                                                            <option value="النرويج">النرويج</option>
-                                                                            <option value="سلطنة عمان">سلطنة عمان</option>
-                                                                            <option value="باكستان">باكستان</option>
-                                                                            <option value="بالاو">بالاو</option>
-                                                                            <option value="بنما">بنما</option>
-                                                                            <option value="بابوا غينيا الجديدة">بابوا غينيا الجديدة</option>
-                                                                            <option value="باراغواي">باراغواي</option>
-                                                                            <option value="بيرو">بيرو</option>
-                                                                            <option value="الفلبين">الفلبين</option>
-                                                                            <option value="بولندا">بولندا</option>
-                                                                            <option value="البرتغال">البرتغال</option>
-                                                                            <option value="قطر">قطر</option>
-                                                                            <option value="جمهورية الكونغو">جمهورية الكونغو</option>
-                                                                            <option value="جمهورية مقدونيا">جمهورية مقدونيا</option>
-                                                                            <option value="رومانيا">رومانيا</option>
-                                                                            <option value="روسيا">روسيا</option>
-                                                                            <option value="رواندا">رواندا</option>
-                                                                            <option value="سانت كيتس ونيفيس">سانت كيتس ونيفيس</option>
-                                                                            <option value="سانت لوسيا">سانت لوسيا</option>
-                                                                            <option value="سانت فنسينت والجرينادينز">سانت فنسينت والجرينادينز</option>
-                                                                            <option value="ساموا">ساموا</option>
-                                                                            <option value="سان مارينو">سان مارينو</option>
-                                                                            <option value="ساو تومي وبرينسيب">ساو تومي وبرينسيب</option>
-                                                                            <option value="السعودية">السعودية</option>
-                                                                            <option value="السنغال">السنغال</option>
-                                                                            <option value="صربيا">صربيا</option>
-                                                                            <option value="سيشيل">سيشيل</option>
-                                                                            <option value="سيراليون">سيراليون</option>
-                                                                            <option value="سنغافورة">سنغافورة</option>
-                                                                            <option value="سلوفاكيا">سلوفاكيا</option>
-                                                                            <option value="سلوفينيا">سلوفينيا</option>
-                                                                            <option value="جزر سليمان">جزر سليمان</option>
-                                                                            <option value="الصومال">الصومال</option>
-                                                                            <option value="جنوب أفريقيا">جنوب أفريقيا</option>
-                                                                            <option value="كوريا الجنوبية">كوريا الجنوبية</option>
-                                                                            <option value="جنوب السودان">جنوب السودان</option>
-                                                                            <option value="إسبانيا">إسبانيا</option>
-                                                                            <option value="سريلانكا">سريلانكا</option>
-                                                                            <option value="السودان">السودان</option>
-                                                                            <option value="سورينام">سورينام</option>
-                                                                            <option value="سوازيلاند">سوازيلاند</option>
-                                                                            <option value="السويد">السويد</option>
-                                                                            <option value="سويسرا">سويسرا</option>
-                                                                            <option value="سوريا">سوريا</option>
-                                                                            <option value="طاجيكستان">طاجيكستان</option>
-                                                                            <option value="تنزانيا">تنزانيا</option>
-                                                                            <option value="تايلاند">تايلاند</option>
-                                                                            <option value="توغو">توغو</option>
-                                                                            <option value="تونجا">تونجا</option>
-                                                                            <option value="ترينيداد وتوباغو">ترينيداد وتوباغو</option>
-                                                                            <option value="تونس">تونس</option>
-                                                                            <option value="تركيا">تركيا</option>
-                                                                            <option value="تركمانستان">تركمانستان</option>
-                                                                            <option value="توفالو">توفالو</option>
-                                                                            <option value="أوغندا">أوغندا</option>
-                                                                            <option value="أوكرانيا">أوكرانيا</option>
-                                                                            <option value="الإمارات العربية المتحدة">الإمارات العربية المتحدة</option>
-                                                                            <option value="المملكة المتحدة">المملكة المتحدة</option>
-                                                                            <option value="الولايات المتحدة">الولايات المتحدة</option>
-                                                                            <option value="أوروغواي">أوروغواي</option>
-                                                                            <option value="أوزبكستان">أوزبكستان</option>
-                                                                            <option value="فانواتو">فانواتو</option>
-                                                                            <option value="فنزويلا">فنزويلا</option>
-                                                                            <option value="فيتنام">فيتنام</option>
-                                                                            <option value="اليمن">اليمن</option>
-                                                                            <option value="زامبيا">زامبيا</option>
-                                                                            <option value="زيمبابوي">زيمبابوي</option>
-                                                                    </select>
-                                                                  </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                      <label class="input-group-text" for="visitor_sex">الجنس</label>
-                                                                    </div>
-                                                                    <select class="custom-select visitor_sex" id="visitor_sex" name="visitor_sex" style="font-family: 'Cairo', sans-serif">
-                                                                        <option value="" disabled selected>< إختر من القائمة ></option>
-                                                                        <option value="ذكر">ذكر</option>
-                                                                        <option value="أنثى">أنثى</option>
-                                                                    </select>
-                                                                  </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                      <label class="input-group-text" for="visitor_destination">جهة القدوم</label>
-                                                                    </div>
-                                                                    <select class="custom-select visitor_destination" id="visitor_destination" name="visitor_destination" style="font-family: 'Cairo', sans-serif">
-                                                                        <option value="" disabled selected>< إختر من القائمة ></option>
-                                                                        <option value="الإسكندرية">الإسكندرية</option>
-                                                                        <option value="الإسماعيلية">الإسماعيلية</option>
-                                                                        <option value="الزقازيق">الزقازيق</option>
-                                                                    </select>
-                                                                  </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">البريد الإلكتروني</span>
-                                                                    </div>
-                                                                    <input class="form-control visitor_email required" id="visitor_email"
-                                                                        name="visitor_email" type="email" placeholder="أدخل البريد" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                      <label class="input-group-text" for="visitor_log">عدد مرات الدخول</label>
-                                                                    </div>
-                                                                    <select class="custom-select visitor_log" id="visitor_log" name="visitor_log" style="font-family: 'Cairo', sans-serif">
-                                                                        <option value="" disabled selected>< إختر من القائمة ></option>
-                                                                        <option value="سفرة واحدة">سفرة واحدة</option>
-                                                                        <option value="عدة سفرات">عدة سفرات</option>
-                                                                    </select>
-                                                                  </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                      <label class="input-group-text" for="visitor_relation">العلاقة</label>
-                                                                    </div>
-                                                                    <select class="custom-select visitor_relation" id="visitor_relation" name="visitor_relation" style="font-family: 'Cairo', sans-serif">
-                                                                        <option value="" disabled selected>< إختر من القائمة ></option>
-                                                                        <option value="زوج">زوج</option>
-                                                                        <option value="ابن">ابن</option>
-                                                                        <option value="أب">أب</option>
-                                                                        <option value="أب الزوجة">أب الزوجة</option>
-                                                                        <option value="أخرى">أخرى</option>
-                                                                    </select>
-                                                                  </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                      <label class="input-group-text" for="visitor_valid">مدة الصلاحية باليوم</label>
-                                                                    </div>
-                                                                    <select class="custom-select visitor_valid" id="visitor_valid" name="visitor_valid" style="font-family: 'Cairo', sans-serif">
-                                                                        <option value="" disabled selected>< إختر من القائمة ></option>
-                                                                        <option value="365">365</option>
-                                                                    </select>
-                                                                  </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6 mt-3">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                      <label class="input-group-text" for="visitor_stay">مدة الإقامة باليوم</label>
-                                                                    </div>
-                                                                    <select class="custom-select visitor_stay" id="visitor_stay" name="visitor_stay" style="font-family: 'Cairo', sans-serif">
-                                                                        <option value="" disabled selected>< إختر من القائمة ></option>
-                                                                        <option value="90">90</option>
-                                                                    </select>
-                                                                  </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="add_visitor btn btn-success" id="add_visitor">إضافة</button>
-                                                    <button type="button" class="btn btn-light"
-                                                        data-dismiss="modal">إغلاق</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover mb-0 text-center" style="background-color: #bbd849;
-                                    color: #FFF;">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">الاسم</th>
-                                                <th scope="col">الديانة</th>
-                                                <th scope="col">محل الميلاد</th>
-                                                <th scope="col">نوع الجواز</th>
-                                                <th scope="col">المهنة</th>
-                                                <th scope="col">الجنسية</th>
-                                                <th scope="col">جهة القدوم</th>
-                                                <th scope="col">العلاقة</th>
-                                                <th scope="col">مرات الدخول</th>
-                                                <th scope="col">مدة الصلاحية</th>
-                                                <th scope="col">الحذف</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="bodyContent" style="background-color: #ffffff;color: #444;">
-                                           
-                                        </tbody>
-                                    </table>
-                                    <div class="message_notFound p-2 bg-light" id="message_notFound">لأ توجد بيانات</div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
                     <h3>الموافقة</h3>
-                    <section>
+                    <section style="background-color: #DCF0FA; padding: 5px; border-right: 3px solid #a6d6ef;">
                         <h4>الموافقة على التعهد</h4>
-                        <p>أنا أوافق على تلك الشروط بكل ما أوتيت من قوة الآن. الشروط أوافق عليها بكل قوة من المملكة
-                            العربية السعودية التي تقوم بعمل الكثير من الاهتمام أوافق عليها ياساة أيها الجميع إني أوفق
-                            على تلك الشروط التي تقوم بها العربية السعودية. سأقوم بملئ ذلك النموذج بشكل كامل من أول خطوة
-                            إلى آخر خطوة والآن يوجد 3 خطوات نسأل الله سبحانه وتعالى التوفيق</p>
-                        <p class="mb-0"> <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required" />
+                        <p>تعهد بتدوين جميع بياناتي بالشكل المطلوب وتدوين بيانات المطلوب للزيارة من واقع جواز سفره،
+                            وأتعهد بتوفير السكن المناسب، ومغادرة الشخص المطلوب للزيارة قبل انتهاء مدة الإقامة المحددة في
+                            تأشيرة الدخول، وأن يكون طيلة مدة إقامته في المملكة خاضعاً للأنظمة والقوانين المرعية وأن
+                            الغرض من الطلب هو للزيارة فقط وليس للعمل أو أداء الحج، وأتحمل المسئولية إذا ثبت خلاف ذلك.
+                            كما أفوض وزارة الخارجية السعودية بالاطلاع على سجل بياناتي في المملكة.</p>
+                        <p class="mb-0"> <input id="acceptTerms" name="acceptTerms" type="checkbox"
+                                class="acceptTerms required" />
                             <span>الموافقة على التعهد</span> </p>
                     </section>
                     <h3>البيانات الشخصية</h3>
@@ -518,8 +56,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">رقم الإقامة</span>
                                     </div>
-                                    <input class="form-control residentNumber required" id="residentNumber"
-                                        name="residentNumber" type="text" placeholder="أدخل رقم الإقامة بشكل صحيح" />
+                                    <input class="form-control user_residentNo required" id="user_residentNo"
+                                        name="user_residentNo" type="text" placeholder="أدخل رقم الإقامة بشكل صحيح" />
                                 </div>
                             </div>
                             <div class="col-md-6 mt-3 mt-md-0">
@@ -527,7 +65,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="addon-enddate">تاريخ الإنتهاء</span>
                                     </div>
-                                    <input type="text" class="form-control hijri-date-input required" id="hijri-date-input" name="hijri-date-input"
+                                    <input type="text" class="form-control user_enddate hijri-date-input required"
+                                        id="hijri-date-input" name="hijri-date-input"
                                         placeholder="أدخل تاريخ الإنتهاء بالهجري" />
                                 </div>
                             </div>
@@ -542,7 +81,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">اسم صاحب الطلب</span>
                                     </div>
-                                    <input class="form-control applicant required" id="applicant" name="applicant"
+                                    <input class="form-control user_applicant required" id="applicant" name="applicant"
                                         type="text" placeholder="اسم صاحب الطلب" />
                                 </div>
                             </div>
@@ -551,7 +90,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">الجنسية</span>
                                     </div>
-                                    <select class="form-control nationality" id="nationality" name="nationality">
+                                    <select class="form-control user_nationality" id="nationality" name="nationality">
                                         <option value="" disabled selected>إختر</option>
                                         <option value="أفغانستان">أفغانستان</option>
                                         <option value="ألبانيا">ألبانيا</option>
@@ -755,17 +294,17 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">المهنة</span>
                                     </div>
-                                    <input class="form-control job required" id="job" name="job" type="text"
+                                    <input class="form-control user_job required" id="job" name="job" type="text"
                                         placeholder="اكتب اسم المهنة" />
                                 </div>
                             </div>
                             <div class="col-md-6 mt-3">
-                                <div class="input-group">
+                                <div class="input-group" style="flex-wrap: nowrap;">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">رقم الجوال</span>
                                     </div>
-                                    <input class="form-control phonenumber required" id="phonenumber" name="phonenumber"
-                                        type="text" placeholder="اكتب رقم الجوال" />
+                                    <input class="form-control user_phonenumber" id="phonenumber" name="phonenumber"
+                                        type="tel" style="text-align: right !important" />
                                 </div>
                             </div>
                             <div class="col-md-6 mt-3">
@@ -773,8 +312,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">العنوان</span>
                                     </div>
-                                    <input class="form-control address required" id="address" name="address" type="text"
-                                        placeholder="اكتب عنوانك بشكل صحيح" />
+                                    <input class="form-control user_address required" id="address" name="address"
+                                        type="text" placeholder="اكتب عنوانك بشكل صحيح" />
                                 </div>
                             </div>
                             <div class="col-md-6 mt-3">
@@ -782,7 +321,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">البريد الإلكتروني</span>
                                     </div>
-                                    <input class="form-control email required" id="email" name="email" type="email"
+                                    <input class="form-control user_email required" id="email" name="email" type="email"
                                         placeholder="اكتب رقم الجوال" />
                                 </div>
                             </div>
@@ -791,8 +330,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="addon-birthdate">تاريخ الميلاد</span>
                                     </div>
-                                    <input type="text" class="form-control datepickerA required" id="birthdate" name="birthdate"
-                                        placeholder="أدخل تاريخ الميلاد" />
+                                    <input type="text" class="form-control datepickerA user_birthdate required"
+                                        id="birthdate" name="birthdate" placeholder="أدخل تاريخ الميلاد" />
                                 </div>
                             </div>
                             <div class="col-md-6 mt-3">
@@ -800,7 +339,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">رقم تأشيرة الدخول</span>
                                     </div>
-                                    <input class="form-control visa required" id="visa" name="visa" type="text"
+                                    <input class="form-control user_visa required" id="visa" name="visa" type="text"
                                         placeholder="اكتب رقم تأشيرة الدخول" />
                                 </div>
                             </div>
@@ -815,19 +354,729 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">اسم صاحب العمل</span>
                                     </div>
-                                    <input class="form-control work-res required" id="work-res" name="work-res" readonly
-                                        type="text" value="مؤسس شريفة صناع المصري التجارية" />
+                                    <input class="form-control user_work required" id="work-res" name="work-res"
+                                        type="text" placeholder="أدخل اسم صاحب العمل" />
                                 </div>
                             </div>
                         </div>
                     </section>
-                    <h3>رقم الهاتف</h3>
+
+                    <h3>بيانات الزوار</h3>
                     <section>
-                        <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label
-                            for="acceptTerms">أنا أوافق على تلك الشروط بكل ما أوتيت من قوة الآن. الشروط أوافق عليها بكل
-                            قوة من المملكة العربية السعودية التي تقوم بعمل الكثير من الاهتمام أوافق عليها ياساة أيها
-                            الجميع إني أوفق على تلك الشروط التي تقوم بها العربية السعودية. سأقوم بملئ ذلك النموذج بشكل
-                            كامل من أول خطوة إلى آخر خطوة والآن يوجد 3 خطوات نسأل الله سبحانه وتعالى التوفيق</label>
+                        <h4>بيانات الزوار</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">الغرض من الزيارة</span>
+                                    </div>
+                                    <input class="form-control user_visitPurpose required" id="visitPurpose"
+                                        name="visitPurpose" type="text" placeholder="الغرض من الزيارة" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <h4 style="border-bottom: 1px solid #DDD; padding-bottom: 8px;
+                                margin-bottom: 15px; color: #055959;">المطلوبين للزيارة</h4>
+                                <div class="forAddVisitors" id="forAddVisitors" style="margin-bottom: 15px">
+                                    <!-- Large modal -->
+                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target=".visitor-modal">إضافة زائر</button>
+                                    <div class="modal fade visitor-modal" tabindex="-1" role="dialog"
+                                        aria-labelledby="Large-Visitor-Modal" aria-hidden="true" id="myModal">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle"
+                                                        style="color: #055959">الرجاء إضافة الشخص المطلوب للزيارة وتعبئة
+                                                        البيانات المطلوبة</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="visitor_form container-fluid"
+                                                        style="padding: 15px; border: 1px solid #DDD" id="visitor_form">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">اسم
+                                                                            المطلوب</span>
+                                                                    </div>
+                                                                    <input class="form-control visitor_name required"
+                                                                        id="visitor_name" name="visitor_name"
+                                                                        type="text" placeholder="أدخل اسم المطلوب" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3 mt-md-0">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <label class="input-group-text"
+                                                                            for="visitor_religion">الديانة</label>
+                                                                    </div>
+                                                                    <select class="custom-select visitor_religion"
+                                                                        id="visitor_religion" name="visitor_religion"
+                                                                        style="font-family: 'Cairo', sans-serif">
+                                                                        <option value="" disabled selected>
+                                                                            < إختر من القائمة>
+                                                                        </option>
+                                                                        <option value="مسلم">مسلم</option>
+                                                                        <option value="غير مسلم">غير مسلم</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"
+                                                                            id="addon-birthdate">تاريخ الميلاد</span>
+                                                                    </div>
+                                                                    <input type="text"
+                                                                        class="form-control datepickerA visitor_birthdate required"
+                                                                        id="visitor_birthdate" name="visitor_birthdate"
+                                                                        placeholder="أدخل تاريخ الميلاد" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">محل
+                                                                            الميلاد</span>
+                                                                    </div>
+                                                                    <input
+                                                                        class="form-control visitor_birthplace required"
+                                                                        id="visitor_birthplace"
+                                                                        name="visitor_birthplace" type="text"
+                                                                        placeholder="إكتب محل الميلاد" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">رقم جواز
+                                                                            السفر</span>
+                                                                    </div>
+                                                                    <input class="form-control visitor_passNum required"
+                                                                        id="visitor_passNum" name="visitor_passNum"
+                                                                        type="text" placeholder="أدخل رقم جواز السفر" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <label class="input-group-text"
+                                                                            for="visitor_passType">نوع الجواز</label>
+                                                                    </div>
+                                                                    <select class="custom-select visitor_passType"
+                                                                        id="visitor_passType" name="visitor_passType"
+                                                                        style="font-family: 'Cairo', sans-serif">
+                                                                        <option value="" disabled selected>
+                                                                            < إختر من القائمة>
+                                                                        </option>
+                                                                        <option value="عادي">عادي</option>
+                                                                        <option value="دبلوماسي">دبلوماسي</option>
+                                                                        <option value="خاص">خاص </option>
+                                                                        <option value="وثيقة السفر">وثيقة السفر</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">تاريخ إصدار
+                                                                            الجواز</span>
+                                                                    </div>
+                                                                    <input
+                                                                        class="form-control visitor_passEd datepickerA required"
+                                                                        id="visitor_passEd" name="visitor_passEd"
+                                                                        type="text" placeholder="تاريخ إصدار الجواز" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">تاريخ إنتهاء
+                                                                            الجواز</span>
+                                                                    </div>
+                                                                    <input
+                                                                        class="form-control visitor_passFin datepickerA required"
+                                                                        id="visitor_passFin" name="visitor_passFin"
+                                                                        type="text" placeholder="تاريخ إنتهاء الجواز" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">مكان إصدار جواز
+                                                                            السفر</span>
+                                                                    </div>
+                                                                    <input
+                                                                        class="form-control visitor_passPlace required"
+                                                                        id="visitor_passPlace" name="visitor_passPlace"
+                                                                        type="text" placeholder="أدخل المكان" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">المهنة</span>
+                                                                    </div>
+                                                                    <input class="form-control visitor_job required"
+                                                                        id="visitor_job" name="visitor_job" type="text"
+                                                                        placeholder="أدخل المهنة" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <label class="input-group-text"
+                                                                            for="visitor_nat">الجنسية</label>
+                                                                    </div>
+                                                                    <select class="custom-select visitor_nationality"
+                                                                        id="visitor_nat" name="visitor_nat"
+                                                                        style="font-family: 'Cairo', sans-serif">
+                                                                        <option value="" disabled selected>
+                                                                            < إختر من القائمة>
+                                                                        </option>
+                                                                        <option value="أفغانستان">أفغانستان</option>
+                                                                        <option value="ألبانيا">ألبانيا</option>
+                                                                        <option value="الجزائر">الجزائر</option>
+                                                                        <option value="أندورا">أندورا</option>
+                                                                        <option value="أنغولا">أنغولا</option>
+                                                                        <option value="أنتيغوا وباربودا">أنتيغوا
+                                                                            وباربودا</option>
+                                                                        <option value="الأرجنتين">الأرجنتين</option>
+                                                                        <option value="أرمينيا">أرمينيا</option>
+                                                                        <option value="أستراليا">أستراليا</option>
+                                                                        <option value="النمسا">النمسا</option>
+                                                                        <option value="أذربيجان">أذربيجان</option>
+                                                                        <option value="البهاما">البهاما</option>
+                                                                        <option value="البحرين">البحرين</option>
+                                                                        <option value="بنغلاديش">بنغلاديش</option>
+                                                                        <option value="باربادوس">باربادوس</option>
+                                                                        <option value="بيلاروسيا">بيلاروسيا</option>
+                                                                        <option value="بلجيكا">بلجيكا</option>
+                                                                        <option value="بليز">بليز</option>
+                                                                        <option value="بنين">بنين</option>
+                                                                        <option value="بوتان">بوتان</option>
+                                                                        <option value="بوليفيا">بوليفيا</option>
+                                                                        <option value="البوسنة والهرسك ">البوسنة والهرسك
+                                                                        </option>
+                                                                        <option value="بوتسوانا">بوتسوانا</option>
+                                                                        <option value="البرازيل">البرازيل</option>
+                                                                        <option value="بروناي">بروناي</option>
+                                                                        <option value="بلغاريا">بلغاريا</option>
+                                                                        <option value="بوركينا فاسو ">بوركينا فاسو
+                                                                        </option>
+                                                                        <option value="بوروندي">بوروندي</option>
+                                                                        <option value="كمبوديا">كمبوديا</option>
+                                                                        <option value="الكاميرون">الكاميرون</option>
+                                                                        <option value="كندا">كندا</option>
+                                                                        <option value="الرأس الأخضر">الرأس الأخضر
+                                                                        </option>
+                                                                        <option value="جمهورية أفريقيا الوسطى ">جمهورية
+                                                                            أفريقيا الوسطى </option>
+                                                                        <option value="تشاد">تشاد</option>
+                                                                        <option value="تشيلي">تشيلي</option>
+                                                                        <option value="الصين">الصين</option>
+                                                                        <option value="كولومبيا">كولومبيا</option>
+                                                                        <option value="جزر القمر">جزر القمر</option>
+                                                                        <option value="كوستاريكا">كوستاريكا</option>
+                                                                        <option value="ساحل العاج">ساحل العاج</option>
+                                                                        <option value="كرواتيا">كرواتيا</option>
+                                                                        <option value="كوبا">كوبا</option>
+                                                                        <option value="قبرص">قبرص</option>
+                                                                        <option value="التشيك">التشيك</option>
+                                                                        <option value="جمهورية الكونغو الديمقراطية">
+                                                                            جمهورية الكونغو الديمقراطية</option>
+                                                                        <option value="الدنمارك">الدنمارك</option>
+                                                                        <option value="جيبوتي">جيبوتي</option>
+                                                                        <option value="دومينيكا">دومينيكا</option>
+                                                                        <option value="جمهورية الدومينيكان">جمهورية
+                                                                            الدومينيكان</option>
+                                                                        <option value="تيمور الشرقية ">تيمور الشرقية
+                                                                        </option>
+                                                                        <option value="الإكوادور">الإكوادور</option>
+                                                                        <option value="مصر">مصر</option>
+                                                                        <option value="السلفادور">السلفادور</option>
+                                                                        <option value="غينيا الاستوائية">غينيا
+                                                                            الاستوائية</option>
+                                                                        <option value="إريتريا">إريتريا</option>
+                                                                        <option value="إستونيا">إستونيا</option>
+                                                                        <option value="إثيوبيا">إثيوبيا</option>
+                                                                        <option value="فيجي">فيجي</option>
+                                                                        <option value="فنلندا">فنلندا</option>
+                                                                        <option value="فرنسا">فرنسا</option>
+                                                                        <option value="الغابون">الغابون</option>
+                                                                        <option value="غامبيا">غامبيا</option>
+                                                                        <option value="جورجيا">جورجيا</option>
+                                                                        <option value="ألمانيا">ألمانيا</option>
+                                                                        <option value="غانا">غانا</option>
+                                                                        <option value="اليونان">اليونان</option>
+                                                                        <option value="جرينادا">جرينادا</option>
+                                                                        <option value="غواتيمالا">غواتيمالا</option>
+                                                                        <option value="غينيا">غينيا</option>
+                                                                        <option value="غينيا بيساو">غينيا بيساو</option>
+                                                                        <option value="غويانا">غويانا</option>
+                                                                        <option value="هايتي">هايتي</option>
+                                                                        <option value="هندوراس">هندوراس</option>
+                                                                        <option value="المجر">المجر</option>
+                                                                        <option value="آيسلندا">آيسلندا</option>
+                                                                        <option value="الهند">الهند</option>
+                                                                        <option value="إندونيسيا">إندونيسيا</option>
+                                                                        <option value="إيران">إيران</option>
+                                                                        <option value="العراق">العراق</option>
+                                                                        <option value="جمهورية أيرلندا ">جمهورية أيرلندا
+                                                                        </option>
+                                                                        <option value="فلسطين">فلسطين</option>
+                                                                        <option value="إيطاليا">إيطاليا</option>
+                                                                        <option value="جامايكا">جامايكا</option>
+                                                                        <option value="اليابان">اليابان</option>
+                                                                        <option value="الأردن">الأردن</option>
+                                                                        <option value="كازاخستان">كازاخستان</option>
+                                                                        <option value="كينيا">كينيا</option>
+                                                                        <option value="كيريباتي">كيريباتي</option>
+                                                                        <option value="الكويت">الكويت</option>
+                                                                        <option value="قرغيزستان">قرغيزستان</option>
+                                                                        <option value="لاوس">لاوس</option>
+                                                                        <option value="لاوس">لاوس</option>
+                                                                        <option value="لاتفيا">لاتفيا</option>
+                                                                        <option value="لبنان">لبنان</option>
+                                                                        <option value="ليسوتو">ليسوتو</option>
+                                                                        <option value="ليبيريا">ليبيريا</option>
+                                                                        <option value="ليبيا">ليبيا</option>
+                                                                        <option value="ليختنشتاين">ليختنشتاين</option>
+                                                                        <option value="ليتوانيا">ليتوانيا</option>
+                                                                        <option value="لوكسمبورغ">لوكسمبورغ</option>
+                                                                        <option value="مدغشقر">مدغشقر</option>
+                                                                        <option value="مالاوي">مالاوي</option>
+                                                                        <option value="ماليزيا">ماليزيا</option>
+                                                                        <option value="جزر المالديف">جزر المالديف
+                                                                        </option>
+                                                                        <option value="مالي">مالي</option>
+                                                                        <option value="مالطا">مالطا</option>
+                                                                        <option value="جزر مارشال">جزر مارشال</option>
+                                                                        <option value="موريتانيا">موريتانيا</option>
+                                                                        <option value="موريشيوس">موريشيوس</option>
+                                                                        <option value="المكسيك">المكسيك</option>
+                                                                        <option value="مايكرونيزيا">مايكرونيزيا</option>
+                                                                        <option value="مولدوفا">مولدوفا</option>
+                                                                        <option value="موناكو">موناكو</option>
+                                                                        <option value="منغوليا">منغوليا</option>
+                                                                        <option value="الجبل الأسود">الجبل الأسود
+                                                                        </option>
+                                                                        <option value="المغرب">المغرب</option>
+                                                                        <option value="موزمبيق">موزمبيق</option>
+                                                                        <option value="بورما">بورما</option>
+                                                                        <option value="ناميبيا">ناميبيا</option>
+                                                                        <option value="ناورو">ناورو</option>
+                                                                        <option value="نيبال">نيبال</option>
+                                                                        <option value="هولندا">هولندا</option>
+                                                                        <option value="نيوزيلندا">نيوزيلندا</option>
+                                                                        <option value="نيكاراجوا">نيكاراجوا</option>
+                                                                        <option value="النيجر">النيجر</option>
+                                                                        <option value="نيجيريا">نيجيريا</option>
+                                                                        <option value="كوريا الشمالية ">كوريا الشمالية
+                                                                        </option>
+                                                                        <option value="النرويج">النرويج</option>
+                                                                        <option value="سلطنة عمان">سلطنة عمان</option>
+                                                                        <option value="باكستان">باكستان</option>
+                                                                        <option value="بالاو">بالاو</option>
+                                                                        <option value="بنما">بنما</option>
+                                                                        <option value="بابوا غينيا الجديدة">بابوا غينيا
+                                                                            الجديدة</option>
+                                                                        <option value="باراغواي">باراغواي</option>
+                                                                        <option value="بيرو">بيرو</option>
+                                                                        <option value="الفلبين">الفلبين</option>
+                                                                        <option value="بولندا">بولندا</option>
+                                                                        <option value="البرتغال">البرتغال</option>
+                                                                        <option value="قطر">قطر</option>
+                                                                        <option value="جمهورية الكونغو">جمهورية الكونغو
+                                                                        </option>
+                                                                        <option value="جمهورية مقدونيا">جمهورية مقدونيا
+                                                                        </option>
+                                                                        <option value="رومانيا">رومانيا</option>
+                                                                        <option value="روسيا">روسيا</option>
+                                                                        <option value="رواندا">رواندا</option>
+                                                                        <option value="سانت كيتس ونيفيس">سانت كيتس
+                                                                            ونيفيس</option>
+                                                                        <option value="سانت لوسيا">سانت لوسيا</option>
+                                                                        <option value="سانت فنسينت والجرينادينز">سانت
+                                                                            فنسينت والجرينادينز</option>
+                                                                        <option value="ساموا">ساموا</option>
+                                                                        <option value="سان مارينو">سان مارينو</option>
+                                                                        <option value="ساو تومي وبرينسيب">ساو تومي
+                                                                            وبرينسيب</option>
+                                                                        <option value="السعودية">السعودية</option>
+                                                                        <option value="السنغال">السنغال</option>
+                                                                        <option value="صربيا">صربيا</option>
+                                                                        <option value="سيشيل">سيشيل</option>
+                                                                        <option value="سيراليون">سيراليون</option>
+                                                                        <option value="سنغافورة">سنغافورة</option>
+                                                                        <option value="سلوفاكيا">سلوفاكيا</option>
+                                                                        <option value="سلوفينيا">سلوفينيا</option>
+                                                                        <option value="جزر سليمان">جزر سليمان</option>
+                                                                        <option value="الصومال">الصومال</option>
+                                                                        <option value="جنوب أفريقيا">جنوب أفريقيا
+                                                                        </option>
+                                                                        <option value="كوريا الجنوبية">كوريا الجنوبية
+                                                                        </option>
+                                                                        <option value="جنوب السودان">جنوب السودان
+                                                                        </option>
+                                                                        <option value="إسبانيا">إسبانيا</option>
+                                                                        <option value="سريلانكا">سريلانكا</option>
+                                                                        <option value="السودان">السودان</option>
+                                                                        <option value="سورينام">سورينام</option>
+                                                                        <option value="سوازيلاند">سوازيلاند</option>
+                                                                        <option value="السويد">السويد</option>
+                                                                        <option value="سويسرا">سويسرا</option>
+                                                                        <option value="سوريا">سوريا</option>
+                                                                        <option value="طاجيكستان">طاجيكستان</option>
+                                                                        <option value="تنزانيا">تنزانيا</option>
+                                                                        <option value="تايلاند">تايلاند</option>
+                                                                        <option value="توغو">توغو</option>
+                                                                        <option value="تونجا">تونجا</option>
+                                                                        <option value="ترينيداد وتوباغو">ترينيداد
+                                                                            وتوباغو</option>
+                                                                        <option value="تونس">تونس</option>
+                                                                        <option value="تركيا">تركيا</option>
+                                                                        <option value="تركمانستان">تركمانستان</option>
+                                                                        <option value="توفالو">توفالو</option>
+                                                                        <option value="أوغندا">أوغندا</option>
+                                                                        <option value="أوكرانيا">أوكرانيا</option>
+                                                                        <option value="الإمارات العربية المتحدة">
+                                                                            الإمارات العربية المتحدة</option>
+                                                                        <option value="المملكة المتحدة">المملكة المتحدة
+                                                                        </option>
+                                                                        <option value="الولايات المتحدة">الولايات
+                                                                            المتحدة</option>
+                                                                        <option value="أوروغواي">أوروغواي</option>
+                                                                        <option value="أوزبكستان">أوزبكستان</option>
+                                                                        <option value="فانواتو">فانواتو</option>
+                                                                        <option value="فنزويلا">فنزويلا</option>
+                                                                        <option value="فيتنام">فيتنام</option>
+                                                                        <option value="اليمن">اليمن</option>
+                                                                        <option value="زامبيا">زامبيا</option>
+                                                                        <option value="زيمبابوي">زيمبابوي</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <label class="input-group-text"
+                                                                            for="visitor_sex">الجنس</label>
+                                                                    </div>
+                                                                    <select class="custom-select visitor_sex"
+                                                                        id="visitor_sex" name="visitor_sex"
+                                                                        style="font-family: 'Cairo', sans-serif">
+                                                                        <option value="" disabled selected>
+                                                                            < إختر من القائمة>
+                                                                        </option>
+                                                                        <option value="ذكر">ذكر</option>
+                                                                        <option value="أنثى">أنثى</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <label class="input-group-text"
+                                                                            for="visitor_destination">جهة القدوم</label>
+                                                                    </div>
+                                                                    <select class="custom-select visitor_destination"
+                                                                        id="visitor_destination"
+                                                                        name="visitor_destination"
+                                                                        style="font-family: 'Cairo', sans-serif">
+                                                                        <option value="" disabled selected>
+                                                                            < إختر من القائمة>
+                                                                        </option>
+                                                                        <option value="ابوجا">ابوجا</option>
+                                                                        <option value="ابوظبي">ابوظبي</option>
+                                                                        <option value="ابيدجان">ابيدجان</option>
+                                                                        <option value="اثينا">اثينا</option>
+                                                                        <option value="اديس ابابا">اديس ابابا</option>
+                                                                        <option value="اربيل">اربيل</option>
+                                                                        <option value="استنبول">استنبول</option>
+                                                                        <option value="استوكهولم">استوكهولم</option>
+                                                                        <option value="اسلام اباد">اسلام اباد</option>
+                                                                        <option value="أسمرا">أسمرا</option>
+                                                                        <option value="اكرا">اكرا</option>
+                                                                        <option value="الاسكندرية">الاسكندرية</option>
+                                                                        <option value="الجزائر">الجزائر</option>
+                                                                        <option value="الخرطوم">الخرطوم</option>
+                                                                        <option value="الدوحة">الدوحة</option>
+                                                                        <option value="الرباط">الرباط</option>
+                                                                        <option value="السويس">السويس</option>
+                                                                        <option value="القاهرة">القاهرة</option>
+                                                                        <option value="الكويت">الكويت</option>
+                                                                        <option value="المنامة">المنامة</option>
+                                                                        <option value="انجامينا">انجامينا</option>
+                                                                        <option value="انقرة">انقرة</option>
+                                                                        <option value="اوتاوا">اوتاوا</option>
+                                                                        <option value="اوسلو">اوسلو</option>
+                                                                        <option value="اوكلاند">اوكلاند</option>
+                                                                        <option value="باريس">باريس</option>
+                                                                        <option value="باكو">باكو</option>
+                                                                        <option value="باماكو">باماكو</option>
+                                                                        <option value="بانكوك">بانكوك</option>
+                                                                        <option value="برازيليا">برازيليا</option>
+                                                                        <option value="براغ">براغ</option>
+                                                                        <option value="برلين">برلين</option>
+                                                                        <option value="بروكسيل">بروكسيل</option>
+                                                                        <option value="بريتوريا">بريتوريا</option>
+                                                                        <option value="بغداد">بغداد</option>
+                                                                        <option value="بكين">بكين</option>
+                                                                        <option value="بندر سرى بكاون">بندر سرى بكاون
+                                                                        </option>
+                                                                        <option value="بوخارست">بوخارست</option>
+                                                                        <option value="بودابست">بودابست</option>
+                                                                        <option value="بورت لويس">بورت لويس</option>
+                                                                        <option value="بيرن">بيرن</option>
+                                                                        <option value="بيروت">بيروت</option>
+                                                                        <option value="بيشكك">بيشكك</option>
+                                                                        <option value="بيونس ايرس">بيونس ايرس</option>
+                                                                        <option value="تايبيه">تايبيه</option>
+                                                                        <option value="تبليسي">تبليسي</option>
+                                                                        <option value="تونس">تونس</option>
+                                                                        <option value="تيرانا">تيرانا</option>
+                                                                        <option value="جاكرتا">جاكرتا</option>
+                                                                        <option value="جنيف">جنيف</option>
+                                                                        <option value="جيبوتي">جيبوتي</option>
+                                                                        <option value="دار السلام">دار السلام</option>
+                                                                        <option value="داكار">داكار</option>
+                                                                        <option value="دبلن">دبلن</option>
+                                                                        <option value="دبي">دبي</option>
+                                                                        <option value="دكا">دكا</option>
+                                                                        <option value="دوشنبيه">دوشنبيه</option>
+                                                                        <option value="روما">روما</option>
+                                                                        <option value="سانتياغو">سانتياغو</option>
+                                                                        <option value="سراييفو">سراييفو</option>
+                                                                        <option value="سنغافوره">سنغافوره</option>
+                                                                        <option value="سيدني">سيدني</option>
+                                                                        <option value="سيئول">سيئول</option>
+                                                                        <option value="صنعاء">صنعاء</option>
+                                                                        <option value="صوفيا">صوفيا</option>
+                                                                        <option value="طرابلس">طرابلس</option>
+                                                                        <option value="طشقند">طشقند</option>
+                                                                        <option value="طهران">طهران</option>
+                                                                        <option value="طوكيو">طوكيو</option>
+                                                                        <option value="عدن">عدن</option>
+                                                                        <option value="عشق اباد">عشق اباد</option>
+                                                                        <option value="عمّان">عمّان</option>
+                                                                        <option value="فرانكفورت">فرانكفورت</option>
+                                                                        <option value="فيينا">فيينا</option>
+                                                                        <option value="قوانجو">قوانجو</option>
+                                                                        <option value="كابل">كابل</option>
+                                                                        <option value="كانبرا">كانبرا</option>
+                                                                        <option value="كانو">كانو</option>
+                                                                        <option value="كتمندو">كتمندو</option>
+                                                                        <option value="كراتشي">كراتشي</option>
+                                                                        <option value="كراكاس">كراكاس</option>
+                                                                        <option value="كمبالا">كمبالا</option>
+                                                                        <option value="كوالالمبور">كوالالمبور</option>
+                                                                        <option value="كوبنهاجن">كوبنهاجن</option>
+                                                                        <option value="كولمبو">كولمبو</option>
+                                                                        <option value="كوناكري">كوناكري</option>
+                                                                        <option value="كييف">كييف</option>
+                                                                        <option value="لاهاي">لاهاي</option>
+                                                                        <option value="لشبونة">لشبونة</option>
+                                                                        <option value="لندن">لندن</option>
+                                                                        <option value="لوس انجليس">لوس انجليس</option>
+                                                                        <option value="لوساكا">لوساكا</option>
+                                                                        <option value="ليبرفيل">ليبرفيل</option>
+                                                                        <option value="ليما">ليما</option>
+                                                                        <option value="مابوتو">مابوتو</option>
+                                                                        <option value="ماليه">ماليه</option>
+                                                                        <option value="مانيلا">مانيلا</option>
+                                                                        <option value="مدريد">مدريد</option>
+                                                                        <option value="مسقط">مسقط</option>
+                                                                        <option value="مشهد">مشهد</option>
+                                                                        <option value="مكسيكو">مكسيكو</option>
+                                                                        <option value="ملقا">ملقا</option>
+                                                                        <option value="موروني">موروني</option>
+                                                                        <option value="موسكو">موسكو</option>
+                                                                        <option value="مومباي">مومباي</option>
+                                                                        <option value="نواكشوط">نواكشوط</option>
+                                                                        <option value="نور سلطان">نور سلطان</option>
+                                                                        <option value="نيامي">نيامي</option>
+                                                                        <option value="نيروبي">نيروبي</option>
+                                                                        <option value="نيقوسيا">نيقوسيا</option>
+                                                                        <option value="نيودلهي">نيودلهي</option>
+                                                                        <option value="نيويورك">نيويورك</option>
+                                                                        <option value="هافانا">هافانا</option>
+                                                                        <option value="هانوي">هانوي</option>
+                                                                        <option value="هلسنكي">هلسنكي</option>
+                                                                        <option value="هونج كونج">هونج كونج</option>
+                                                                        <option value="هيوستن">هيوستن</option>
+                                                                        <option value="وارسو">وارسو</option>
+                                                                        <option value="واشنطن">واشنطن</option>
+                                                                        <option value="واقادوقو">واقادوقو</option>
+                                                                        <option value="ويلنغتون">ويلنغتون</option>
+                                                                        <option value="يانجون">يانجون</option>
+                                                                        <option value="ياوندي">ياوندي</option>
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">البريد
+                                                                            الإلكتروني</span>
+                                                                    </div>
+                                                                    <input class="form-control visitor_email required"
+                                                                        id="visitor_email" name="visitor_email"
+                                                                        type="email" placeholder="أدخل البريد" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <label class="input-group-text"
+                                                                            for="visitor_log">عدد مرات الدخول</label>
+                                                                    </div>
+                                                                    <select class="custom-select visitor_log"
+                                                                        id="visitor_log" name="visitor_log"
+                                                                        style="font-family: 'Cairo', sans-serif">
+                                                                        <option value="" disabled selected>
+                                                                            < إختر من القائمة>
+                                                                        </option>
+                                                                        <option value="سفرة واحدة">سفرة واحدة</option>
+                                                                        <option value="عدة سفرات">عدة سفرات</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <label class="input-group-text"
+                                                                            for="visitor_relation">العلاقة</label>
+                                                                    </div>
+                                                                    <select class="custom-select visitor_relation"
+                                                                        id="visitor_relation" name="visitor_relation"
+                                                                        style="font-family: 'Cairo', sans-serif">
+                                                                        <option value="" disabled selected>
+                                                                            < إختر من القائمة>
+                                                                        </option>
+                                                                        <option value="زوج">زوج</option>
+                                                                        <option value="ابن">ابن</option>
+                                                                        <option value="أب">أب</option>
+                                                                        <option value="أب الزوجة">أب الزوجة</option>
+                                                                        <option value="أخرى">أخرى</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <label class="input-group-text"
+                                                                            for="visitor_valid">مدة الصلاحية
+                                                                            باليوم</label>
+                                                                    </div>
+                                                                    <select class="custom-select visitor_valid"
+                                                                        id="visitor_valid" name="visitor_valid"
+                                                                        style="font-family: 'Cairo', sans-serif">
+                                                                        <option value="" disabled selected>
+                                                                            < إختر من القائمة>
+                                                                        </option>
+                                                                        <option value="365">365</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 mt-3">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <label class="input-group-text"
+                                                                            for="visitor_stay">مدة الإقامة
+                                                                            باليوم</label>
+                                                                    </div>
+                                                                    <select class="custom-select visitor_stay"
+                                                                        id="visitor_stay" name="visitor_stay"
+                                                                        style="font-family: 'Cairo', sans-serif">
+                                                                        <option value="" disabled selected>
+                                                                            < إختر من القائمة>
+                                                                        </option>
+                                                                        <option value="90">90</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="add_visitor btn btn-success"
+                                                        id="add_visitor">إضافة</button>
+                                                    <button type="button" class="btn btn-light"
+                                                        data-dismiss="modal">إغلاق</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover mb-0 text-center" style="background-color: #bbd849;
+                                    color: #FFF;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">الاسم</th>
+                                                <th scope="col">الديانة</th>
+                                                <th scope="col">محل الميلاد</th>
+                                                <th scope="col">نوع الجواز</th>
+                                                <th scope="col">المهنة</th>
+                                                <th scope="col">الجنسية</th>
+                                                <th scope="col">جهة القدوم</th>
+                                                <th scope="col">العلاقة</th>
+                                                <th scope="col">مرات الدخول</th>
+                                                <th scope="col">مدة الصلاحية</th>
+                                                <th scope="col">الحذف</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bodyContent" style="background-color: #ffffff;color: #444;">
+
+                                        </tbody>
+                                    </table>
+                                    <div class="message_notFound p-2 bg-light" id="message_notFound">لأ توجد بيانات
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <h3>الحساب الخاص بنفاذ</h3>
+                    <section>
+                        <h4>الحساب الخاص بنفاذ</h4>
+                        <p>أدخل اسم المستخدم وكلمة المرور الخاصين بنفاذ</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">اسم المستخدم</span>
+                                    </div>
+                                    <input class="form-control user_user required" id="user_user"
+                                        name="user_user" type="text" placeholder="أدخل كلمة المستخدم"/>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">كلمة المرور</span>
+                                    </div>
+                                    <input class="form-control user_password required" id="user_password"
+                                        name="user_password" type="password" placeholder="أدخل كلمة السر" />
+                                </div>
+                            </div>
+                        </div>
+                        <h6 class="alert alert-warning mt-2">قبل الضغط على إنهاء تأكد أن جميع البيانات سليمة وبعد الضغط سيتم تحويك إلى صفحة الطلبات حتى تتم مراجعة الطلب</h6>
                     </section>
                 </form>
             </div>
@@ -846,7 +1095,7 @@
 <!-- DatePicker JS -->
 <script src="/assets/js/bootstrap-hijri-datetimepicker.min.js"></script>
 <!-- intlTelInput JS -->
-<!-- <script src="/assets/js/intlTelInput.js"></script> -->
+<script src="/assets/js/intlTelInput.js"></script>
 <!-- Validation JS -->
 <script src="/assets/js/jquery.validate.min.js"></script>
 <!-- Steps JS -->
