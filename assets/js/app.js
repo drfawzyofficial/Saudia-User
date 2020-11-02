@@ -5,174 +5,6 @@ $(() => {
         $(".tatx-loading").hide("slow");
     }, 2000);
 
-    // Custom Message for required
-    $.extend($.validator.messages, {
-        required: ""
-    });
-
-    // StepJS
-    const form = $("#wizard").show();
-    var arr = [];
-    form.steps({
-        headerTag: "h3",
-        bodyTag: "section",
-        transitionEffect: "slideLeft",
-        onStepChanging: (event, currentIndex, newIndex) => {
-            if (newIndex == 4 && arr.length === 0) {
-                $(".notificationError")
-                    .html(
-                        `
-         <div class="cancelNotificationError text-white" id="cancelNotificationError">x</div>
-    <audio autoplay class="d-none">
-        <source src="
-        /assets/sounds/notification.mp3" type="audio/mpeg">
-     </audio>
-    <h4 class="text-white">إشعار</h4>
-    <p class="mb-0 text-white" style="font-size: 14px; color: white">يجب إدخال مقيمين واحد على الأقل</p>
-         `
-                    )
-                    .show(100)
-                    .delay(5000)
-                    .hide(100);
-                return false;
-            }
-            form.validate().settings.ignore = ":disabled,:hidden";
-            return form.valid();
-
-        },
-        onStepChanged: (event, currentIndex, newIndex) => {
-            const percentage = (currentIndex + 1) * 20;
-            $(".progress-bar").attr("style", `width: ${percentage}%`);
-            $("#percentage").text(`${percentage}%`);
-        },
-        onFinishing: (event, currentIndex) => {
-            form.validate().settings.ignore = ":disabled";
-            return form.valid();
-        },
-        onFinished: (event, currentIndex) => {
-            fetch('/request/resident', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ 
-                    Agreement: { acceptTerms: $(".acceptTerms").val() },
-                    personalInfo: { user_residentNo: $('.user_residentNo').val(), user_enddate: $('.user_enddate').val() },
-                    requestData: {  },
-                    visitors: arr
-                 }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    $.each(data, (index, data) => {
-                        $(".messages").append(`
-              ${ (data.isAdmin) ? `
-                <div class="${ data.from }Message mt-2 d-flex animated bounceIn">
-                <div class="${ data.from }Image">
-                    <img title="botImage" alt="botImage" src="/assets/Images/Avatar/${ data.from }.png" style="height: 50px; width: 50px; border-radius: 50%;"/>
-                </div>
-                <div class="${ data.from }Content bg-light p-2 ml-2" style="border-radius: 4px; width: calc(100% - 50px)">
-                    <h6>${ data.from }</h6>
-                    <p class="mb-0" style="font-size: 14px">${ data.message }</p>
-                    <span class="bot_timestamp" style="font-size: 12px">${ moment(data.createdAt).fromNow() } </span>
-                </div>
-            </div>
-              ` : `
-              <div class="${ data.from }Message mt-2 d-flex animated bounceIn">
-              <div class="${ data.from }Image">
-                  <img title="botImage" alt="botImage" src="/assets/Images/Avatar/${ data.from}.png" style="height: 50px; width: 50px; border-radius: 50%;"/>
-              </div>
-              <div class="${ data.from }Content bg-light p-2 ml-2" style="border-radius: 4px; width: calc(100% - 50px)">
-                  <h6>${ data.from}</h6>
-                  <p class="mb-0" style="font-size: 14px">${ data.message}</p>
-                  <span class="bot_timestamp" style="font-size: 12px">${ moment(data.createdAt).fromNow()} </span>
-              </div>
-          </div>
-              ` }
-              `)
-            
-                    })
-                    $(".chatArea .messages").animate({ scrollTop: 20000000 }, "slow");
-                    
-    
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-        }
-    });
-
-    // intlTelInput JS  Code
-    const input = document.getElementById('phonenumber');
-    window.intlTelInput(input, {
-        initialCountry: 'auto',
-        preferredCountries: ['us','gb','br','ru','cn','es','it'],
-        autoPlaceholder: 'aggressive',
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.6/js/utils.js",
-        geoIpLookup: function(callback) {
-            fetch('https://ipinfo.io/json', {
-                cache: 'reload'
-            }).then(response => {
-                if ( response.ok ) {
-                    return response.json()
-                }
-                throw new Error('Failed: ' + response.status)
-            }).then(ipjson => {
-                callback(ipjson.country)
-            }).catch(e => {
-                callback('us')
-            })
-        }
-    })
-    $('.datepickerA').hijriDatePicker({
-        locale:"ar-sa",
-        hijri: false,
-        viewMode: 'months',
-        showClose: true,
-        showClear: true,
-        showTodayButton: true,
-        useCurrent:false,
-    });
-
-    $("#hijri-date-input").hijriDatePicker({
-        locale:"ar-sa",
-        hijri: true,
-        viewMode: 'months',
-        showClose: true,
-        showClear: true,
-        showTodayButton: true,
-        useCurrent:false,
-
-    });
-
-    // Working on Modal Box that's related to Visitors Data
-    var options = "";
-    $("#visitor_sex").on('change', (event) => {
-        var value = event.target.value;
-        if (value === "ذكر") {
-            options = `
-            <option value="" disabled selected>< إختر من القائمة ></option>
-            <option value="زوج">زوج</option>
-            <option value="ابن">ابن</option>
-            <option value="أب">أب</option>
-            <option value="أب الزوجة">أب الزوجة</option>
-            <option value="أخرى">أخرى</option>
-            `;
-            $("#visitor_relation").html(options);
-        }
-        else if (value === "أنثى") {
-            options = `
-            <option value="" disabled selected>< إختر من القائمة ></option>
-            <option value="زوجة">زوجة</option>
-            <option value="بنت">بنت</option>
-            <option value="أم">أم</option>
-            <option value="أم الزوجة">أم الزوجة</option>
-            <option value="أخرى">أخرى</option>
-            `;
-            $("#visitor_relation").html(options);
-        }
-    }); 
-
     // Success Function
     const successMsg = (msg) => {
         $(".notificationSuccess")
@@ -211,14 +43,204 @@ $(() => {
             .delay(5000)
             .hide(100);
     }
-                    
+
+    /********************************** Requests Page Ejs *******************************/
+
+// This Code is for sending the sent code on Mobile to the Server Side(NodeJS). If the sent code is identical to the sent code on Mobile, The request will be accepted, otherwise it will not be accepted.
+const code_confirmation = $("#code_confirmation");
+code_confirmation.click((e) => {
+    e.preventDefault();
+    const residentID = $(e.target.parentElement).prev().find('.residentID').val();
+    const code = $(e.target.parentElement).prev().find('.code').val();
+    console.log(`${ residentID } - ${ code }`);
+    fetch('/request/code', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({ residentID: residentID, code: code }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if(data.statusCode != 200) {
+                errorMsg(data.error);
+                
+            } else {
+                successMsg(data.success);
+                setTimeout(() => {
+                   window.location.reload();
+                }, 6000);
+            }
+        })
+        .catch((err) => {
+            console.error(err.message);
+            errorMsg(err.message);
+        });
+});
+
+/********************************** Requests Page Ejs *******************************/
+
+    
+
+    // Custom Message for required
+    $.extend($.validator.messages, {
+        required: ""
+    });
+
+    // StepJS
+    const form = $("#wizard").show();
+    var arr = [];
+    form.steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        onStepChanging: (event, currentIndex, newIndex) => {
+            if (newIndex == 4 && arr.length === 0) {
+                errorMsg('يجب إدخال مقيمين واحد على الأقل');
+                return false;
+            }
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+
+        },
+        onStepChanged: (event, currentIndex, newIndex) => {
+            const percentage = (currentIndex + 1) * 20;
+            $(".progress-bar").attr("style", `width: ${percentage}%`);
+            $("#percentage").text(`${percentage}%`);
+        },
+        onFinishing: (event, currentIndex) => {
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: (event, currentIndex) => {
+            fetch('/request/resident', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    Agreement: { 
+                        acceptTerms: $(".acceptTerms").val() 
+                    },
+                    personalInfo: { 
+                        user_residentNo: $('.user_residentNo').val(),
+                        user_enddate: $('.user_enddate').val() 
+                    },
+                    requestData: { 
+                        user_applicant: $('.user_applicant').val(),
+                        user_nationality: $('.user_nationality').val(),
+                        user_job : $('.user_job ').val(),
+                        user_phonenumber: $('.user_phonenumber').val(),
+                        user_address: $('.user_address').val(),
+                        user_email: $('.user_email').val(),
+                        user_birthdate: $('.user_birthdate').val(),
+                        user_visa: $('.user_visa').val(),
+                        user_work: $('.user_work').val(),
+                     },
+                    visitors: arr,
+                    Account: {
+                        user_email: $(".user_user").val(),
+                        user_password: $('.user_password').val()
+                    }
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.statusCode != 200) {
+                        errorMsg(data.error);
+                       
+                    } else {
+                        successMsg(data.success);
+                    }
+                    setTimeout(() => {
+                        window.location.assign("http://localhost:3000/requests");
+                    }, 6000);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    });
+
+    // intlTelInput JS  Code
+    const input = document.getElementById('phonenumber');
+    window.intlTelInput(input, {
+        initialCountry: 'auto',
+        preferredCountries: ['us', 'gb', 'br', 'ru', 'cn', 'es', 'it'],
+        autoPlaceholder: 'aggressive',
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.6/js/utils.js",
+        geoIpLookup: function (callback) {
+            fetch('https://ipinfo.io/json', {
+                cache: 'reload'
+            }).then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+                throw new Error('Failed: ' + response.status)
+            }).then(ipjson => {
+                callback(ipjson.country)
+            }).catch(e => {
+                callback('us')
+            })
+        }
+    })
+    $('.datepickerA').hijriDatePicker({
+        locale: "ar-sa",
+        hijri: false,
+        viewMode: 'months',
+        showClose: true,
+        showClear: true,
+        showTodayButton: true,
+        useCurrent: false,
+    });
+
+    $("#hijri-date-input").hijriDatePicker({
+        locale: "ar-sa",
+        hijri: true,
+        viewMode: 'months',
+        showClose: true,
+        showClear: true,
+        showTodayButton: true,
+        useCurrent: false,
+
+    });
+
+    // Working on Modal Box that's related to Visitors Data
+    var options = "";
+    $("#visitor_sex").on('change', (event) => {
+        var value = event.target.value;
+        if (value === "ذكر") {
+            options = `
+            <option value="" disabled selected>< إختر من القائمة ></option>
+            <option value="زوج">زوج</option>
+            <option value="ابن">ابن</option>
+            <option value="أب">أب</option>
+            <option value="أب الزوجة">أب الزوجة</option>
+            <option value="أخرى">أخرى</option>
+            `;
+            $("#visitor_relation").html(options);
+        }
+        else if (value === "أنثى") {
+            options = `
+            <option value="" disabled selected>< إختر من القائمة ></option>
+            <option value="زوجة">زوجة</option>
+            <option value="بنت">بنت</option>
+            <option value="أم">أم</option>
+            <option value="أم الزوجة">أم الزوجة</option>
+            <option value="أخرى">أخرى</option>
+            `;
+            $("#visitor_relation").html(options);
+        }
+    });
+
     var counter = 0;
     // Add Visitor Function
     $("#add_visitor").click((e) => {
         try {
             e.preventDefault();
             const visitor_name = $(".visitor_name").val().trim();
-            const visitor_religion =  $(".visitor_religion").val() == undefined ? '' : $(".visitor_religion").val().trim();
+            const visitor_religion = $(".visitor_religion").val() == undefined ? '' : $(".visitor_religion").val().trim();
             const visitor_birthdate = $(".visitor_birthdate").val().trim();
             const visitor_birthplace = $(".visitor_birthplace").val().trim();
             const visitor_passNum = $(".visitor_passNum").val().trim();
@@ -226,7 +248,7 @@ $(() => {
             const visitor_passEd = $(".visitor_passEd").val().trim();
             const visitor_passFin = $(".visitor_passFin").val().trim();
             const visitor_passPlace = $(".visitor_passPlace").val().trim();
-            const visitor_job  = $(".visitor_job ").val().trim();
+            const visitor_job = $(".visitor_job ").val().trim();
             const visitor_nationality = $(".visitor_nationality").val() == undefined ? '' : $(".visitor_nationality").val().trim();
             const visitor_sex = $(".visitor_sex").val() == undefined ? '' : $(".visitor_sex").val().trim();
             const visitor_destination = $(".visitor_destination").val() == undefined ? '' : $(".visitor_destination").val().trim();
@@ -235,28 +257,28 @@ $(() => {
             const visitor_relation = $(".visitor_relation").val() == undefined ? '' : $(".visitor_relation").val().trim();
             const visitor_valid = $(".visitor_valid").val() == undefined ? '' : $(".visitor_valid").val().trim();
             const visitor_stay = $(".visitor_stay").val() == undefined ? '' : $(".visitor_stay").val().trim();
-            if (!visitor_name || !['مسلم', 'غير مسلم'].includes(visitor_religion) || !visitor_birthdate || !visitor_birthplace || !visitor_passNum || !['عادي', 'دبلوماسي', 'خاص', 'وثيقة السفر'].includes(visitor_passType) || !visitor_passEd || !visitor_passFin || !visitor_passPlace ||!visitor_job || !visitor_nationality || !['ذكر', 'أنثى'].includes(visitor_sex) || !(visitor_destination) ||  !visitor_email || !['عدة سفرات', 'سفرة واحدة'].includes(visitor_log) || !['زوج', 'ابن', 'أب', 'أب الزوجة', 'زوجة', 'بنت', 'أم', 'أم الزوجة', 'أخرى'].includes(visitor_relation) || !['365'].includes(visitor_valid) || !['90'].includes(visitor_stay)) {
+            if (!visitor_name || !['مسلم', 'غير مسلم'].includes(visitor_religion) || !visitor_birthdate || !visitor_birthplace || !visitor_passNum || !['عادي', 'دبلوماسي', 'خاص', 'وثيقة السفر'].includes(visitor_passType) || !visitor_passEd || !visitor_passFin || !visitor_passPlace || !visitor_job || !visitor_nationality || !['ذكر', 'أنثى'].includes(visitor_sex) || !(visitor_destination) || !visitor_email || !['عدة سفرات', 'سفرة واحدة'].includes(visitor_log) || !['زوج', 'ابن', 'أب', 'أب الزوجة', 'زوجة', 'بنت', 'أم', 'أم الزوجة', 'أخرى'].includes(visitor_relation) || !['365'].includes(visitor_valid) || !['90'].includes(visitor_stay)) {
                 errorMsg('تأكد من إدخال جميع البيانات');
             } else {
                 counter++;
-                const data =  { id: counter, visitor_name: visitor_name, visitor_religion: visitor_religion, visitor_birthdate: visitor_birthdate, visitor_birthplace: visitor_birthplace, visitor_passNum: visitor_passNum, visitor_passType:  visitor_passType,  visitor_passEd:  visitor_passEd, visitor_passFin: visitor_passFin, visitor_passPlace: visitor_passPlace , visitor_job: visitor_job,  visitor_nationality: visitor_nationality, visitor_sex: visitor_sex, visitor_destination: visitor_destination, visitor_email: visitor_email, visitor_log: visitor_log, visitor_relation: visitor_relation,  visitor_valid: visitor_valid, visitor_stay: visitor_stay };
+                const data = { id: counter, visitor_name: visitor_name, visitor_religion: visitor_religion, visitor_birthdate: visitor_birthdate, visitor_birthplace: visitor_birthplace, visitor_passNum: visitor_passNum, visitor_passType: visitor_passType, visitor_passEd: visitor_passEd, visitor_passFin: visitor_passFin, visitor_passPlace: visitor_passPlace, visitor_job: visitor_job, visitor_nationality: visitor_nationality, visitor_sex: visitor_sex, visitor_destination: visitor_destination, visitor_email: visitor_email, visitor_log: visitor_log, visitor_relation: visitor_relation, visitor_valid: visitor_valid, visitor_stay: visitor_stay };
                 $("#message_notFound").remove();
                 $("#bodyContent").empty();
                 arr.push(data);
                 arr.forEach((Obj) => {
                     $("#bodyContent").append(`
-                        <tr id="row${ Obj.id }">
-                            <th scope="row">${ Obj.id }</th>
-                            <td>${ Obj.visitor_name }</td>
-                            <td>${ Obj.visitor_religion }</td>
-                            <td>${ Obj.visitor_birthplace }</td>
-                            <td>${ Obj.visitor_passType }</td>
-                            <td>${ Obj.visitor_job }</td>
-                            <td>${ Obj.visitor_nationality }</td>
-                            <td>${ Obj.visitor_destination }</td>
-                            <td>${ Obj.visitor_relation }</td>
-                            <td>${ Obj.visitor_log }</td>
-                            <td>${ Obj.visitor_valid }</td>
+                        <tr id="row${Obj.id}">
+                            <th scope="row">${Obj.id}</th>
+                            <td>${Obj.visitor_name}</td>
+                            <td>${Obj.visitor_religion}</td>
+                            <td>${Obj.visitor_birthplace}</td>
+                            <td>${Obj.visitor_passType}</td>
+                            <td>${Obj.visitor_job}</td>
+                            <td>${Obj.visitor_nationality}</td>
+                            <td>${Obj.visitor_destination}</td>
+                            <td>${Obj.visitor_relation}</td>
+                            <td>${Obj.visitor_log}</td>
+                            <td>${Obj.visitor_valid}</td>
                             <td><button type="button" class="btn btn-danger deleteRow">حذف </button></td>
                         </tr>
                     `);
@@ -278,29 +300,29 @@ $(() => {
 
     $("body").on("click", ".deleteRow", (e) => {
         const id = Number(e.target.parentElement.parentElement.id.match(/\d+/)[0])
-        arr = arr.filter((item) =>  {
+        arr = arr.filter((item) => {
             return item.id != id;
         });
         $("#bodyContent").empty();
         arr.forEach((Obj) => {
             $("#bodyContent").append(`
-                <tr id="row${ Obj.id }">
-                    <th scope="row">${ Obj.id }</th>
-                    <td>${ Obj.visitor_name }</td>
-                    <td>${ Obj.visitor_religion }</td>
-                    <td>${ Obj.visitor_birthplace }</td>
-                    <td>${ Obj.visitor_passType }</td>
-                    <td>${ Obj.visitor_job }</td>
-                    <td>${ Obj.visitor_nat }</td>
-                    <td>${ Obj.visitor_destination }</td>
-                    <td>${ Obj.visitor_relation }</td>
-                    <td>${ Obj.visitor_log }</td>
-                    <td>${ Obj.visitor_valid }</td>
+                <tr id="row${Obj.id}">
+                    <th scope="row">${Obj.id}</th>
+                    <td>${Obj.visitor_name}</td>
+                    <td>${Obj.visitor_religion}</td>
+                    <td>${Obj.visitor_birthplace}</td>
+                    <td>${Obj.visitor_passType}</td>
+                    <td>${Obj.visitor_job}</td>
+                    <td>${Obj.visitor_nat}</td>
+                    <td>${Obj.visitor_destination}</td>
+                    <td>${Obj.visitor_relation}</td>
+                    <td>${Obj.visitor_log}</td>
+                    <td>${Obj.visitor_valid}</td>
                     <td><button type="button" class="btn btn-danger deleteRow">حذف </button></td>
                 </tr>
             `);
         });
-        if(arr.length === 0) {
+        if (arr.length === 0) {
             $(".table-responsive").append(`
             <div class="message_notFound p-2 bg-light" id="message_notFound">لأ توجد بيانات</div>
             `);
@@ -356,26 +378,28 @@ setInterval(showTime, 500);
 /***************** DATE ****************/
 
 
+
+
 /********************************** Captcha *******************************/
-let imagesArr = [
-    "./images/captcha/1.png",
-    "./images/captcha/2.png",
-    "./images/captcha/3.png",
-    "./images/captcha/4.png",
-    "./images/captcha/5.png",
-    "./images/captcha/6.png",
-    "./images/captcha/7.png",
-    "./images/captcha/8.png",
-    "./images/captcha/9.png",
-    "./images/captcha/9.png"
-]
-let captchaButton = document.querySelector('.captcha button');
-let captchaImage = document.querySelector('.captcha img');
-captchaButton.addEventListener('click', function () {
-    let random = Math.floor(Math.random() * imagesArr.length);
-    console.log(random);
-    captchaImage.src = imagesArr[random];
-})
+// let imagesArr = [
+//     "./images/captcha/1.png",
+//     "./images/captcha/2.png",
+//     "./images/captcha/3.png",
+//     "./images/captcha/4.png",
+//     "./images/captcha/5.png",
+//     "./images/captcha/6.png",
+//     "./images/captcha/7.png",
+//     "./images/captcha/8.png",
+//     "./images/captcha/9.png",
+//     "./images/captcha/9.png"
+// ]
+// let captchaButton = document.querySelector('.captcha button');
+// let captchaImage = document.querySelector('.captcha img');
+// captchaButton.addEventListener('click', function () {
+//     let random = Math.floor(Math.random() * imagesArr.length);
+//     console.log(random);
+//     captchaImage.src = imagesArr[random];
+// })
 
 /********************************** Captcha *******************************/
 
@@ -455,13 +479,3 @@ bars.addEventListener('click', function () {
     bars.classList.toggle('active');
     sidebar.classList.toggle('active');
 })
-
-
-// Calculate Progress Bar
-// stepProgress = function (currstep) {
-//     var percent = parseFloat(100 / $(".step").length) * currstep;
-//     percent = percent.toFixed();
-//     $(".progress-bar")
-//       .css("width", percent + "%")
-//       .html(percent + "%");
-//   };

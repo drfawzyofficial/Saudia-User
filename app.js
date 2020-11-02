@@ -116,6 +116,11 @@ const Request = require('./routes/Request');
 app.use('/request', Request);
 /*@ here we include settingRouter @*/
 
+/*@ here we include settingRouter @*/
+const Requests = require('./routes/Requests');
+app.use('/requests', Requests);
+/*@ here we include settingRouter @*/
+
 
 /*@ Handle Error-404 @*/
 app.get('*', (req, res, next) => {
