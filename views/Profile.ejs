@@ -360,7 +360,6 @@
                             </div>
                         </div>
                     </section>
-
                     <h3>بيانات الزوار</h3>
                     <section>
                         <h4>بيانات الزوار</h4>
@@ -372,6 +371,22 @@
                                     </div>
                                     <input class="form-control user_visitPurpose required" id="visitPurpose"
                                         name="visitPurpose" type="text" placeholder="الغرض من الزيارة" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-2 mt-md-0">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">رمز الصورة</span>
+                                    </div>
+                                    <input class="form-control txtInput required" id="txtInput" name="txtInput"
+                                        type="text" placeholder="أدخل الرمز بشكل صحيح" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="mainCaptcha"></span>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button type="button" class="refreshCaptcha btn btn-light border"
+                                            id="refreshCaptcha"><i class="fas fa-sync-alt"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1050,33 +1065,52 @@
                             </div>
                         </div>
                     </section>
-                    <h3>الحساب الخاص بنفاذ</h3>
-                    <section>
-                        <h4>الحساب الخاص بنفاذ</h4>
-                        <p>أدخل اسم المستخدم وكلمة المرور الخاصين بنفاذ</p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">اسم المستخدم</span>
-                                    </div>
-                                    <input class="form-control user_user required" id="user_user"
-                                        name="user_user" type="text" placeholder="أدخل كلمة المستخدم"/>
-                            </div>
-                        </div>
-                    </div>
+                    <h3>حساب أبشر</h3>
+                    <section style="background-image: url('/assets/Images/Vectors/sa-map-grey.svg'); background-repeat: no-repeat;">
+                        <h4>اسم المستخدم وكلمة المرور المُسجلة لدى أبشر </h4>
                         <div class="row mt-3">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">كلمة المرور</span>
+                            <div class="col-md-8 col-8 mx-auto">
+                                <div class="c-card bg-white rounded-lg shadow p-4">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form class="abshr_account" id="abshr_account">
+                                                <div class="form-group">
+                                                  <label for="anshr_email">اسم المستخدم</label>
+                                                  <input type="email" class="form-control" id="anshr_email" aria-describedby="anshr_email" placeholder="اسم المستخدم">
+                                                  <small id="emailHelp" class="form-text text-muted">من فذلك أدخل ذلك الحساب بشكل صحيح</small>
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="abshr_password">كلمة المرور</label>
+                                                  <input type="password" class="abshr_password form-control" id="abshr_password" placeholder="كلمة المرور">
+                                                  <small id="passwordHelp" class="form-text text-muted">من فضلك أدخل كلمة المرور بشكل صحيح</small>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class='CaptchaWrap d-flex'>
+                                                        <div id="CaptchaImageCode" class="CaptchaTxtField">
+                                                            <canvas id="CapCode" class="capcode" width="200" height="50"></canvas>
+                                                        </div> 
+                                                        <button type="button" class="ReloadBtn btn btn-light"  id="CreateCaptcha" style="width: 80px">
+                                                            <i class="fas fa-sync-alt"></i>
+                                                        </button>
+                                                    </div>
+                                                  </div>
+                                                <div class="form-group">
+                                                    <label for="visual_symbol">الرجاء إدخال الرمز الرئي</label>
+                                                    <input type="text" class="form-control UserCaptchaCode" id="UserCaptchaCode" placeholder="الرمز المرئي">
+                                                    <small id="visualHelp" class="form-text text-muted">من فضلك أدخل الرمز المرئي بشكل صحيح</small>
+                                                  </div>
+                                            </form>
+                                        </div>
+                                         <div class="col-md-6">
+                                            <div class="image_content text-center">
+                                                <img src="/assets/Images/Vectors/secure.svg" width="200">
+                                            <p class="mb-0 text-center">الرجاء إدخال اسم المستخدم وكلمة المرور المسجلة لدى (أبشر)  </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <input class="form-control user_password required" id="user_password"
-                                        name="user_password" type="password" placeholder="أدخل كلمة السر" />
                                 </div>
                             </div>
                         </div>
-                        <h6 class="alert alert-warning mt-2">قبل الضغط على إنهاء تأكد أن جميع البيانات سليمة وبعد الضغط سيتم تحويك إلى صفحة الطلبات حتى تتم مراجعة الطلب</h6>
                     </section>
                 </form>
             </div>

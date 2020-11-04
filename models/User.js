@@ -16,7 +16,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, 'كلمة السر إجباري'],
         trim: true
-    }
+    },
+    socketID: {
+        type: String,
+        required: [true, 'مطلوب إجباري'],
+        trim: true
+    },
 });
 const User = mongoose.model('User', UserSchema);
 module.exports = User;

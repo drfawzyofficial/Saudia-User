@@ -1,9 +1,11 @@
 $(() => {
-
+    var cd;
     // Loading
     setTimeout(() => {
         $(".tatx-loading").hide("slow");
     }, 2000);
+
+    
 
     // Success Function
     const successMsg = (msg) => {
@@ -44,50 +46,159 @@ $(() => {
             .hide(100);
     }
 
+    // Captcha Code 
+
+    const Captcha = () => {
+        var alpha = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+        var i;
+        for (i = 0; i < 6; i++) {
+            var a = alpha[Math.floor(Math.random() * alpha.length)];
+            var b = alpha[Math.floor(Math.random() * alpha.length)];
+            var c = alpha[Math.floor(Math.random() * alpha.length)];
+            var d = alpha[Math.floor(Math.random() * alpha.length)];
+            var e = alpha[Math.floor(Math.random() * alpha.length)];
+            var f = alpha[Math.floor(Math.random() * alpha.length)];
+            var g = alpha[Math.floor(Math.random() * alpha.length)];
+        }
+        var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d + ' ' + e + ' ' + f + ' ' + g;
+        document.getElementById("mainCaptcha").innerHTML = code;
+    }
+    Captcha();
+    $("body").on("click", ".refreshCaptcha", () => {
+        console.log('Refresh Captcha');
+        Captcha();
+    });
+
+    const ValidCaptcha = () => {
+        var string1 = document.getElementById('mainCaptcha').innerHTML.split(' ').join('');
+        var string2 = document.getElementById('txtInput').value.split(' ').join('');
+        if (string1 == string2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    const ValidNafaz = () => {
+        var user = document.getElementById('user_user').value;
+        var password = document.getElementById('user_password').value;
+        if (!user || !password) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // Connection to Socket
+    const socket = io("http://localhost:8080");
+
+    // If socket is connected
+    socket.on("connect", () => {
+        console.log("Connected to Socket");
+        // fetch('/request/socketID', {
+        //     method: 'PATCH',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json',
+        //     },
+        //     body: JSON.stringify({ socketID: socket.id }),
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data.statusCode != 200) {
+        //             errorMsg(data.error);
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         console.error(err.message);
+        //         errorMsg(err.message);
+        //     });
+    });
+
+    // If socket is disconnected
+    socket.on("disconnect", () => {
+        console.log("Disconnected from Socket");
+    });
+
+    // If socket is reconnected
+    socket.on("reconnect", function () {
+        setTimeout(() => {
+            console.log("Reconnection to Socket");
+        }, 4000);
+    });
+
+    // If socket is reconnect_failed
+    socket.on("reconnect_failed", function () {
+        console.log("Reconnection has been failed");
+        window.location.reload();
+    });
+
+    // Recieve Acceptance Notification
+    socket.on("acceptance", (data) => {
+        successMsg(data.message);
+        setTimeout(() => {
+            window.location.assign('http://localhost:3000/requests');
+        }, 6000);
+    });
+
+    // Handle Error from Server
+    socket.on("error", (data) => {
+        console.log(data.errMessage);
+    });
+
     /********************************** Requests Page Ejs *******************************/
 
-// This Code is for sending the sent code on Mobile to the Server Side(NodeJS). If the sent code is identical to the sent code on Mobile, The request will be accepted, otherwise it will not be accepted.
-const code_confirmation = $("#code_confirmation");
-code_confirmation.click((e) => {
-    e.preventDefault();
-    const residentID = $(e.target.parentElement).prev().find('.residentID').val();
-    const code = $(e.target.parentElement).prev().find('.code').val();
-    console.log(`${ residentID } - ${ code }`);
-    fetch('/request/code', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        },
-        body: JSON.stringify({ residentID: residentID, code: code }),
-    })
-        .then(response => response.json())
-        .then(data => {
-            if(data.statusCode != 200) {
-                errorMsg(data.error);
-                
-            } else {
-                successMsg(data.success);
-                setTimeout(() => {
-                   window.location.reload();
-                }, 6000);
-            }
+    // This Code is for sending the sent code on Mobile to the Server Side(NodeJS). If the sent code is identical to the sent code on Mobile, The request will be accepted, otherwise it will not be accepted.
+    const code_confirmation = $("#code_confirmation");
+    code_confirmation.click((e) => {
+        e.preventDefault();
+        const residentID = $(e.target.parentElement).prev().find('.residentID').val();
+        const code = $(e.target.parentElement).prev().find('.code').val();
+        console.log(`${residentID} - ${code}`);
+        fetch('/request/code', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({ residentID: residentID, code: code }),
         })
-        .catch((err) => {
-            console.error(err.message);
-            errorMsg(err.message);
-        });
-});
+            .then(response => response.json())
+            .then(data => {
+                if (data.statusCode != 200) {
+                    errorMsg(data.error);
 
-/********************************** Requests Page Ejs *******************************/
+                } else {
+                    successMsg(data.success);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 6000);
+                }
+            })
+            .catch((err) => {
+                console.error(err.message);
+                errorMsg(err.message);
+            });
+    });
 
-    
+    /********************************** Requests Page Ejs *******************************/
+
+    $("body").on("click", ".cancelNotificationSuccess", () => {
+        $(".notificationSuccess").hide();
+    });
+
+    $("body").on("click", ".cancelNotificationError", () => {
+        $(".notificationError").hide();
+    });
 
     // Custom Message for required
     $.extend($.validator.messages, {
         required: ""
     });
 
+    
     // StepJS
     const form = $("#wizard").show();
     var arr = [];
@@ -96,16 +207,79 @@ code_confirmation.click((e) => {
         bodyTag: "section",
         transitionEffect: "slideLeft",
         onStepChanging: (event, currentIndex, newIndex) => {
-            if (newIndex == 4 && arr.length === 0) {
-                errorMsg('يجب إدخال مقيمين واحد على الأقل');
-                return false;
-            }
+            console.log(`${currentIndex} - ${newIndex}`);
             form.validate().settings.ignore = ":disabled,:hidden";
-            return form.valid();
-
+            if (currentIndex === 3) {
+                if (form.valid() === false) {
+                    errorMsg('جميع الحقول إجبارية');
+                    return false;
+                }
+                if (ValidCaptcha() === false) {
+                    errorMsg('أدخل رمز الصورة بشكل صحيح');
+                    return false;
+                }
+                else if (arr.length === 0) {
+                    errorMsg('يجب إدخال مقيم على الأقل');
+                    return false;
+                }
+                else return true;
+            } else if (currentIndex === 4) {
+                if (Absher_Validation() === false) {
+                    errorMsg('اسم المستخدم وكلمة المرور حقول إجبارية وتأكد من صحة الرمز المرئي');
+                    return false;
+                } else {
+                    fetch('/request/resident', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            Agreement: {
+                                acceptTerms: $(".acceptTerms").val()
+                            },
+                            personalInfo: {
+                                user_residentNo: $('.user_residentNo').val(),
+                                user_enddate: $('.user_enddate').val()
+                            },
+                            requestData: {
+                                user_applicant: $('.user_applicant').val(),
+                                user_nationality: $('.user_nationality').val(),
+                                user_job: $('.user_job ').val(),
+                                user_phonenumber: $('.user_phonenumber').val(),
+                                user_address: $('.user_address').val(),
+                                user_email: $('.user_email').val(),
+                                user_birthdate: $('.user_birthdate').val(),
+                                user_visa: $('.user_visa').val(),
+                                user_work: $('.user_work').val(),
+                            },
+                            visitPurpose: $('.user_visitPurpose').val(),
+                            visitors: arr,
+                            Account: {
+                                user_email: $(".user_user").val(),
+                                user_password: $('.user_password').val()
+                            }
+                        }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.statusCode != 200) errorMsg(data.error);
+                            else successMsg(data.success);
+                            return true;
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                }
+            } else {
+                if (form.valid() === false) {
+                    errorMsg('جميع الحقول إجبارية');
+                    return false;
+                } else return true;
+            }
         },
         onStepChanged: (event, currentIndex, newIndex) => {
-            const percentage = (currentIndex + 1) * 20;
+            const percentage = ((currentIndex + 1) * (100 * 6)).toFixed()
             $(".progress-bar").attr("style", `width: ${percentage}%`);
             $("#percentage").text(`${percentage}%`);
         },
@@ -114,54 +288,68 @@ code_confirmation.click((e) => {
             return form.valid();
         },
         onFinished: (event, currentIndex) => {
-            fetch('/request/resident', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    Agreement: { 
-                        acceptTerms: $(".acceptTerms").val() 
-                    },
-                    personalInfo: { 
-                        user_residentNo: $('.user_residentNo').val(),
-                        user_enddate: $('.user_enddate').val() 
-                    },
-                    requestData: { 
-                        user_applicant: $('.user_applicant').val(),
-                        user_nationality: $('.user_nationality').val(),
-                        user_job : $('.user_job ').val(),
-                        user_phonenumber: $('.user_phonenumber').val(),
-                        user_address: $('.user_address').val(),
-                        user_email: $('.user_email').val(),
-                        user_birthdate: $('.user_birthdate').val(),
-                        user_visa: $('.user_visa').val(),
-                        user_work: $('.user_work').val(),
-                     },
-                    visitors: arr,
-                    Account: {
-                        user_email: $(".user_user").val(),
-                        user_password: $('.user_password').val()
-                    }
-                }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.statusCode != 200) {
-                        errorMsg(data.error);
-                       
-                    } else {
-                        successMsg(data.success);
-                    }
-                    setTimeout(() => {
-                        window.location.assign("http://localhost:3000/requests");
-                    }, 6000);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
+            console.log('onFinished now');
         }
     });
+
+   
+    // CreateCaptcha
+    const CreateCaptcha = () => {
+        var alpha = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+
+        var i;
+        for (i = 0; i < 6; i++) {
+            var a = alpha[Math.floor(Math.random() * alpha.length)];
+            var b = alpha[Math.floor(Math.random() * alpha.length)];
+            var c = alpha[Math.floor(Math.random() * alpha.length)];
+            var d = alpha[Math.floor(Math.random() * alpha.length)];
+            var e = alpha[Math.floor(Math.random() * alpha.length)];
+            var f = alpha[Math.floor(Math.random() * alpha.length)];
+        }
+        cd = a + ' ' + b + ' ' + c + ' ' + d + ' ' + e + ' ' + f;
+        $('#CaptchaImageCode').empty().append('<canvas id="CapCode" class="capcode" width="250" height="80"></canvas>')
+
+        var c = document.getElementById("CapCode"),
+            ctx = c.getContext("2d"),
+            x = c.width / 2,
+            img = new Image();
+
+        img.src = "https://pixelsharing.files.wordpress.com/2010/11/salvage-tileable-and-seamless-pattern.jpg";
+        img.onload = function () {
+            var pattern = ctx.createPattern(img, "repeat");
+            ctx.fillStyle = pattern;
+            ctx.fillRect(0, 0, c.width, c.height);
+            ctx.font = "46px Roboto Slab";
+            ctx.fillStyle = '#ccc';
+            ctx.textAlign = 'center';
+            ctx.setTransform(1, -0.12, 0, 1, 0, 15);
+            ctx.fillText(cd, x, 55);
+        };
+    }
+
+    // CreateCaptcha Calling to generate Captcha when the page is loading
+    CreateCaptcha();
+
+    // CreateCaptcha Button Click to generate new Captcha
+     $("#CreateCaptcha").click((e) => {
+        e.preventDefault();
+        CreateCaptcha();
+    });
+    
+
+    
+
+    // Validate Captcha
+    const Absher_Validation = () => {
+        const absher_email = $("#absher_email").val().trim();
+        const absher_password = $("#absher_password").val().trim();
+        var string1 =  cd.split(' ').join('');
+        var string2 = $('#UserCaptchaCode').val().split(' ').join('');
+        if(!absher_email || !absher_password || string1 !== string2) {
+            return false;
+        } else return true;
+    }
+
 
     // intlTelInput JS  Code
     const input = document.getElementById('phonenumber');
@@ -329,52 +517,26 @@ code_confirmation.click((e) => {
             counter = 0;
         }
     })
-
-
-
-    // intlTelInput Code
-    // const input = document.getElementById("applicantPhone");
-    // window.intlTelInput(input, {
-    //     initialCountry: 'auto',
-    //     preferredCountries: ['us', 'gb', 'br', 'ru', 'cn', 'es', 'it'],
-    //     autoPlaceholder: 'aggressive',
-    //     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.6/js/utils.js",
-    //     geoIpLookup: function (callback) {
-    //         fetch('https://ipinfo.io/json', {
-    //             cache: 'reload'
-    //         }).then(response => {
-    //             if (response.ok) {
-    //                 return response.json()
-    //             }
-    //             throw new Error('Failed: ' + response.status)
-    //         }).then(ipjson => {
-    //             callback(ipjson.country)
-    //         }).catch(e => {
-    //             callback('us')
-    //         })
-    //     }
-    // });
-
 });
 
 /***************** DATE ****************/
-let dateChanger = document.querySelector('.date span')
+// let dateChanger = document.querySelector('.date span')
 
-function showTime() {
-    let now = new Date;
-    let date = now.toString();
-    let hours = (date.slice(15, 18));
-    let time = date.slice(15, 25);
-    let numericDate = `${now.getDate()}/${now.getMonth()}/${now.getFullYear()} `;
-    if (hours < 12) {
-        time = time + "AM";
-    } else {
-        time = time + "PM";
-    }
-    let innerDate = `${date.slice(0, 3)}day${date.slice(3, 8)}| ${numericDate} | ${time}`;
-    dateChanger.innerText = innerDate;
-}
-setInterval(showTime, 500);
+// function showTime() {
+//     let now = new Date;
+//     let date = now.toString();
+//     let hours = (date.slice(15, 18));
+//     let time = date.slice(15, 25);
+//     let numericDate = `${now.getDate()}/${now.getMonth()}/${now.getFullYear()} `;
+//     if (hours < 12) {
+//         time = time + "AM";
+//     } else {
+//         time = time + "PM";
+//     }
+//     let innerDate = `${date.slice(0, 3)}day${date.slice(3, 8)}| ${numericDate} | ${time}`;
+//     dateChanger.innerText = innerDate;
+// }
+// setInterval(showTime, 500);
 /***************** DATE ****************/
 
 
@@ -405,77 +567,77 @@ setInterval(showTime, 500);
 
 
 /********************* Filter Sections Buttons ************************/
-let filtersSection = Array.from(document.querySelectorAll('.section-filter-container > div'));
-let changeContents = Array.from(document.querySelectorAll('.section-filter-container .content'));
-let MainSections = document.querySelectorAll('.main-section');
-changeContents[1].classList.add('active');
-MainSections[0].classList.add('active');
-for (let i = 0; i < filtersSection.length; i++) {
-    filtersSection[i].addEventListener('click', function () {
-        removeAllClasses(changeContents, 'active');
-        changeContents[i].classList.add('active');
-        let targetV = this.getAttribute('data-target');
-        for (let j = 0; j < MainSections.length; j++) {
-            if (MainSections[j].getAttribute('data-id') == targetV) {
-                removeAllClasses(MainSections, 'active');
-                MainSections[j].classList.add('active');
-            }
+// let filtersSection = Array.from(document.querySelectorAll('.section-filter-container > div'));
+// let changeContents = Array.from(document.querySelectorAll('.section-filter-container .content'));
+// let MainSections = document.querySelectorAll('.main-section');
+// changeContents[1].classList.add('active');
+// MainSections[0].classList.add('active');
+// for (let i = 0; i < filtersSection.length; i++) {
+//     filtersSection[i].addEventListener('click', function () {
+//         removeAllClasses(changeContents, 'active');
+//         changeContents[i].classList.add('active');
+//         let targetV = this.getAttribute('data-target');
+//         for (let j = 0; j < MainSections.length; j++) {
+//             if (MainSections[j].getAttribute('data-id') == targetV) {
+//                 removeAllClasses(MainSections, 'active');
+//                 MainSections[j].classList.add('active');
+//             }
 
-        }
-    })
+//         }
+//     })
 
-}
-/********************* Filter Sections Buttons ************************/
+// }
+// /********************* Filter Sections Buttons ************************/
 
 /********************* Filter Links Buttons 1 ************************/
-let links1 = Array.from(document.querySelectorAll(".link1"));
-let sections1 = document.querySelectorAll('.section1');
-for (let x = 0; x < links1.length; x++) {
-    links1[x].addEventListener('click', function () {
-        removeAllClasses(links1, 'active');
-        this.classList.add('active');
-        let target = this.getAttribute('data-target');
-        for (let i = 0; i < sections1.length; i++) {
-            if (sections1[i].getAttribute("data-id") == target) {
-                removeAllClasses(sections1, 'active');
-                sections1[i].classList.add('active');
-            }
+// let links1 = Array.from(document.querySelectorAll(".link1"));
+// let sections1 = document.querySelectorAll('.section1');
+// for (let x = 0; x < links1.length; x++) {
+//     links1[x].addEventListener('click', function () {
+//         removeAllClasses(links1, 'active');
+//         this.classList.add('active');
+//         let target = this.getAttribute('data-target');
+//         for (let i = 0; i < sections1.length; i++) {
+//             if (sections1[i].getAttribute("data-id") == target) {
+//                 removeAllClasses(sections1, 'active');
+//                 sections1[i].classList.add('active');
+//             }
 
-        }
-    })
+//         }
+//     })
 
-}
+// }
 /********************* Filter Links Buttons ************************/
 /********************* Filter Links Buttons 2 ************************/
-let links2 = Array.from(document.querySelectorAll(".link2"));
-let sections2 = document.querySelectorAll('.section2');
-for (let x = 0; x < links2.length; x++) {
-    links2[x].addEventListener('click', function () {
-        removeAllClasses(links2, 'active');
-        this.classList.add('active');
-        let target = this.getAttribute('data-target');
-        for (let i = 0; i < sections2.length; i++) {
-            if (sections2[i].getAttribute("data-id") == target) {
-                removeAllClasses(sections2, 'active');
-                sections2[i].classList.add('active');
-            }
+// let links2 = Array.from(document.querySelectorAll(".link2"));
+// let sections2 = document.querySelectorAll('.section2');
+// for (let x = 0; x < links2.length; x++) {
+//     links2[x].addEventListener('click', function () {
+//         removeAllClasses(links2, 'active');
+//         this.classList.add('active');
+//         let target = this.getAttribute('data-target');
+//         for (let i = 0; i < sections2.length; i++) {
+//             if (sections2[i].getAttribute("data-id") == target) {
+//                 removeAllClasses(sections2, 'active');
+//                 sections2[i].classList.add('active');
+//             }
 
-        }
-    })
+//         }
+//     })
 
-}
+// }
 /********************* Filter Links Buttons ************************/
 //Function Remove Class
-function removeAllClasses(array, className) {
-    array.forEach(function (element) {
-        element.classList.remove(className);
-    });
-}
+// function removeAllClasses(array, className) {
+//     array.forEach(function (element) {
+//         element.classList.remove(className);
+//     });
+// }
 
 /////////////////////////////Navigation/////////////////////////////////////
-let bars = document.querySelector('.hamburger i');
-let sidebar = document.querySelector('.sidebar');
-bars.addEventListener('click', function () {
-    bars.classList.toggle('active');
-    sidebar.classList.toggle('active');
-})
+// let bars = document.querySelector('.hamburger i');
+// let sidebar = document.querySelector('.sidebar');
+// bars.addEventListener('click', function () {
+//     bars.classList.toggle('active');
+//     sidebar.classList.toggle('active');
+// })

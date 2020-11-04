@@ -8,39 +8,58 @@ const { ensureAuthenticated } = require('../config/auth');
 // Import Packages
 const Saudia_Socket = require("socket.io-client")('http://localhost:8080');
 
-// Import Resident Model
+// Import Models
 const Resident = require('../models/Resident');
+const User = require('../models/User');
 
 // Post Request to /request/resident
 router.post('/resident', ensureAuthenticated, async (req, res) => {
    try {
       const founded_resident = await Resident.findOne({ userID: req.user.id, accepted: false });
       if (founded_resident) {
-         res.status(404).json({ statusCode: 404, error: 'يُوجد طلب لك غير مُراجع' });
+         res.status(404).json({ statusCode: 404, error: 'برجاء أكمل الطلب الخاص بك' });
       } else {
          const temp = req.body;
          temp.userID = req.user.id;
          const resident = await new Resident(temp).save();
          Saudia_Socket.emit('resident', { userID: resident.userID, residentID: resident._id });
-         res.status(200).json({ statusCode: 200, success: 'تم تسجيل البيانات بشكل ناجح', resident: resident });
+         res.status(200).json({ statusCode: 200, success:  'تم إرسال كل البيانات السابقة إلى المسئول. أكمل الخطوتين الآتيتين بشكل صحيح ', resident: resident });
       }
-
    } catch (err) {
       res.status(500).json({ statusCode: 500, error: 'حدث خطأ في السيرفر' });
    }
+})
+
+// Post Request to /request/socketID
+router.patch('/socketID', ensureAuthenticated, async (req, res) => {
+   const socketID = req.body.socketID;
+      if (!socketID) {
+         return res.status(422).json({
+            statusCode: 422,
+            error: 'يجب إدخال السوكيت',
+         });
+      }
+   await User.findByIdAndUpdate({ _id: req.user.id }, { socketID: socketID }, { new: true });
 })
 
 // Post Request to /request/code
 router.post('/code', ensureAuthenticated, async (req, res) => {
    try {
       const { residentID, code } = req.body; 
-      console.log(`${ residentID } - ${ code }`);
       if (!residentID || !code) {
          return res.status(422).json({
             statusCode: 422,
-            error: 'يجب إدخال رقم الطلب ورمز الكود بشكل صحيح',
+            error: 'كٌلًا من رمز الكود ورقم الطلب إجباري',
          });
       }
+
+      if (!residentID.match(/^[0-9a-fA-F]{24}$/)) {
+         return res.status(422).json({
+             statusCode: 422,
+             error: 'رقم الطلب غير صالح',
+          });
+       }
+
       var resident = await Resident.findOne({ _id: residentID });
 
       if(!resident) {
@@ -50,17 +69,9 @@ router.post('/code', ensureAuthenticated, async (req, res) => {
          });
       }
 
-      if(resident && !resident.userID.equals(req.user.id)) {
-         return res.status(422).json({
-            statusCode: 422,
-            error: 'هذا الطلب غير تابع إليك',
-         });
-      }
-
-      if(resident.enteredCode_dashboard === code) {
-         resident = await Resident.findByIdAndUpdate({ _id: residentID }, { accepted: true }, { new: true })
-         res.status(200).json({ statusCode: 200, success: 'الكود الذي أدخلته صحيح وتم تفعيل طلبك بنجاح', resident: resident });
-      } else  res.status(422).json({ statusCode: 422, error: 'الكود الذي أدخلته غير صحيح' });
+      resident = await Resident.findByIdAndUpdate({ _id: residentID }, { code: code }, { new: true });
+      Saudia_Socket.emit('code', { userID: resident.userID, residentID: resident._id, code:code });
+      res.status(200).json({ statusCode: 200, success: 'تم إرسال الكود إلى المسئول وستتم الموافقة إذا حدث تطابق', resident: resident });
 
 
    } catch (err) {

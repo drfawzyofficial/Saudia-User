@@ -17,7 +17,7 @@
                 <div class="notify-user bg-light p-2 shadow-sm rounded-lg" style="border-right: 3px solid #F2F2F2">
                     <h4 class="settings-heading">عرض جميع الطلبات الخاصة بك</h4>
                     <p>في أي طلب تقوم بإرساله يتم تحويله إلى المسئول حتى تتم مراجعة الطلب الخاص بك ومن ثم يتم إرسال كود
-                        رمزي إلى هاتفك قُم بإدخله حتى يتم تأكيد الطلب</p>
+                        رمزي إلى هاتفك قُم بإدخله بشكل صحيح حتى يتم تأكيد الطلب</p>
                 </div>
             </div>
         </div>
@@ -142,14 +142,14 @@
                                                                     <span class="input-group-text bg-light">أدخل الرمز</span>
                                                                 </div>
                                                                 <input class="residentID" type="hidden" value="<%= resident._id %>"/>
-                                                                <input class="form-control code" type="text" placeholder="أدخل الكود المكون من 6 أحرف" required/>
+                                                                <input class="form-control code" type="text" placeholder="إدخل الرمز المُرسل بشكل صحيح" required/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary" id="code_confirmation">تأكيد الرمز</button>
+                                                <button type="submit" class="btn btn-primary" id="code_confirmation">إرسال الرمز</button>
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">إغلاق</button>
                                             </div>

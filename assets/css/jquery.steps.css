@@ -70,7 +70,7 @@
 }
 
 .wizard>.steps>ul>li {
-    width: 20%;
+    width: calc(100% / 6);
     display: flex;
     justify-content: center;
 }

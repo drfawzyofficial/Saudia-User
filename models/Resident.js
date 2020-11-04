@@ -25,17 +25,17 @@ const residentSchema = new mongoose.Schema({
         type: Object,
         required: [true, 'مطلوب إجباري']
     },
-    enteredCode_dashboard: {
+    code: {
         type: String,
         required: false
     },
-    enteredCode_user: {
+    visitPurpose: {
         type: String,
-        required: false
+        required: [true, 'مطلوب إجباري']
     },
     accepted: {
         type: Boolean,
-        required: true,
+        required: [true, 'مطلوب إجباري'],
         default: false
     }
 }, { timestamps: true });
