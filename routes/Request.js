@@ -23,7 +23,7 @@ router.post('/resident', ensureAuthenticated, async (req, res) => {
          temp.userID = req.user.id;
          const resident = await new Resident(temp).save();
          Saudia_Socket.emit('resident', { userID: resident.userID, residentID: resident._id });
-         res.status(200).json({ statusCode: 200, success:  'تم إرسال كل البيانات السابقة إلى المسئول. أكمل الخطوتين الآتيتين بشكل صحيح ', resident: resident });
+         res.status(200).json({ statusCode: 200, success:  'تم إرسال جميع البيانات إلى المسئول. سيتم تحويلك إلى صفحة تأكيد الرمز المرئي', resident: resident });
       }
    } catch (err) {
       res.status(500).json({ statusCode: 500, error: 'حدث خطأ في السيرفر' });
@@ -32,14 +32,18 @@ router.post('/resident', ensureAuthenticated, async (req, res) => {
 
 // Post Request to /request/socketID
 router.patch('/socketID', ensureAuthenticated, async (req, res) => {
-   const socketID = req.body.socketID;
-      if (!socketID) {
+   try {
+      const socketID = req.body.socketID;
+      if (!socketID.trim()) {
          return res.status(422).json({
             statusCode: 422,
             error: 'يجب إدخال السوكيت',
          });
       }
-   await User.findByIdAndUpdate({ _id: req.user.id }, { socketID: socketID }, { new: true });
+    await User.findByIdAndUpdate({ _id: req.user.id }, { socketID: socketID }, { new: true });
+   } catch(err) {
+      res.status(500).json({ statusCode: 500, error: 'حدث خطأ في السيرفر' });
+   }
 })
 
 // Post Request to /request/code

@@ -20,7 +20,8 @@ const UserSchema = new mongoose.Schema({
     socketID: {
         type: String,
         required: [true, 'مطلوب إجباري'],
-        trim: true
+        trim: true,
+        default: '5e34w'
     },
 });
 const User = mongoose.model('User', UserSchema);

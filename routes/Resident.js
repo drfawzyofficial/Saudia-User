@@ -4,7 +4,7 @@ const { forwardAuthenticated } = require('../config/auth');
 
 router.get('/', forwardAuthenticated, async (req, res) => {
     try {
-        res.render('Resident');
+        res.render('Resident', { page: 'resident' });
     } catch(err) {
         req.flash('error', 'حدث خطأ ما بالسيرفر');
         res.redirect('/');

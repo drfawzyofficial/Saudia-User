@@ -3,7 +3,7 @@ const router = express.Router();
 const { forwardAuthenticated } = require('../config/auth');
 router.get('/', forwardAuthenticated, async (req, res, next) => {
    try {
-       res.render('temp');
+       res.render('temp', { page: 'temp' });
    } catch(err) {
        req.flash('error', 'حدث خطأ ما بالسيرفر');
        res.redirect('/');

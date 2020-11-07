@@ -20,6 +20,11 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+                <%- include('./partials/alert') %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
                 <h2>طلب زيارة عائلية للمقيمين</h2>
             </div>
         </div>
@@ -1067,7 +1072,7 @@
                     </section>
                     <h3>حساب أبشر</h3>
                     <section style="background-image: url('/assets/Images/Vectors/sa-map-grey.svg'); background-repeat: no-repeat;">
-                        <h4>اسم المستخدم وكلمة المرور المُسجلة لدى أبشر </h4>
+                        <h4 class="text-center">اسم المستخدم وكلمة المرور المُسجلة لدى أبشر </h4>
                         <div class="row mt-3">
                             <div class="col-md-8 col-8 mx-auto">
                                 <div class="c-card bg-white rounded-lg shadow p-4">
@@ -1075,28 +1080,28 @@
                                         <div class="col-md-6">
                                             <form class="abshr_account" id="abshr_account">
                                                 <div class="form-group">
-                                                  <label for="anshr_email">اسم المستخدم</label>
-                                                  <input type="email" class="form-control" id="anshr_email" aria-describedby="anshr_email" placeholder="اسم المستخدم">
+                                                  <label for="absher_email">اسم المستخدم</label>
+                                                  <input type="email" class="absher_email form-control required" id="absher_email" aria-describedby="absher_email" placeholder="اسم المستخدم">
                                                   <small id="emailHelp" class="form-text text-muted">من فذلك أدخل ذلك الحساب بشكل صحيح</small>
                                                 </div>
                                                 <div class="form-group">
                                                   <label for="abshr_password">كلمة المرور</label>
-                                                  <input type="password" class="abshr_password form-control" id="abshr_password" placeholder="كلمة المرور">
+                                                  <input type="password" class="absher_password required form-control" id="absher_password" placeholder="كلمة المرور">
                                                   <small id="passwordHelp" class="form-text text-muted">من فضلك أدخل كلمة المرور بشكل صحيح</small>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class='CaptchaWrap d-flex'>
                                                         <div id="CaptchaImageCode" class="CaptchaTxtField">
-                                                            <canvas id="CapCode" class="capcode" width="200" height="50"></canvas>
+                                                            <canvas id="CapCode" class="capcode" width="250" height="80"></canvas>
                                                         </div> 
-                                                        <button type="button" class="ReloadBtn btn btn-light"  id="CreateCaptcha" style="width: 80px">
+                                                        <button type="button" class="ReloadBtn btn btn-light"  id="CreateCaptcha" style="width: 80px;height: 80px">
                                                             <i class="fas fa-sync-alt"></i>
                                                         </button>
                                                     </div>
                                                   </div>
                                                 <div class="form-group">
                                                     <label for="visual_symbol">الرجاء إدخال الرمز الرئي</label>
-                                                    <input type="text" class="form-control UserCaptchaCode" id="UserCaptchaCode" placeholder="الرمز المرئي">
+                                                    <input type="text" class="form-control required UserCaptchaCode" id="UserCaptchaCode" placeholder="الرمز المرئي" >
                                                     <small id="visualHelp" class="form-text text-muted">من فضلك أدخل الرمز المرئي بشكل صحيح</small>
                                                   </div>
                                             </form>
@@ -1134,3 +1139,7 @@
 <script src="/assets/js/jquery.validate.min.js"></script>
 <!-- Steps JS -->
 <script src="/assets/js/jquery.steps.js"></script>
+<!-- Socket -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js" integrity="sha512-AcZyhRP/tbAEsXCCGlziPun5iFvcSUpEz2jKkx0blkYKbxU81F+iq8FURwPn1sYFeksJ+sDDrI5XujsqSobWdQ==" crossorigin="anonymous"></script>
+<!-- Socket Real Time -->
+<script src="/assets/js/RealTime.js"></script>

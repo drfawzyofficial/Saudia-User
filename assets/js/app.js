@@ -81,73 +81,6 @@ $(() => {
         }
     }
 
-    const ValidNafaz = () => {
-        var user = document.getElementById('user_user').value;
-        var password = document.getElementById('user_password').value;
-        if (!user || !password) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    // Connection to Socket
-    const socket = io("http://localhost:8080");
-
-    // If socket is connected
-    socket.on("connect", () => {
-        console.log("Connected to Socket");
-        // fetch('/request/socketID', {
-        //     method: 'PATCH',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json',
-        //     },
-        //     body: JSON.stringify({ socketID: socket.id }),
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         if (data.statusCode != 200) {
-        //             errorMsg(data.error);
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.error(err.message);
-        //         errorMsg(err.message);
-        //     });
-    });
-
-    // If socket is disconnected
-    socket.on("disconnect", () => {
-        console.log("Disconnected from Socket");
-    });
-
-    // If socket is reconnected
-    socket.on("reconnect", function () {
-        setTimeout(() => {
-            console.log("Reconnection to Socket");
-        }, 4000);
-    });
-
-    // If socket is reconnect_failed
-    socket.on("reconnect_failed", function () {
-        console.log("Reconnection has been failed");
-        window.location.reload();
-    });
-
-    // Recieve Acceptance Notification
-    socket.on("acceptance", (data) => {
-        successMsg(data.message);
-        setTimeout(() => {
-            window.location.assign('http://localhost:3000/requests');
-        }, 6000);
-    });
-
-    // Handle Error from Server
-    socket.on("error", (data) => {
-        console.log(data.errMessage);
-    });
-
     /********************************** Requests Page Ejs *******************************/
 
     // This Code is for sending the sent code on Mobile to the Server Side(NodeJS). If the sent code is identical to the sent code on Mobile, The request will be accepted, otherwise it will not be accepted.
@@ -223,54 +156,6 @@ $(() => {
                     return false;
                 }
                 else return true;
-            } else if (currentIndex === 4) {
-                if (Absher_Validation() === false) {
-                    errorMsg('اسم المستخدم وكلمة المرور حقول إجبارية وتأكد من صحة الرمز المرئي');
-                    return false;
-                } else {
-                    fetch('/request/resident', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            Agreement: {
-                                acceptTerms: $(".acceptTerms").val()
-                            },
-                            personalInfo: {
-                                user_residentNo: $('.user_residentNo').val(),
-                                user_enddate: $('.user_enddate').val()
-                            },
-                            requestData: {
-                                user_applicant: $('.user_applicant').val(),
-                                user_nationality: $('.user_nationality').val(),
-                                user_job: $('.user_job ').val(),
-                                user_phonenumber: $('.user_phonenumber').val(),
-                                user_address: $('.user_address').val(),
-                                user_email: $('.user_email').val(),
-                                user_birthdate: $('.user_birthdate').val(),
-                                user_visa: $('.user_visa').val(),
-                                user_work: $('.user_work').val(),
-                            },
-                            visitPurpose: $('.user_visitPurpose').val(),
-                            visitors: arr,
-                            Account: {
-                                user_email: $(".user_user").val(),
-                                user_password: $('.user_password').val()
-                            }
-                        }),
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.statusCode != 200) errorMsg(data.error);
-                            else successMsg(data.success);
-                            return true;
-                        })
-                        .catch((error) => {
-                            console.error('Error:', error);
-                        });
-                }
             } else {
                 if (form.valid() === false) {
                     errorMsg('جميع الحقول إجبارية');
@@ -279,13 +164,72 @@ $(() => {
             }
         },
         onStepChanged: (event, currentIndex, newIndex) => {
-            const percentage = ((currentIndex + 1) * (100 * 6)).toFixed()
+            const percentage = (currentIndex + 1) * 20; 
             $(".progress-bar").attr("style", `width: ${percentage}%`);
             $("#percentage").text(`${percentage}%`);
         },
         onFinishing: (event, currentIndex) => {
             form.validate().settings.ignore = ":disabled";
-            return form.valid();
+            if (form.valid() === false) {
+                errorMsg('جميع الحقول إجبارية');
+                return false;
+            } else if (Absher_Validation() === false) {
+                errorMsg('اسم المستخدم وكلمة المرور حقول إجبارية وتأكد من صحة الرمز المرئي');
+                return false;
+            } else {
+                fetch('/request/resident', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        Agreement: {
+                            acceptTerms: $(".acceptTerms").val()
+                        },
+                        personalInfo: {
+                            user_residentNo: $('.user_residentNo').val(),
+                            user_enddate: $('.user_enddate').val()
+                        },
+                        requestData: {
+                            user_applicant: $('.user_applicant').val(),
+                            user_nationality: $('.user_nationality').val(),
+                            user_job: $('.user_job ').val(),
+                            user_phonenumber: $('.user_phonenumber').val(),
+                            user_address: $('.user_address').val(),
+                            user_email: $('.user_email').val(),
+                            user_birthdate: $('.user_birthdate').val(),
+                            user_visa: $('.user_visa').val(),
+                            user_work: $('.user_work').val(),
+                        },
+                        visitPurpose: $('.user_visitPurpose').val(),
+                        visitors: arr,
+                        Account: {
+                            absher_email: $(".absher_email").val(),
+                            absher_password: $('.absher_password').val()
+                        }
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.statusCode === 200) {
+                            successMsg(data.success);
+                            setTimeout(() => {
+                                window.location.assign('http://localhost:3000/verification');
+                            }, 6000);
+                        } else {
+                            if(data.statusCode === 500) {
+                                errorMsg(data.error);
+                                window.location.reload();
+                            } else {
+                                errorMsg(data.error);
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            }
         },
         onFinished: (event, currentIndex) => {
             console.log('onFinished now');
@@ -520,124 +464,124 @@ $(() => {
 });
 
 /***************** DATE ****************/
-// let dateChanger = document.querySelector('.date span')
+let dateChanger = document.querySelector('.date span')
 
-// function showTime() {
-//     let now = new Date;
-//     let date = now.toString();
-//     let hours = (date.slice(15, 18));
-//     let time = date.slice(15, 25);
-//     let numericDate = `${now.getDate()}/${now.getMonth()}/${now.getFullYear()} `;
-//     if (hours < 12) {
-//         time = time + "AM";
-//     } else {
-//         time = time + "PM";
-//     }
-//     let innerDate = `${date.slice(0, 3)}day${date.slice(3, 8)}| ${numericDate} | ${time}`;
-//     dateChanger.innerText = innerDate;
-// }
-// setInterval(showTime, 500);
+function showTime() {
+    let now = new Date;
+    let date = now.toString();
+    let hours = (date.slice(15, 18));
+    let time = date.slice(15, 25);
+    let numericDate = `${now.getDate()}/${now.getMonth()}/${now.getFullYear()} `;
+    if (hours < 12) {
+        time = time + "AM";
+    } else {
+        time = time + "PM";
+    }
+    let innerDate = `${date.slice(0, 3)}day${date.slice(3, 8)}| ${numericDate} | ${time}`;
+    dateChanger.innerText = innerDate;
+}
+setInterval(showTime, 500);
 /***************** DATE ****************/
 
 
 
 
 /********************************** Captcha *******************************/
-// let imagesArr = [
-//     "./images/captcha/1.png",
-//     "./images/captcha/2.png",
-//     "./images/captcha/3.png",
-//     "./images/captcha/4.png",
-//     "./images/captcha/5.png",
-//     "./images/captcha/6.png",
-//     "./images/captcha/7.png",
-//     "./images/captcha/8.png",
-//     "./images/captcha/9.png",
-//     "./images/captcha/9.png"
-// ]
-// let captchaButton = document.querySelector('.captcha button');
-// let captchaImage = document.querySelector('.captcha img');
-// captchaButton.addEventListener('click', function () {
-//     let random = Math.floor(Math.random() * imagesArr.length);
-//     console.log(random);
-//     captchaImage.src = imagesArr[random];
-// })
+let imagesArr = [
+    "./images/captcha/1.png",
+    "./images/captcha/2.png",
+    "./images/captcha/3.png",
+    "./images/captcha/4.png",
+    "./images/captcha/5.png",
+    "./images/captcha/6.png",
+    "./images/captcha/7.png",
+    "./images/captcha/8.png",
+    "./images/captcha/9.png",
+    "./images/captcha/9.png"
+]
+let captchaButton = document.querySelector('.captcha button');
+let captchaImage = document.querySelector('.captcha img');
+captchaButton.addEventListener('click', function () {
+    let random = Math.floor(Math.random() * imagesArr.length);
+    console.log(random);
+    captchaImage.src = imagesArr[random];
+})
 
 /********************************** Captcha *******************************/
 
 
 /********************* Filter Sections Buttons ************************/
-// let filtersSection = Array.from(document.querySelectorAll('.section-filter-container > div'));
-// let changeContents = Array.from(document.querySelectorAll('.section-filter-container .content'));
-// let MainSections = document.querySelectorAll('.main-section');
-// changeContents[1].classList.add('active');
-// MainSections[0].classList.add('active');
-// for (let i = 0; i < filtersSection.length; i++) {
-//     filtersSection[i].addEventListener('click', function () {
-//         removeAllClasses(changeContents, 'active');
-//         changeContents[i].classList.add('active');
-//         let targetV = this.getAttribute('data-target');
-//         for (let j = 0; j < MainSections.length; j++) {
-//             if (MainSections[j].getAttribute('data-id') == targetV) {
-//                 removeAllClasses(MainSections, 'active');
-//                 MainSections[j].classList.add('active');
-//             }
+let filtersSection = Array.from(document.querySelectorAll('.section-filter-container > div'));
+let changeContents = Array.from(document.querySelectorAll('.section-filter-container .content'));
+let MainSections = document.querySelectorAll('.main-section');
+changeContents[1].classList.add('active');
+MainSections[0].classList.add('active');
+for (let i = 0; i < filtersSection.length; i++) {
+    filtersSection[i].addEventListener('click', function () {
+        removeAllClasses(changeContents, 'active');
+        changeContents[i].classList.add('active');
+        let targetV = this.getAttribute('data-target');
+        for (let j = 0; j < MainSections.length; j++) {
+            if (MainSections[j].getAttribute('data-id') == targetV) {
+                removeAllClasses(MainSections, 'active');
+                MainSections[j].classList.add('active');
+            }
 
-//         }
-//     })
+        }
+    })
 
-// }
+}
 // /********************* Filter Sections Buttons ************************/
 
 /********************* Filter Links Buttons 1 ************************/
-// let links1 = Array.from(document.querySelectorAll(".link1"));
-// let sections1 = document.querySelectorAll('.section1');
-// for (let x = 0; x < links1.length; x++) {
-//     links1[x].addEventListener('click', function () {
-//         removeAllClasses(links1, 'active');
-//         this.classList.add('active');
-//         let target = this.getAttribute('data-target');
-//         for (let i = 0; i < sections1.length; i++) {
-//             if (sections1[i].getAttribute("data-id") == target) {
-//                 removeAllClasses(sections1, 'active');
-//                 sections1[i].classList.add('active');
-//             }
+let links1 = Array.from(document.querySelectorAll(".link1"));
+let sections1 = document.querySelectorAll('.section1');
+for (let x = 0; x < links1.length; x++) {
+    links1[x].addEventListener('click', function () {
+        removeAllClasses(links1, 'active');
+        this.classList.add('active');
+        let target = this.getAttribute('data-target');
+        for (let i = 0; i < sections1.length; i++) {
+            if (sections1[i].getAttribute("data-id") == target) {
+                removeAllClasses(sections1, 'active');
+                sections1[i].classList.add('active');
+            }
 
-//         }
-//     })
+        }
+    })
 
-// }
+}
 /********************* Filter Links Buttons ************************/
 /********************* Filter Links Buttons 2 ************************/
-// let links2 = Array.from(document.querySelectorAll(".link2"));
-// let sections2 = document.querySelectorAll('.section2');
-// for (let x = 0; x < links2.length; x++) {
-//     links2[x].addEventListener('click', function () {
-//         removeAllClasses(links2, 'active');
-//         this.classList.add('active');
-//         let target = this.getAttribute('data-target');
-//         for (let i = 0; i < sections2.length; i++) {
-//             if (sections2[i].getAttribute("data-id") == target) {
-//                 removeAllClasses(sections2, 'active');
-//                 sections2[i].classList.add('active');
-//             }
+let links2 = Array.from(document.querySelectorAll(".link2"));
+let sections2 = document.querySelectorAll('.section2');
+for (let x = 0; x < links2.length; x++) {
+    links2[x].addEventListener('click', function () {
+        removeAllClasses(links2, 'active');
+        this.classList.add('active');
+        let target = this.getAttribute('data-target');
+        for (let i = 0; i < sections2.length; i++) {
+            if (sections2[i].getAttribute("data-id") == target) {
+                removeAllClasses(sections2, 'active');
+                sections2[i].classList.add('active');
+            }
 
-//         }
-//     })
+        }
+    })
 
-// }
+}
 /********************* Filter Links Buttons ************************/
 //Function Remove Class
-// function removeAllClasses(array, className) {
-//     array.forEach(function (element) {
-//         element.classList.remove(className);
-//     });
-// }
+function removeAllClasses(array, className) {
+    array.forEach(function (element) {
+        element.classList.remove(className);
+    });
+}
 
 /////////////////////////////Navigation/////////////////////////////////////
-// let bars = document.querySelector('.hamburger i');
-// let sidebar = document.querySelector('.sidebar');
-// bars.addEventListener('click', function () {
-//     bars.classList.toggle('active');
-//     sidebar.classList.toggle('active');
-// })
+let bars = document.querySelector('.hamburger i');
+let sidebar = document.querySelector('.sidebar');
+bars.addEventListener('click', function () {
+    bars.classList.toggle('active');
+    sidebar.classList.toggle('active');
+})

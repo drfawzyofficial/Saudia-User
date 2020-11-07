@@ -121,6 +121,12 @@ const Requests = require('./routes/Requests');
 app.use('/requests', Requests);
 /*@ here we include settingRouter @*/
 
+/*@ here we include settingRouter @*/
+const Verification = require('./routes/Verification');
+app.use('/verification', Verification);
+/*@ here we include settingRouter @*/
+
+
 
 /*@ Handle Error-404 @*/
 app.get('*', (req, res, next) => {

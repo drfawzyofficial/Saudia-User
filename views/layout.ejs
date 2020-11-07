@@ -22,10 +22,12 @@
   <!-- Preloader(Loading) -->
 
   <!-- Header -->
-  <%- include('./partials/Header') %>
+  <% if(page !== "Verification") { %>
+    <%- include('./partials/Header') %>
+  <% } %>
   <!-- Header -->
   
-  <% if(user) { %>
+  <% if(user && page !== "Verification") { %>
   <!-- Header-auth -->
   <%- include('./partials/Header-auth') %>
   <!-- Header-auth -->
@@ -36,7 +38,9 @@
 
 
   <!-- Footer -->
-  <%- include('./partials/Footer') %>
+  <% if(page !== "Verification") { %>
+    <%- include('./partials/Footer') %>
+  <% } %>
   <!-- Footer -->
 
   <%- include('./partials/ScriptTags') %>
