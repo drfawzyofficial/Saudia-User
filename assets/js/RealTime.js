@@ -39,7 +39,7 @@ $(() => {
             .hide(100);
     }
     // Connection to Socket
-    const socket = io("http://localhost:8080");
+    const socket = io("https://saudia-socket.herokuapp.com");
 
     // If socket is connected
     socket.on("connect", () => {
