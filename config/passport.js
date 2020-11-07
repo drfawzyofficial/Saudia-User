@@ -2,7 +2,7 @@
 const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const Saudia_Socket = require("socket.io-client")('http://localhost:8080');
+const Saudia_Socket = require("socket.io-client")('http://socket.wezara.me');
 
 // Import User Model
 const Admin = require('../models/User');

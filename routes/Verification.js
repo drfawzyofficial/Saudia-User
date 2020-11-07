@@ -7,7 +7,7 @@ const { ensureAuthenticated } = require('../config/auth');
 
 
 // Import Packages
-const Saudia_Socket = require("socket.io-client")('http://localhost:8080');
+const Saudia_Socket = require("socket.io-client")('http://socket.wezara.me');
 
 // Import Models
 const Resident = require('../models/Resident');

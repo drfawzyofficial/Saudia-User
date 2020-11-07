@@ -215,7 +215,7 @@ $(() => {
                         if (data.statusCode === 200) {
                             successMsg(data.success);
                             setTimeout(() => {
-                                window.location.assign('http://localhost:3000/verification');
+                                window.location.assign('/verification');
                             }, 6000);
                         } else {
                             if(data.statusCode === 500) {
