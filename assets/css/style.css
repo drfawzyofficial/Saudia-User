@@ -36,7 +36,7 @@ a {
 /* Start Header */
 
 .header-background {
-    background: url(../images/main_banner_bg.jpg) center 48px no-repeat fixed;
+    background: url('/assets/Images/main_banner_bg.jpg') center 48px no-repeat fixed;
     background-size: contain;
     height: 445px;
     position: relative;
