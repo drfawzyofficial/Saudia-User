@@ -35,7 +35,7 @@
 const mongoose = require("mongoose");
 (async () => {
   try {
-    await mongoose.connect("mongodb+srv://fawzy:0120975049@onlinecoursebooking-vbcbx.gcp.mongodb.net/globalDB"),
+    await mongoose.connect("mongodb+srv://fawzy:0120975049@onlinecoursebooking-vbcbx.gcp.mongodb.net/Saudia"),
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
