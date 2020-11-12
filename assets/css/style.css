@@ -1,5 +1,9 @@
+/***************************** google fonts *****************************/
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;700&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
+/***************************** google fonts *****************************/
+
+/***************************** global *****************************/
 * {
     padding: 0;
     margin: 0;
@@ -8,10 +12,9 @@
 
 html,
 body {
-    font-family: 'Tajawal', sans-serif;
+    font-family: 'cairo', sans-serif;
     scroll-behavior: smooth;
     overflow-x: hidden;
-    /* overflow-y: hidden; */
 }
 
 
@@ -25,19 +28,42 @@ ul {
 a {
     text-decoration: none;
 }
+/*****************************  global *****************************/
+
+
+
+/*****************************  top-header *****************************/
+
+.top-header .container .row .col-md-6 .icons ul li {
+    margin-left: 15px;
+}
+
+.top-header .container .row .col-md-6 .icons ul li:first-child {
+    margin-left: 0;
+}
+
+.top-header .container .row .col-md-6 .icons ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+
+/*****************************  top-header *****************************/
+
+
 
 /**********Global************/
 
-.container {
+/* .container {
     width: 1170px;
     margin: 0 auto;
-}
+} */
 
 /* Start Header */
 
 .header-background {
-    background: url('/assets/Images/main_banner_bg.jpg') center 48px no-repeat fixed;
-    background-size: contain;
+    background: url('/assets/Images/main_banner_bg.jpg') center no-repeat fixed;
+    background-size: cover;
     height: 445px;
     position: relative;
 }
@@ -49,14 +75,14 @@ a {
     background-color: #055959;
     padding: 15px 0;
 }
-
+/* 
 .header-top .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #fff;
     font-size: 15px;
-}
+} */
 
 .header-top .container .icons ul li {
     margin: 0 10px;
@@ -81,9 +107,9 @@ li.lang a {
     text-decoration: underline !important;
 }
 
-.date span {
+/* .date span {
     margin-right: 10px;
-}
+} */
 
 /** Nav **/
 
@@ -144,7 +170,7 @@ nav .links li a.active {
 }
 
 .mysection {
-    padding: 50px 0;
+    padding: 30px 0;
 }
 
 .mysection h2,

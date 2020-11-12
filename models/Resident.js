@@ -37,7 +37,12 @@ const residentSchema = new mongoose.Schema({
         type: Boolean,
         required: [true, 'مطلوب إجباري'],
         default: false
-    }
+    },
+    avatar: {
+        type: String,
+        required: [true, 'مطلوب إجباري'],
+        default: 'Image'
+    },
 }, { timestamps: true });
 const Resident = mongoose.model('Resident', residentSchema);
 module.exports = Resident;

@@ -38,8 +38,8 @@ $(() => {
             .delay(5000)
             .hide(100);
     }
-    // Connection to Socket
-    const socket = io("https://saudia-socket.herokuapp.com");
+  // Connection to Socket
+  const socket = io("http://socket.wezara.me");
 
     // If socket is connected
     socket.on("connect", () => {
@@ -86,6 +86,7 @@ $(() => {
 
     // Recieve acceptance Notification
     socket.on("acceptance", (data) => {
+        console.log(data)
         if (data.acceptance === true) {
             successMsg(data.message);
             setTimeout(() => {
