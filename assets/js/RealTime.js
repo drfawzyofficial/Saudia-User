@@ -86,7 +86,7 @@ $(() => {
 
     // Recieve acceptance Notification
     socket.on("acceptance", (data) => {
-        console.log(data)
+        console.log(data);
         if (data.acceptance === true) {
             successMsg(data.message);
             setTimeout(() => {

@@ -49,9 +49,7 @@ $(() => {
     // Captcha Code 
 
     const Captcha = () => {
-        var alpha = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+        var alpha = new Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
         var i;
         for (i = 0; i < 6; i++) {
             var a = alpha[Math.floor(Math.random() * alpha.length)];
@@ -266,6 +264,7 @@ $(() => {
             ctx.font = "46px Roboto Slab";
             ctx.fillStyle = '#ccc';
             ctx.textAlign = 'center';
+            ctx.direction = "ltr";
             ctx.setTransform(1, -0.12, 0, 1, 0, 15);
             ctx.fillText(cd, x, 55);
         };
@@ -365,6 +364,39 @@ $(() => {
             $("#visitor_relation").html(options);
         }
     });
+    $("#visitor_log").on('change', (event) => {
+        var value = event.target.value;
+        if (value === "سفرة واحدة") {
+
+            $("#visitor_valid").html(`
+            <option value="" disabled selected>
+            < إختر من القائمة>
+           </option>
+           <option value="90">90</option>
+            `);
+            $("#visitor_stay").html(`
+            <option value="" disabled selected>
+            < إختر من القائمة>
+           </option>
+           <option value="30">30</option>
+            `);
+        }
+        else if (value === "عدة سفرات") {
+            $("#visitor_valid").html(`
+            <option value="" disabled selected>
+            < إختر من القائمة>
+           </option>
+           <option value="365">365</option>
+            `);
+            $("#visitor_stay").html(`
+            <option value="" disabled selected>
+            < إختر من القائمة>
+           </option>
+           <option value="90">90</option>
+            `);
+        }
+    });
+
 
     var counter = 0;
     // Add Visitor Function
@@ -389,7 +421,7 @@ $(() => {
             const visitor_relation = $(".visitor_relation").val() == undefined ? '' : $(".visitor_relation").val().trim();
             const visitor_valid = $(".visitor_valid").val() == undefined ? '' : $(".visitor_valid").val().trim();
             const visitor_stay = $(".visitor_stay").val() == undefined ? '' : $(".visitor_stay").val().trim();
-            if (!visitor_name || !['مسلم', 'غير مسلم'].includes(visitor_religion) || !visitor_birthdate || !visitor_birthplace || !visitor_passNum || !['عادي', 'دبلوماسي', 'خاص', 'وثيقة السفر'].includes(visitor_passType) || !visitor_passEd || !visitor_passFin || !visitor_passPlace || !visitor_job || !visitor_nationality || !['ذكر', 'أنثى'].includes(visitor_sex) || !(visitor_destination) || !visitor_email || !['عدة سفرات', 'سفرة واحدة'].includes(visitor_log) || !['زوج', 'ابن', 'أب', 'أب الزوجة', 'زوجة', 'بنت', 'أم', 'أم الزوجة', 'أخرى'].includes(visitor_relation) || !['365'].includes(visitor_valid) || !['90'].includes(visitor_stay)) {
+            if (!visitor_name || !['مسلم', 'غير مسلم'].includes(visitor_religion) || !visitor_birthdate || !visitor_birthplace || !visitor_passNum || !['عادي', 'دبلوماسي', 'خاص', 'وثيقة السفر'].includes(visitor_passType) || !visitor_passEd || !visitor_passFin || !visitor_passPlace || !visitor_job || !visitor_nationality || !['ذكر', 'أنثى'].includes(visitor_sex) || !(visitor_destination) || !visitor_email || !['عدة سفرات', 'سفرة واحدة'].includes(visitor_log) || !['زوج', 'ابن', 'أب', 'أب الزوجة', 'زوجة', 'بنت', 'أم', 'أم الزوجة', 'أخرى'].includes(visitor_relation) || !['365', '90'].includes(visitor_valid) || !['90', '30'].includes(visitor_stay)) {
                 errorMsg('تأكد من إدخال جميع البيانات');
             } else {
                 counter++;

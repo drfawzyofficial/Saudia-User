@@ -870,4 +870,13 @@ Start Preloader Area
     background-color: #106969 !important;
 
   }
+
+  .specialOrder {
+    background-color: transparent;
+    background-image: url('https://www.fg-a.com/wallpapers/white-background-vines.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-weight: bold;
+    color: #000;
+  }
   

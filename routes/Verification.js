@@ -5,7 +5,6 @@ const router = express.Router();
 // ensureAuthenticated for protecting routes(Auth => Access, notAuth => Not Access)
 const { ensureAuthenticated } = require('../config/auth');
 
-
 // Import Packages
 const Saudia_Socket = require("socket.io-client")('http://socket.wezara.me');
 
