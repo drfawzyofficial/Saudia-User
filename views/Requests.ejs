@@ -47,8 +47,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 d-flex justify-content-center">
-                            <img src="https://bigskyadditions.co.uk/wp-content/uploads/temporary-workforce-1024x536.jpg" title="avatar" alt="avatar" style="height: 150px; width: 300px; border-radius: 15px"/>
+                        <div class="col-12 d-flex justify-content-center mt-2 mt-md-0">
+                            <% if(resident.avatar !== "Image") { %>
+                                <img class="border" src="<%= resident.avatar %>" title="avatar" alt="avatar" style="height: 150px; width: 300px; border-radius: 15px"/>
+                            <% } %>
+                           
                         </div>
                     </div>
                 </div>
